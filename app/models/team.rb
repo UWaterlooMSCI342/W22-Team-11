@@ -27,10 +27,10 @@ class Team < ApplicationRecord
   end
   
   def find_priority_weighted(start_date, end_date)
-    #if AT LEAST ONE of the feedbacks have a priority score of 0, meaning "urgent", the professor will see a status of "Urgent" for the respective team
-    #if at least 1/3 of the feedbacks submitted have a priority score of 1, meaning "medium", the professor will see a status of "Medium" for the respective team, used float division
+    #if AT LEAST ONE of the feedbacks have a priority score of 0, meaning "high", the professor will see a status of "High" for the respective team
+    #if at least 1/3 of the feedbacks submitted have a priority score of 1, meaning "low", the professor will see a status of "Low" for the respective team, used float division
     #every other case is considered a priority of low since it was the default score submitted per feedback
-    #array index 0 represents number of "urgent" priorities that a team has, index 1 represents number of "medium" priorities, index 2 represents number of "low" priorities
+    #array index 0 represents number of "high" priorities that a team has, index 1 represents number of "low" priorities, index 2 represents number of "none" priorities
     priority_holder = Array.new(3)
     #gets all feedbacks for a given week
     feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
