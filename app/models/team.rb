@@ -28,7 +28,7 @@ class Team < ApplicationRecord
   
   def find_priority_weighted(start_date, end_date)
     #if AT LEAST ONE of the feedbacks have a priority score of 0, meaning "urgent", the professor will see a status of "Urgent" for the respective team
-    #if at least 1/3 of the feedbacks submitted have a priority score of 1, meaning "medium", the professor will see a status of "Urgent" for the respective team, used float division
+    #if at least 1/3 of the feedbacks submitted have a priority score of 1, meaning "medium", the professor will see a status of "Medium" for the respective team, used float division
     #every other case is considered a priority of low since it was the default score submitted per feedback
     #array index 0 represents number of "urgent" priorities that a team has, index 1 represents number of "medium" priorities, index 2 represents number of "low" priorities
     priority_holder = Array.new(3)
@@ -44,9 +44,9 @@ class Team < ApplicationRecord
     if priority_holder[0] > 0
       return "High" 
     elsif priority_holder[1] >= feedbacks.count/3.0
-      return "Medium" 
+      return "Low" 
     else
-      return "Low"
+      return "None"
     end 
   end 
   
