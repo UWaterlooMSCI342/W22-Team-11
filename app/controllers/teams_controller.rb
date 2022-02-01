@@ -2,10 +2,14 @@ class TeamsController < ApplicationController
   before_action :require_login
   before_action :require_admin, except: [:show, :help]
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  # this helper method was adapted from: https://stackoverflow.com/questions/27408660/how-to-sort-ruby-table-by-column-headers
+  helper_method :sort_column, :sort_direction
+
 
   # GET /teams
   def index
-    @teams = Team.all
+    #@teams = Team.all
+    @teams = Team.order(sort_column + " " + sort_direction)
   end
 
   # GET /teams/1
@@ -101,5 +105,14 @@ class TeamsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def team_params
       params.require(:team).permit(:team_name, :team_code)
+    end
+
+    # these methods were adapted from: https://stackoverflow.com/questions/27408660/how-to-sort-ruby-table-by-column-headers
+    def sort_column
+      Team.column_names.include?(params[:sort]) ? params[:sort] : "team_name"
+    end
+  
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
