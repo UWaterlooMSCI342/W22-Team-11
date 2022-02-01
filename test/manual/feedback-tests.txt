@@ -1,0 +1,10 @@
+T1: Add feedback without numbers in new system
+1. Navigate to the sandbox
+2. Add feedbcak object with only a rating
+3. Assert that the object failed to add
+
+T2. Add proper feedback into table
+1. Navigate to the sandbox
+2. Add feedback object with all 6 required feilds
+3. Assert that the object added correctly
+
