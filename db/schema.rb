@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_164701) do
+ActiveRecord::Schema.define(version: 2022_02_01_144953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(version: 2021_04_04_164701) do
     t.bigint "team_id"
     t.bigint "user_id"
     t.integer "priority", default: 2, null: false
+    t.integer "communication", null: false
+    t.integer "responsibility", null: false
+    t.integer "work_quality", null: false
+    t.integer "team_support", null: false
+    t.integer "collaboration", null: false
     t.index ["team_id"], name: "index_feedbacks_on_team_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
