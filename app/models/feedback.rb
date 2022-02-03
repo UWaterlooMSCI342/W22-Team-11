@@ -31,4 +31,8 @@ class Feedback < ApplicationRecord
       return Feedback.order('timestamp DESC')
     end
   end
+
+  
+
+
 end
