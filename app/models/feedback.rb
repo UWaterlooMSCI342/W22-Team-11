@@ -22,4 +22,13 @@ class Feedback < ApplicationRecord
   def self.average_rating(feedbacks)
     (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
+
+  # ordering feedback based on attribute
+  def self.order_by field
+    if field == 'team'
+      return Feedback.includes(:team).order("teams.team_name")
+    else
+      return Feedback.order('timestamp DESC')
+    end
+  end
 end
