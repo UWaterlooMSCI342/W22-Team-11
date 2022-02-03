@@ -29,10 +29,55 @@
   </div> 
 
   <div class="field">
-    <% choices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
-    <%= form.label :rating, "Rate your team health on a scale from 1-10, where 1 means your team is doing very poorly and 10 means your team is doing extremely well." %>
-    <%= form.select :rating, choices, :include_blank => true %>
+    <%= form.label :collaboration, "Collaboration and Engagement" %>
+    <%= form.range_field :collaboration, in:1..5, step:1%>
   </div>
+
+  <div class="field">
+    <%= form.label :collab_comment, "Add any comments about team collaboration and engagement you feel are needed." %>
+    <%= form.text_area :collab_comment, placeholder:"Add any comments about team collaboration and engagement you feel are needed." %>
+  </div>
+
+  <div class="field">
+    <%= form.label :communication, "Communication" %>
+    <%= form.range_field :communication, in:1..5, step:1%>
+  </div>
+
+  <div class="field">
+    <%= form.label :communication_comment, "Add any comments about team communication you feel are needed."  %>
+    <%= form.text_area :communication_comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_support, "Team Support" %>
+    <%= form.range_field :team_support, in:1..5, step:1%>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_support_comment, "Add any comments about team support you feel are needed."  %>
+    <%= form.text_area :team_support_comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :responsibility, "Responsibility" %>
+    <%= form.range_field :responsibility, in:1..5, step:1%>
+  </div>
+
+  <div class="field">
+    <%= form.label :responsibility_comment, "Add any comments about team responsibility you feel are needed."  %>
+    <%= form.text_area :responsibility_comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :work_quality, "Work Quality" %>
+    <%= form.range_field :work_quality, in:1..5, step:1%>
+  </div>
+
+  <div class="field">
+    <%= form.label :work_quality_comment, "Add any comments about team work quality you feel are needed."  %>
+    <%= form.text_area :work_quality_comment %>
+  </div>
+
 
   <div class="field">  
     <% choices = [["High", 0],["Low", 1],["None", 2]] %>
