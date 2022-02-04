@@ -4,13 +4,15 @@ class FeedbacksController < ApplicationController
   before_action :get_user_detail
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
    
+  helper_method :sort_column, :sort_direction
       
   def get_user_detail
     @user = current_user
   end
   # GET /feedbacks
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.order(sort_column + " " + sort_direction)
+    #@feedbacks = Feedback.all
   end
 
   # GET /feedbacks/1
@@ -72,5 +74,13 @@ class FeedbacksController < ApplicationController
     def feedback_params
       params.require(:feedback).permit(:rating, :comments, :priority, :collaboration, :collab_comment, :communication, :communication_comment, 
       :team_support, :team_support_comment, :responsibility, :responsibility_comment, :work_quality, :work_quality_comment)
+    end
+
+    def sort_column
+      Feedback.column_names.include?(params[:sort]) ? params[:sort] : "timestamp"
+    end
+  
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
