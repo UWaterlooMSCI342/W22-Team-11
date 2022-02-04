@@ -13,6 +13,7 @@ class FeedbacksController < ApplicationController
     @feedbacks = Feedback.all
   end
 
+
   # GET /feedbacks/1
   def show
   end
