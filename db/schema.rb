@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_144953) do
+ActiveRecord::Schema.define(version: 2022_02_02_005132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 2022_02_01_144953) do
     t.integer "work_quality", null: false
     t.integer "team_support", null: false
     t.integer "collaboration", null: false
+    t.string "collab_comment", limit: 2048
+    t.string "communication_comment", limit: 2048
+    t.string "team_support_comment", limit: 2048
+    t.string "responsibility_comment", limit: 2048
+    t.string "work_quality_comment", limit: 2048
     t.index ["team_id"], name: "index_feedbacks_on_team_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
