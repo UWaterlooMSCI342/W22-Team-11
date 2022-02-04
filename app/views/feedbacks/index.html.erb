@@ -5,7 +5,7 @@
     <tr>
       <th>Student Name</th>
       <th>Team</th>
-      <th>Rating</th>
+      <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
       <th>Priority</th>
       <th>Comments</th>
       <th>Timestamp</th>
