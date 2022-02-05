@@ -23,3 +23,12 @@ class Feedback < ApplicationRecord
     (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
 end
+
+# This method will order the feedback according to student name
+def self.order field
+  if field == 'Student Name'
+    return Feedback.includes(:users).order("users.name")
+  end
+end
+
+
