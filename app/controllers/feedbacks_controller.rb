@@ -3,13 +3,16 @@ class FeedbacksController < ApplicationController
   before_action :require_admin, only: [:index, :show, :destroy, :update]
   before_action :get_user_detail
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
-   
       
   def get_user_detail
     @user = current_user
   end
   # GET /feedbacks
   def index
+<<<<<<< HEAD
+=======
+    #@feedbacks = Feedback.all
+>>>>>>> main
     @feedbacks = Feedback.order_by params[:order_by]
   end
 
