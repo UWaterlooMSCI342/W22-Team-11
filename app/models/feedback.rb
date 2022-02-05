@@ -3,7 +3,7 @@ class Feedback < ApplicationRecord
   belongs_to :team
 
   #requires feedback to have at minimal a rating score, comments are optional 
-  validates_presence_of :rating, :communication, :responsibility, :work_quality, :team_support, :collaboration
+  validates_presence_of :communication, :responsibility, :work_quality, :team_support, :collaboration
   #allows a max of 2048 characters for additional comments
   validates_length_of :comments, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
   validates_length_of :collab_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
