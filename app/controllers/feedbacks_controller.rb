@@ -10,8 +10,7 @@ class FeedbacksController < ApplicationController
   end
   # GET /feedbacks
   def index
-    #@feedbacks = Feedback.all
-    @feedbacks = Feedback.order params[:order_by]
+    @feedbacks = Feedback.all
   end
 
   # GET /feedbacks/1
