@@ -20,6 +20,6 @@ class Feedback < ApplicationRecord
   
   # takes list of feedbacks and returns average rating
   def self.average_rating(feedbacks)
-    (feedbacks.sum{|feedback| feedback.communication}.to_f/feedbacks.count.to_f).round(2)
+    (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
 end
