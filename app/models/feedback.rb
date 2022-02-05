@@ -23,15 +23,6 @@ class Feedback < ApplicationRecord
     (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
 
-<<<<<<< HEAD
-  def self.order_by field
-    if field == 'rating'
-      return Feedback.order(:rating)
-    else
-      return Feedback.order(:timestamp)
-    end
-  end
-=======
   @@reverse_order_team = false
   @@reverse_order_count = "ASC"
   
@@ -53,11 +44,10 @@ class Feedback < ApplicationRecord
         @@reverse_order_team = false
         return Feedback.includes(:team).order("teams.team_name").reverse_order
       end
+    elsif field == 'rating'
+      return Feedback.order(:rating, :timestamp)
     else
-      return Feedback.order('timestamp DESC')
-    end   
+      return Feedback.order('timestamp DESC')   
+    end
   end 
-
-
->>>>>>> main
 end
