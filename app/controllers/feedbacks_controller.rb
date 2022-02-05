@@ -13,6 +13,7 @@ class FeedbacksController < ApplicationController
     @feedbacks = Feedback.order_by params[:order_by]
   end
 
+
   # GET /feedbacks/1
   def show
   end

@@ -44,10 +44,10 @@ class Feedback < ApplicationRecord
         @@reverse_order_team = false
         return Feedback.includes(:team).order("teams.team_name").reverse_order
       end
+    elsif field == 'rating'
+      return Feedback.order(:rating, :timestamp)
     else
-      return Feedback.order('timestamp DESC')
-    end   
+      return Feedback.order('timestamp DESC')   
+    end
   end 
-
-
 end
