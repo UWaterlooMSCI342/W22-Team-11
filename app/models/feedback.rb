@@ -54,10 +54,13 @@ class Feedback < ApplicationRecord
         @@reverse_order_time = false
         return Feedback.order('timestamp').reverse_order
       end
+    elsif field == 'rating'
+      return Feedback.order(:rating, :timestamp)
     else
-      return Feedback.order('timestamp DESC')
-    end   
+      return Feedback.order('timestamp DESC')   
+    end
   end 
-
-
 end
+
+
+
