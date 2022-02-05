@@ -29,17 +29,82 @@
   </div> 
 
   <div class="field">
-    <% choices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
-    <%= form.label :rating, "Rate your team health on a scale from 1-10, where 1 means your team is doing very poorly and 10 means your team is doing extremely well." %>
-    <%= form.select :rating, choices, :include_blank => true %>
+    <b><%= form.label :collaboration, "Collaboration and Engagement" %></b>
+    <%= form.label :collaboration, "How well does your team work together, participate in conversation, and share ideas?" %>
+    <%= form.range_field :collaboration, in:1..5, step:1%>
+    <%= form.label :collaboration, "1(poor) to 5(amazing)" %>
   </div>
 
+  <div class="field">
+    <%= form.label :collab_comment, "Comments (optional)" %>
+    <%= form.text_area :collab_comment, placeholder:"Add any comments about team collaboration and engagement you feel are needed.", cols:30, rows:5 %>
+  </div>
+
+  <br></br>
+
+  <div class="field">
+    <b><%= form.label :communication, "Communication" %></b>
+    <%= form.label :communication, "How well does your team communicate with each other?" %>
+    <%= form.range_field :communication, in:1..5 %>
+    <%= form.label :communication, "1(poor) to 5(perfect understanding)" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :communication_comment, "Comments (optional)" %>
+    <%= form.text_area :communication_comment, placeholder:"Add any comments about team communication you feel are needed.", cols:30, rows:5 %>
+  </div>
+
+  <br></br>
+
+  <div class="field">
+    <b><%= form.label :team_support, "Team Support" %></b>
+    <%= form.label :team_support, "How well is your team at accepting and giving support and feedback to eachother?" %>
+    <%= form.range_field :team_support, in:1..5, step:1%>
+    <%= form.label :team_support, "1(poor) to 5(amazing)" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_support_comment, "Comments (optional)" %>
+    <%= form.text_area :team_support_comment, placeholder:"Add any comments about team support you feel are needed.", cols:30, rows:5 %>
+  </div>
+
+  <br></br>
+
+  <div class="field">
+    <b><%= form.label :responsibility, "Responsibility" %></b>
+    <%= form.label :responsibility, "How responsible is your team for their work and in meeting agreed upon deadlines?" %>
+    <%= form.range_field :responsibility, in:1..5, step:1%>
+    <%= form.label :responsibility, "1(poor) to 5(totally on top of things)" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :responsibility_comment, "Comments (optional)" %>
+    <%= form.text_area :responsibility_comment, placeholder:"Add any comments about team responsibility you feel are needed.", cols:30, rows:5 %>
+  </div>
+
+  <br></br>
+
+  <div class="field">
+    <b><%= form.label :work_quality, "Work Quality" %></b>
+    <%= form.label :work_quality, "How much trust do you have in your team to complete assigned work? If it has been marked complete, is it done well?" %>
+    <%= form.range_field :work_quality, in:1..5, step:1%>
+    <%= form.label :work_quality, "1(poor) to 5(work is on time and done well)" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :work_quality_comment, "Comments (optional)" %>
+    <%= form.text_area :work_quality_comment, placeholder:"Add any comments about the team's work quality you feel are needed.", cols:30, rows:5 %>
+  </div>
+
+  <br></br>
+
   <div class="field">  
-    <% choices = [["High", 0],["Low", 1],["None", 2]] %>
-    <%# Urgent - Instructor needs to check up on team ASAP! %>
-    <%# Low - Instructor needs to check up on the team when they have the chance this week. %>
-    <%# None - Instructor can check up on team. %>
-    <%= form.label :priority, "To what extent does your feedback need urgent attention? High - Your team health needs attention from the instructor ASAP. Low - You would like to discuss your team health with the instructor this week. None - Your team health is on the right track." %>
+    <% choices = [["Urgent", 0],["Low", 1],["None", 2]] %>
+    <%= form.label "Feedback Urgency" %>
+    <%= form.label "Urgent - Instructor needs to check up on team ASAP!" %>
+    <%= form.label "Low - Instructor needs to check up on the team when they have the chance this week." %>
+    <%= form.label "None - Instructor can check up on team if they feel the need, but there is no urgency." %>
+    <%= form.label :priority, "To what extent does your feedback need urgent attention?" %>
     <%= form.select :priority, choices%>
   </div>
 
