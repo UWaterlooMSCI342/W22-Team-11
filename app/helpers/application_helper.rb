@@ -14,7 +14,7 @@
 module ApplicationHelper
   def sorting_teams(column, title = nil)
     title ||= column.titleize
-    direction = (column == params[:sort] && params[:direction] == "asc") ? "desc" : "asc"
+    direction = (column == params[:sort] && params[:direction] == "desc") ? "asc" : "desc"
     link_to title, :sort => column, :direction => direction
   end
 end
