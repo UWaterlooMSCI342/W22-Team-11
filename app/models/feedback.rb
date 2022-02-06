@@ -25,6 +25,8 @@ class Feedback < ApplicationRecord
 
   @@reverse_order_team = false
   @@reverse_order_count = "ASC"
+
+  @@reverse_order_time = false
   
   # ordering feedback based on attribute
 #  def self.order_by field
@@ -43,6 +45,14 @@ class Feedback < ApplicationRecord
       else
         @@reverse_order_team = false
         return Feedback.includes(:team).order("teams.team_name").reverse_order
+      end
+    elsif field == 'timestamp'
+      if @@reverse_order_time == false
+        @@reverse_order_time = true
+        return Feedback.order('timestamp')
+      else
+        @@reverse_order_time = false
+        return Feedback.order('timestamp').reverse_order
       end
     elsif field == 'rating'
       return Feedback.order(:rating, :timestamp)
