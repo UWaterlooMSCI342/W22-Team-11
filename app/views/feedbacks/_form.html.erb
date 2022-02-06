@@ -109,8 +109,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :comments, "Add any comments you feel are worth mentioning here. If you rate your team poorly or your team requires urgent attention, please explain below." %>
-    <%= form.text_area :comments %>
+    <b><%= form.label :comments, "General Comments (Optional)" %></b>
+    <%= form.text_area :comments, placeholder:"Add any aditional comments here:", cols:30, rows:5 %>
   </div>
 
 
