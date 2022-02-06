@@ -46,6 +46,8 @@ class Feedback < ApplicationRecord
       end
     elsif field == 'rating'
       return Feedback.order(:rating, :timestamp)
+    elsif field == 'student name'
+      return Feedback.includes(:user).order("users.name")
     else
       return Feedback.order('timestamp DESC')   
     end
