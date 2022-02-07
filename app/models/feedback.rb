@@ -66,6 +66,8 @@ class Feedback < ApplicationRecord
         @@reverse_order_priority = false
         return Feedback.order(:priority, :timestamp).reverse_order
       end
+    elsif field == 'student name'
+      return Feedback.includes(:user).order("users.name")
     else
       return Feedback.order('timestamp DESC')   
     end

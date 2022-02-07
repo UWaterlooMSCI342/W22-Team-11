@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Student Name</th>
+      <th><%= link_to 'Student Name', feedbacks_path(order_by: 'student name') %></th>
       <th><%= link_to 'Team', feedbacks_path(order_by: 'team') %></th>
       <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
       <th><%= link_to 'Priority', feedbacks_path(order_by: 'priority') %></th>
