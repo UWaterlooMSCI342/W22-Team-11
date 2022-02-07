@@ -141,8 +141,8 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
     
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback = save_feedback(5, 4, 3, 2, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(5, 4, 3, 2, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
     
     periods = team.feedback_by_period 
     assert_equal({year: 2021, week: 9}, periods[0][0])
@@ -160,10 +160,10 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
     
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback4 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback3 = save_feedback(4, 4, 4, 4, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback4 = save_feedback(4, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
     
     periods = team.feedback_by_period 
     assert_equal({year: 2021, week: 9}, periods[0][0])
@@ -210,9 +210,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!
     
-    feedback1 = save_feedback(1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback2 = save_feedback(1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 1)
-    feedback3 = save_feedback(1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
+    feedback1 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 1)
+    feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
     assert_equal "Medium", team_weighted_priority
@@ -231,9 +231,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!
     
-    feedback1 = save_feedback(1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback2 = save_feedback(1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
-    feedback3 = save_feedback(1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
+    feedback1 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
     assert_equal "Low", team_weighted_priority
@@ -252,13 +252,13 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!
     
-    feedback1 = save_feedback(3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback2 = save_feedback(3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
-    feedback3 = save_feedback(3, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
+    feedback1 = save_feedback(3,3, 3, 3, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback3 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
-    assert_equal 3.0, current_week_average
+    assert_equal 6.0, current_week_average
   end
   
   def test_single_feedback_average_rating_team_summary
@@ -270,7 +270,7 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!
     
-    feedback1 = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
     assert_equal 10.0, current_week_average
@@ -321,16 +321,16 @@ class TeamTest < ActiveSupport::TestCase
     team2.user = @prof 
     team2.save 
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
 
 
     # No submissions made yet 
     assert_equal([user2], team.users_not_submitted([feedback]))
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback4 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(2, 2, 3, 3, 2, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback3 = save_feedback(4, 4, 4, 3, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback4 = save_feedback(3, 4, 3, 2, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
   end
 
   def test_find_students_not_submitted_all_submitted
@@ -349,8 +349,8 @@ class TeamTest < ActiveSupport::TestCase
     team2.user = @prof 
     team2.save
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 2, 3, 4, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
     assert_equal([], team.users_not_submitted([feedback, feedback2]))
   end
 
@@ -370,9 +370,9 @@ class TeamTest < ActiveSupport::TestCase
     team2.user = @prof 
     team2.save
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 2), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 2, 3, 4, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback3 = save_feedback(4, 3, 2, 3, 4, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 2), team, 2)
     assert_equal([], team.users_not_submitted([feedback, feedback2, feedback3]))
   end 
 
@@ -391,9 +391,9 @@ class TeamTest < ActiveSupport::TestCase
     team2.user = @prof 
     team2.save
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 3, 2), team2, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 4, 3, 2, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback3 = save_feedback(4, 3, 4, 3, 4, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 3, 2), team2, 2)
     assert_equal([], team.users_not_submitted([feedback, feedback2, feedback3]))
   end
 
@@ -408,9 +408,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(4, 3, 4, 3, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback3 = save_feedback(5, 4, 3, 4, 3, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     result = team.current_feedback(d=Date.new(2021, 3, 2))
     assert_includes( result, feedback )
     assert_includes( result, feedback2 )
@@ -446,8 +446,8 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
-    feedback2 = save_feedback(5, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
+    feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 4, 3, 2, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
 
     assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -463,9 +463,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(2, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(9, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
-    feedback3 = save_feedback(8, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(5, 4, 5, 5, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback3 = save_feedback(4, 3, 3, 2, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('green', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -481,9 +481,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(2, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(6, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
-    feedback3 = save_feedback(7, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 2, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback3 = save_feedback(3, 3, 3, 4, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -499,9 +499,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(2, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(9, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 1)
-    feedback3 = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(5, 5, 5, 4, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 1)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -517,9 +517,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(2, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(9, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 0)
-    feedback3 = save_feedback(10, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(5, 5, 5, 4, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 0)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -535,9 +535,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(2, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(2, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
-    feedback3 = save_feedback(5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(1, 1, 1,1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback3 = save_feedback(3, 2, 3, 4, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end

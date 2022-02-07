@@ -26,15 +26,19 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
     assert_current_path new_feedback_url
     assert_text "Your Current Team: Test Team"
     
-    select "5", from: "Rating"
+    select "5", from: "Communication"
+    select "4", from: "Collaboration and Engagement"
+    select "4", from: "Team Support"
+    select "3", from: "Responsibility"
+    select "2", from: "Work Quality"
     select "Urgent", from: "Priority"
-    fill_in "Comments", with: "This week has gone okay."
+    fill_in "General Comments", with: "This week has gone okay."
     click_on "Create Feedback"
     
     assert_current_path root_url
     
     Feedback.all.each{ |feedback| 
-      assert_equal(5 , feedback.rating)
+      assert_equal(7 , feedback.rating)
       assert_equal(0 , feedback.priority)
       assert_equal('This week has gone okay.', feedback.comments)
       assert_equal(@bob, feedback.user)
@@ -44,7 +48,7 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
   
   # Test that feedback that is added can be viewed (1, 3)
   def test_view_feedback 
-    feedback = Feedback.new(rating: 9, comments: "This team is disorganized", priority: 0)
+    feedback = Feedback.new(communication:5, collaboration:5, team_support:5, responsibility:5, work_quality:5, comments: "This team is disorganized", priority: 0)
     datetime = Time.current
     feedback.timestamp = feedback.format_time(datetime)
     feedback.user = @bob
@@ -57,7 +61,7 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
     click_on "Details"
     assert_current_path team_url(@team)
     assert_text "This team is disorganized"
-    assert_text "9"
+    assert_text "10"
     assert_text "Urgent"
     assert_text "Test Team"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
