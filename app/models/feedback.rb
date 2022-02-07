@@ -27,6 +27,8 @@ class Feedback < ApplicationRecord
   @@reverse_order_count = "ASC"
 
   @@reverse_order_time = false
+
+  @@reverse_order_priority = false
   
   # ordering feedback based on attribute
 #  def self.order_by field
@@ -56,6 +58,14 @@ class Feedback < ApplicationRecord
       end
     elsif field == 'rating'
       return Feedback.order(:rating, :timestamp)
+    elsif field =='priority'
+      if @@reverse_order_priority == false
+        @@reverse_order_priority = true
+        return Feedback.order(:priority, :timestamp)
+      else
+        @@reverse_order_priority = false
+        return Feedback.order(:priority, :timestamp).reverse_order
+      end
     else
       return Feedback.order('timestamp DESC')   
     end
