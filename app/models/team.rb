@@ -12,14 +12,6 @@ class Team < ApplicationRecord
   
   include FeedbacksHelper
   
-  PRIORITIES = {
-    :High => 4,
-    :Low => 3,
-    :None => 2
-  }
-
-  # Take from Stack overflow: https://stackoverflow.com/questions/1353922/rails-custom-ordering-of-records
-
 
   def code_unique 
     if Option.exists?(admin_code: self.team_code)
