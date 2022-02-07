@@ -128,4 +128,20 @@ class Team < ApplicationRecord
     
     return team_code.upcase
   end
+
+  @@reverse_order_avg_rating = false
+
+  def self.order_by(field)
+    if field == 'team_name'
+      if @@reverse_order_avg_rating == false
+        @@reverse_order_avg_rating = true
+        return Team.order('team_name')
+      else
+        @@reverse_order_avg_rating = false
+        return Team.order('team_name').reverse_order
+      end
+    else
+      return Team.order('team_name')
+    end
+  end
 end
