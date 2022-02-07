@@ -12,6 +12,7 @@ class StaticPagesController < ApplicationController
       @user = current_user
       @rating_reminders = @user.rating_reminders
       @days_till_end_week = days_till_end(@now, @cweek, @cwyear)
+      @teams = Team.order_by params[:order_by]
       render :home
     end
   end
