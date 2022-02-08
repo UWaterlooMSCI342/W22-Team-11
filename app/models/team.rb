@@ -132,6 +132,17 @@ class Team < ApplicationRecord
 
   @@reverse_order_avg_rating = false
 
+  def week_range(cyear, cweek)
+    start_date = Date.commercial(cyear, cweek)
+    end_date = start_date.next_day(6)
+
+    start_date = Time.zone.local(start_date.year, start_date.month, start_date.day)
+    end_date = Time.zone.local(end_date.year, end_date.month, end_date.day)
+    
+    {start_date: start_date.to_datetime.beginning_of_day, 
+     end_date: end_date.to_datetime.end_of_day}
+  end
+
   def self.order_by(field)
     if field == 'team_name'
       if @@reverse_order_avg_rating == false
@@ -142,7 +153,13 @@ class Team < ApplicationRecord
         return Team.order('team_name').reverse_order
       end
     else
-      return Team.order('team_name')
+      now = Time.zone.now.to_datetime
+      start_date = Date.commercial(now.cwyear, now.cweek)
+      end_date = start_date.next_day(6)
+      start_date = start_date.to_datetime.beginning_of_day
+      end_date = end_date.to_datetime.end_of_day
+      return Team.all.sort_by{|team| team.find_priority_weighted(start_date, end_date)|| "other" }
     end
   end
+ 
 end
