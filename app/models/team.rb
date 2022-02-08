@@ -12,6 +12,7 @@ class Team < ApplicationRecord
   
   include FeedbacksHelper
   
+
   def code_unique 
     if Option.exists?(admin_code: self.team_code)
       errors.add(:team_code, 'not unique')
