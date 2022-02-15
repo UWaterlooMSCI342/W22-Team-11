@@ -80,7 +80,7 @@
               <li><%= link_to 'View Reports', reports_path %></li>
             <% end %>
           <% end %>
-          <% if request.path =~ /teams\/\d+/ %>
+          <% if current_page? %>
             <li class="navlast"><%= link_to 'Help', '/team_view/help' %></li>
           <% end %>
         <% end %>
