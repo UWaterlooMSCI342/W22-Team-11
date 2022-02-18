@@ -4,9 +4,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Option.create(reports_toggled: true)
     # create test admin
-    @prof = User.new(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: true)
+    @prof = User.new(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: true)
     @prof.save
-    @user = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: false)
+    @user = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: false)
     @user.save
 
     @team = Team.new(team_code: 'Code', team_name: 'Team 1')
@@ -36,8 +36,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to team_url(Team.last)
   end
 
+  #feedback not saving properly
   test "should show team" do
-    save_feedback(5, 'test', @user, Time.zone.now, @team, 2)
+    save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
     
     get team_url(@team)
     assert_response :success
@@ -46,7 +47,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_should_not_show_team 
     get '/logout'
     
-    user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: false)
+    user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: false)
     user2.save
     
     post('/login', params: { email: 'charles3@gmail.com', password: 'banana'})
@@ -83,18 +84,19 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
   
+  #Feedback creating throwing error
   def test_should_destroy_team_with_feedback
     team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
     team2.user = @prof
     team2.save
     
-    user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: false)
+    user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: false)
     user2.teams = [team2]
     user2.save
     
-    feedback = save_feedback(5,4,3, 2, 1, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
-    feedback2 = save_feedback(5, 4, 3, 2, 1, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 3), @team, 2)
-    feedback3 = save_feedback(5, 4, 3, 2, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team2, 2)
+    feedback = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
+    feedback2 = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
+    feedback3 = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: user2, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: team2)
 
     assert_difference('Team.count', -1) do 
       delete team_url(@team)
@@ -152,7 +154,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should allow student access to their teams view" do
+  def test_should_allow_student_access_to_their_teams_view
     # logout admin
     get '/logout'
     # login to user account

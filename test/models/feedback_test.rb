@@ -2,8 +2,8 @@ require 'test_helper'
 require 'date'
 class FeedbackTest < ActiveSupport::TestCase
   setup do
-    @user = User.new(email: 'xyz@gmail.com', password: '123456789', password_confirmation: '123456789', name: 'Adam', is_admin: false)
-    @prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    @user = User.new(email: 'xyz@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Powell', is_admin: false)
+    @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     
     @team = Team.create(team_name: 'Test Team 1', team_code: 'TEAM_A', user: @prof)
     @user.teams << @team
@@ -71,7 +71,7 @@ class FeedbackTest < ActiveSupport::TestCase
   end 
   
   def test_average_rating
-    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles1', is_admin: false)
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false)
     user1.save!
     team = Team.new(team_code: 'Code', team_name: 'Team 1')
     team.user = @prof 
