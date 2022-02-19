@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_024032) do
     t.string "team_support_comment", limit: 2048
     t.string "responsibility_comment", limit: 2048
     t.string "work_quality_comment", limit: 2048
+    t.boolean "responded", default: false
     t.index ["team_id"], name: "index_feedbacks_on_team_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end

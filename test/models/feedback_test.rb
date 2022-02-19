@@ -69,6 +69,22 @@ class FeedbackTest < ActiveSupport::TestCase
     refute feedback.valid?, "Collaboration can't be blank"
     assert_not_nil feedback.errors[:rating]
   end 
+
+  test 'responded column in feedback default value is false' do
+    feedback = Feedback.new(communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    assert_equal(false, feedback.responded)
+  end
+
+  test 'responded column in feedback can be true' do
+    feedback = Feedback.new(communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3, responded: true)
+    assert_equal(true, feedback.responded)
+  end
+
+  test 'responded column value can be changed from true to false' do
+    feedback = Feedback.new(communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    feedback.responded = true
+    assert_equal(true, feedback.responded)
+  end
   
   def test_average_rating
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles1', is_admin: false)
