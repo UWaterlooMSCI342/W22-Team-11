@@ -16,7 +16,7 @@
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
-        <td><%= feedback.user.name %></td>
+        <td><%= feedback.user.first_name + " " + feedback.user.last_name %></td>
         <td><%= feedback.team.team_name %></td>
         <td><%= feedback.rating %></td>
         <%if feedback.priority == 2%>

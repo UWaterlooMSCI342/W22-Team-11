@@ -6,9 +6,9 @@ require "application_system_test_case"
 
 class AddDeleteTeamsTest < ApplicationSystemTestCase
   setup do 
-    @prof = User.new(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: true)
+    @prof = User.new(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: true)
     @prof.save
-    @user1 = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: false)
+    @user1 = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     @user1.save
 
     @team1 = Team.new(team_code: 'Code', team_name: 'Team 1')
@@ -20,13 +20,13 @@ class AddDeleteTeamsTest < ApplicationSystemTestCase
     @team2.user = @prof
     @team2.save
     
-    @user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: false)
+    @user2 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     @user2.teams = [@team2]
     @user2.save
     
-    @feedback = save_feedback(10, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team1, 2)
-    @feedback2 = save_feedback(5, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 3), @team1, 2)
-    @feedback3 = save_feedback(5, "This team is disorganized", @user2, DateTime.civil_from_format(:local, 2021, 3, 3), @team2, 2)
+    @feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team1, 2)
+    @feedback2 = save_feedback(3, 3, 4, 3, 2, "This team is disorganized", @user, DateTime.civil_from_format(:local, 2021, 3, 3), @team1, 2)
+    @feedback3 = save_feedback(3, 3, 4, 5, 4, "This team is disorganized", @user2, DateTime.civil_from_format(:local, 2021, 3, 3), @team2, 2)
   end 
   
   # (1)

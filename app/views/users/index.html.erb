@@ -15,7 +15,7 @@
     <% @users.each do |user| %>
       <tr id=user<%= user.id %> >
         <td><%= user.email %></td>
-        <td><%= user.name %></td>
+        <td><%= user.first_name + " " + user.last_name %></td>
         <td><%= user.role %></td>
         <td><%= user.team_names.join(", ") %></td>
         <td><%= link_to 'Show', user %></td>
