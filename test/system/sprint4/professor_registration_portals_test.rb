@@ -16,7 +16,8 @@ class ProfessorRegistrationPortalsTest < ApplicationSystemTestCase
     visit root_url
     click_on "Sign Up"
     
-    fill_in "user[name]", with: "Professor"
+    fill_in "user[first_name]", with: "Professor"
+    fill_in "user[last_name]", with: "Professor"
     fill_in "user[team_code]", with: "ADmin"
     fill_in "user[email]", with: "prof@uwaterloo.ca"
     fill_in "user[password]", with: "testpassword"
@@ -24,13 +25,13 @@ class ProfessorRegistrationPortalsTest < ApplicationSystemTestCase
     click_on "Create account"
     
     assert_current_path root_url
-    assert_text "Welcome, Professor"
+    assert_text "Welcome, Professor Professor"
     
     assert_text 'Manage Teams'
     assert_text 'Manage Users'
     
     click_on 'Manage Users'
-    assert_text 'Professor'
+    assert_text 'Professor Professor'
   end
   
   #(2)
@@ -43,7 +44,8 @@ class ProfessorRegistrationPortalsTest < ApplicationSystemTestCase
     visit root_url
     click_on "Sign Up"
     
-    fill_in "user[name]", with: "Professor"
+    fill_in "user[first_name]", with: "Professor"
+    fill_in "user[last_name]", with: "Professor"
     fill_in "user[team_code]", with: "notadmin"
     fill_in "user[email]", with: "prof@uwaterloo.ca"
     fill_in "user[password]", with: "testpassword"

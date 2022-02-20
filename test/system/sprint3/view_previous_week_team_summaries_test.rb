@@ -7,9 +7,9 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
   include FeedbacksHelper
   
   setup do
-    @user = User.new(email: 'test@gmail.com', password: '123456789', password_confirmation: '123456789', name: 'Adam', is_admin: false)
-    @user2 = User.new(email: 'test2@gmail.com', password: '1234567891', password_confirmation: '1234567891', name: 'Adam2', is_admin: false)
-    @prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    @user = User.new(email: 'test@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Smith', is_admin: false)
+    @user2 = User.new(email: 'test2@gmail.com', password: '1234567891', password_confirmation: '1234567891', first_name: 'Adam2', last_name: 'Smith', is_admin: false)
+    @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
     @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof)
     @user.teams << @team
@@ -36,8 +36,8 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     #Passes criteria 1: As a professor, I should be able to view the pervious week's summary for all teams
     
     #feedback for week 6 (1 week previous from current week of 7)
-    feedback1 = save_feedback(3, "User1 Week 6 Data", @user, DateTime.civil_from_format(:local, 2021, 2, 8), @team, 0)
-    feedback2 = save_feedback(4, "User1 Week 6 Data", @user2, DateTime.civil_from_format(:local, 2021, 2, 9), @team2, 1)
+    feedback1 = save_feedback(1, 1, 2, 2, 2, "User1 Week 6 Data", @user, DateTime.civil_from_format(:local, 2021, 2, 8), @team, 0)
+    feedback2 = save_feedback(2, 2, 2, 2, 2, "User1 Week 6 Data", @user2, DateTime.civil_from_format(:local, 2021, 2, 9), @team2, 1)
     
     visit root_url 
     login 'msmucker@gmail.com', 'professor'
@@ -55,7 +55,7 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     #Passes criteria 2: As a student, I should be able to view the pervious week's summary for my current team
     
     #feedback for week 6 (1 week previous from current week of 7)
-    feedback1 = save_feedback(3, "User1 Week 6 Data", @user, DateTime.civil_from_format(:local, 2021, 2, 8), @team, 0)
+    feedback1 = save_feedback(1, 1, 2, 2, 2, "User1 Week 6 Data", @user, DateTime.civil_from_format(:local, 2021, 2, 8), @team, 0)
     
     visit root_url 
     login 'test@gmail.com', '123456789'

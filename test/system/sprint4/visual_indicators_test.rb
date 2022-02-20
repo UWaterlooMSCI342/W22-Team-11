@@ -6,21 +6,21 @@ require "application_system_test_case"
 
 class VisualIndicatorsTest < ApplicationSystemTestCase
   setup do
-    @prof = User.create(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles', is_admin: true)
+    @prof = User.create(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: true)
     
-    @user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles1', is_admin: false)
+    @user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false)
     @user1.save!
-    @user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles2', is_admin: false)
+    @user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     @user2.save!
-    @user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Charles3', is_admin: false)
+    @user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles3', last_name: 'Smith', is_admin: false)
     @team = Team.new(team_code: 'Code', team_name: 'Team 1')
     @team.users = [@user1, @user2]
     @team.user = @prof 
     @team.save!     
 
-    @feedback = save_feedback(10, "This team is disorganized", @user1, Time.zone.now.to_datetime - 30, @team, 2)
-    @feedback2 = save_feedback(2, "This team is disorganized", @user2, Time.zone.now, @team, 2)
-    @feedback3 = save_feedback(5, "This team is disorganized", @user1, Time.zone.now, @team, 2)
+    @feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", @user1, Time.zone.now.to_datetime - 30, @team, 2)
+    @feedback2 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", @user2, Time.zone.now, @team, 2)
+    @feedback3 = save_feedback(3, 2, 3, 4, 3, "This team is disorganized", @user1, Time.zone.now, @team, 2)
   end 
   
   def test_student_view 

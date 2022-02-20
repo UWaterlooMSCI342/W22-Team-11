@@ -4,9 +4,9 @@ class ConsistentBackButtonsTest < ApplicationSystemTestCase
   include FeedbacksHelper
   
   setup do 
-    @prof = User.new(email: 'msmucker@gmail.com', password: 'professor', password_confirmation: 'professor', name: 'Mark', is_admin: true)
+    @prof = User.new(email: 'msmucker@gmail.com', password: 'professor', password_confirmation: 'professor', first_name: 'Mark', last_name: 'Smith', is_admin: true)
     @prof.save
-    @user1 = User.new(email: 'adam@gmail.com', password: '123456789', password_confirmation: '123456789', name: 'Adam', is_admin: false)
+    @user1 = User.new(email: 'adam@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Smith', is_admin: false)
     @user1.save
 
     @team1 = Team.new(team_code: 'Code', team_name: 'Team 1')
@@ -171,7 +171,7 @@ class ConsistentBackButtonsTest < ApplicationSystemTestCase
   
   def test_student_team_detailed_view_back_to_landing_page
     #Students can go back to their landing page after clicking on their team summary view per period  
-    feedback = save_feedback(10, "Week 9 data 1", @user1, DateTime.civil_from_format(:local, 2021, 3, 1), @team1, 0)
+    feedback = save_feedback(5, 5, 5, 5, 5, "Week 9 data 1", @user1, DateTime.civil_from_format(:local, 2021, 3, 1), @team1, 0)
     visit root_url
     login 'adam@gmail.com', '123456789'
     assert_current_path root_url

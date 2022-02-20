@@ -26,7 +26,7 @@ class TeamsController < ApplicationController
       @periods.each do |period| 
         period << week_range(period[0][:year], period[0][:week])
         period << Feedback::average_rating(period[1])
-        period << @team.users_not_submitted(period[1]).map{|user| user.name}
+        period << @team.users_not_submitted(period[1]).map{|user| user.first_name + ' '+ user.last_name}
 
         wk_range = week_range(period[0][:year], period[0][:week])
         period << @team.find_priority_weighted(wk_range[:start_date], wk_range[:end_date])

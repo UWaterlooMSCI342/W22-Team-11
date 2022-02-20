@@ -7,27 +7,27 @@ require "application_system_test_case"
 class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
   setup do
     # create prof, team, and user
-    @prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     
     @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
     @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof)
     
-    @bob = User.create(email: 'bob@gmail.com', name: 'Bob', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     @bob.teams << @team
     
-    @andy = User.create(email: 'andy@gmail.com', name: 'Andy', is_admin: false, password: 'testpassword2', password_confirmation: 'testpassword2')
+    @andy = User.create(email: 'andy@gmail.com', first_name: 'Andy', last_name: 'Smith', is_admin: false, password: 'testpassword2', password_confirmation: 'testpassword2')
     @andy.teams << @team
     
-    @sarah = User.create(email: 'sarah@gmail.com', name: 'Sarah', is_admin: false, password: 'testpassword3', password_confirmation: 'testpassword3')
+    @sarah = User.create(email: 'sarah@gmail.com', first_name: 'Sarah', last_name: 'Smith', is_admin: false, password: 'testpassword3', password_confirmation: 'testpassword3')
     @sarah.teams << @team
     
-    @mike = User.create(email: 'mike@gmail.com', name: 'Mike', is_admin: false, password: 'testpassword4', password_confirmation: 'testpassword4')
+    @mike = User.create(email: 'mike@gmail.com', first_name: 'Mike', last_name: 'Smith', is_admin: false, password: 'testpassword4', password_confirmation: 'testpassword4')
     @mike.teams << @team2
   end
   
   # Test all feedback can be viewed (1)
   def test_view_feedback 
-    feedback = Feedback.new(rating: 9, comments: "This team is disorganized")
+    feedback = Feedback.new(communication:3, collaboration:3, team_support:3, responsibility:3, work_quality:2, comments: "This team is disorganized")
     datetime = Time.current
     feedback.timestamp = feedback.format_time(datetime)
     feedback.user = @bob
@@ -49,19 +49,19 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     datetime = Time.zone.now
     
     #Create Bob's feedback
-    feedbackBob = Feedback.new(rating: 5, comments: "This team is OK")
+    feedbackBob = Feedback.new(communication:1, collaboration:2, team_support:3, responsibility:4, work_quality:5, comments: "This team is okay")
     feedbackBob.timestamp = feedbackBob.format_time(datetime)
     feedbackBob.user = @bob
     feedbackBob.team = @bob.teams.first
     feedbackBob.save
     
-    feedbackAndy = Feedback.new(rating: 10, comments: "This team is lovely")
+    feedbackAndy = Feedback.new(communication:5, collaboration:5, team_support:5, responsibility:5, work_quality:5, comments: "This team is lovely")
     feedbackAndy.timestamp = feedbackAndy.format_time(datetime)
     feedbackAndy.user = @andy
     feedbackAndy.team = @andy.teams.first
     feedbackAndy.save
     
-    feedbackSarah = Feedback.new(rating: 3, comments: "This team is horrible")
+    feedbackSarah = Feedback.new(communication:1, collaboration:1, team_support:1, responsibility:1, work_quality:1, comments: "This team is horrible")
     feedbackSarah.timestamp = feedbackSarah.format_time(datetime)
     feedbackSarah.user = @sarah
     feedbackSarah.team = @sarah.teams.first
@@ -73,9 +73,9 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     #check to see landing page summary view of team's average ratings
     assert_text "Test Team"
     assert_text "TEAM01"
-    assert_text "Bob"
-    assert_text "Andy"
-    assert_text "Sarah"
+    assert_text "Bob Smith"
+    assert_text "Andy Smith"
+    assert_text "Sarah Smith"
     assert_text "6"
     
     #checks all aggregated feedback of a team
@@ -90,8 +90,8 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     
     #Bob's feedback
 
-    assert_text "Bob"
-    assert_text "5"
+    assert_text "Bob Smith"
+    assert_text "6"
     assert_text "This team is OK"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
     
@@ -104,7 +104,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     #Sarah's Feedback
 
     assert_text "Sarah"
-    assert_text "3"
+    assert_text "2"
     assert_text "This team is horrible"
   end
   
