@@ -36,9 +36,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to team_url(Team.last)
   end
 
-  #feedback not saving properly
+
   test "should show team" do
-    save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
+    save_feedback(5, 5, 4, 5, 4, "This team is disorganized", @user,DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
     
     get team_url(@team)
     assert_response :success
@@ -84,7 +84,6 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
   
-  #Feedback creating throwing error
   def test_should_destroy_team_with_feedback
     team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
     team2.user = @prof
@@ -94,9 +93,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     user2.teams = [team2]
     user2.save
     
-    feedback = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
-    feedback2 = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: @user, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: @team)
-    feedback3 = save_feedback(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2, user: user2, timestamp:DateTime.civil_from_format(:local, 2021, 3, 1), team: team2)
+    feedback = save_feedback(5, 5, 4, 5, 4, "This team is disorganized", @user,DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
+    feedback2 = save_feedback(5, 5, 4, 5, 4, "This team is disorganized", @user,DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
+    feedback3 = save_feedback(5, 5, 4, 5, 4, "This team is disorganized", user2,DateTime.civil_from_format(:local, 2021, 3, 1), team2, 2)
 
     assert_difference('Team.count', -1) do 
       delete team_url(@team)

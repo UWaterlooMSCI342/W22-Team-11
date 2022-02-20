@@ -4,9 +4,9 @@ require "application_system_test_case"
 class OneFeedbackPerWeekTest < ApplicationSystemTestCase
 #as a student i should only be able to submit one feedback a week
       setup do
-        @prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+        @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
         @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
-        @user = User.new(email: 'test@gmail.com', password: '123456789', name: 'Zac', is_admin: false)
+        @user = User.new(email: 'test@gmail.com', password: '123456789', first_name: 'Zac', last_name: 'Smith', is_admin: false)
         @user.teams << @team
         @user.save!
 
@@ -16,7 +16,7 @@ class OneFeedbackPerWeekTest < ApplicationSystemTestCase
       end
   
     def button_gone_test
-        feedback = save_feedback(10, "Team1", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 0)
+        feedback = save_feedback(5, 5, 5, 5, 5, "Team1", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 0)
         visit root_url 
         login 'test@gmail.com', '123456789'
         assert_current_path root_url 
@@ -24,7 +24,7 @@ class OneFeedbackPerWeekTest < ApplicationSystemTestCase
     end
 
     def alreadysubmitted_message_test
-        feedback = save_feedback(10, "Team1", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 0)
+        feedback = save_feedback(5, 5, 5, 5, 5, "Team1", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 0)
         visit root_url 
         login 'test@gmail.com', '123456789'
         assert_current_path root_url 

@@ -26,19 +26,23 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
     assert_current_path new_feedback_url
     assert_text "Your Current Team: Test Team"
     
-    select "5", from: "Communication"
-    select "4", from: "Collaboration and Engagement"
-    select "4", from: "Team Support"
-    select "3", from: "Responsibility"
-    select "2", from: "Work Quality"
-    select "Urgent", from: "Priority"
+    #select "5", from: "Communication"
+    #select "4", from: "Team Support"
+    find(:xpath, "//*[@id='feedback_collaboration']").set 5
+    find(:xpath, "//*[@id='feedback_communication']").set 4
+    find(:xpath, "//*[@id='feedback_team_support']").set 3
+    find(:xpath, "//*[@id='feedback_responsibility']").set 2
+    find(:xpath, "//*[@id='feedback_work_quality']").set 1
+    #select "3", from: "Responsibility"
+    #select "2", from: "Work Quality"
+    select "Urgent", from: "feedback_priority"
     fill_in "General Comments", with: "This week has gone okay."
     click_on "Create Feedback"
     
     assert_current_path root_url
     
     Feedback.all.each{ |feedback| 
-      assert_equal(7 , feedback.rating)
+      assert_equal(6 , feedback.rating)
       assert_equal(0 , feedback.priority)
       assert_equal('This week has gone okay.', feedback.comments)
       assert_equal(@bob, feedback.user)

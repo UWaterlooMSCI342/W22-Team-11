@@ -65,7 +65,7 @@ class CreateGenerateTeamFunctionsTest < ApplicationSystemTestCase
   
   # Test invalid team code
   def test_register_student_invalid_team  
-    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
     
     # register new student
