@@ -9,7 +9,7 @@ class TeamCapacityTest < ApplicationSystemTestCase
     end
 
     def test_create_team_blank_capacity
-        visit rool_url
+        visit root_url
         login 'msmucker@gmail.com', 'professor'
 
         click_on "Manage Teams"
@@ -24,7 +24,7 @@ class TeamCapacityTest < ApplicationSystemTestCase
     end
 
     def test_create_team_negative_capacity
-        visit rool_url
+        visit root_url
         login 'msmucker@gmail.com', 'professor'
 
         click_on "Manage Teams"
@@ -38,7 +38,7 @@ class TeamCapacityTest < ApplicationSystemTestCase
     end
 
     def test_create_team_with_capacity
-        visit rool_url
+        visit root_url
         login 'msmucker@gmail.com', 'professor'
 
         click_on "Manage Teams"
