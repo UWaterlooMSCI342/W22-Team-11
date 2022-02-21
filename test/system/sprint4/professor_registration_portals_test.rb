@@ -10,7 +10,7 @@ class ProfessorRegistrationPortalsTest < ApplicationSystemTestCase
   def test_signup_prof 
     Option.destroy_all
     Option.create(reports_toggled: true, admin_code: 'ADmin')
-    Team.create(team_name: 'Test Team', team_code: 'TEAM01')
+    Team.create(team_name: 'Test Team', team_code: 'TEAM01', capacity: 5)
     
     # register new student
     visit root_url

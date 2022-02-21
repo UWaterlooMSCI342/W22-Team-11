@@ -20,6 +20,13 @@
     <%= form.label :team_code %>
     <%= form.text_field :team_code, value: code %>
   </div>
+
+  <div class="field">
+    <%= form.label :capacity %>
+    <%= form.label :capcity, "Please enter the maximum capacity of the team" %>
+    <%= form.number_field :capacity %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

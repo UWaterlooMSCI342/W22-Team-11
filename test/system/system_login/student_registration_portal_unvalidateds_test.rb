@@ -21,8 +21,8 @@ class StudentRegistrationPortalUnvalidatedsTest < ApplicationSystemTestCase
     visit root_url
     click_on "Sign Up"
     
-    fill_in "user[name]", with: "Bob"
-    fill_in "user[name]", with: "Bob"
+    fill_in "user[first_name]", with: "Bob"
+    fill_in "user[last_name]", with: "Bob"
     fill_in "user[team_code]", with: "TEam01"
     fill_in "user[email]", with: "bob@uwaterloo.ca"
     fill_in "user[password]", with: "testpassword"

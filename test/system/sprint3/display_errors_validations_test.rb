@@ -11,7 +11,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     user1.save!
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     user2.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -50,8 +50,8 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     assert_text "Password is too short (minimum is 6 characters)"
     assert_text "Email can't be blank"
     assert_text "Email is invalid"
-    assert_text "First Name can't be blank"
-    assert_text "Last Name can't be blank"
+    assert_text "First name can't be blank"
+    assert_text "Last name can't be blank"
     assert_text "Password confirmation can't be blank"
     assert_text "Teams cannot be blank"
   end
@@ -67,8 +67,9 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     fill_in "Team code", with: "Code 1"
     click_on "Create Team"
       
-    assert_text "1 error prohibited this team from being saved:"
+    assert_text "3 errors prohibited this team from being saved:"
     assert_text "Team name can't be blank"
+    
   end
   #Feedback errors
   def test_invalid_feedback

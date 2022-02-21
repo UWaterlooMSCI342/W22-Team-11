@@ -21,7 +21,7 @@ class HelpPageTest < ApplicationSystemTestCase
 
   # (2)
   def test_teams_view_help
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     user = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false, teams: [team])

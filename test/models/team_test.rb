@@ -11,7 +11,7 @@ class TeamTest < ActiveSupport::TestCase
       Option.destroy_all
       Option.create(reports_toggled: true, admin_code: 'admin')
       
-      team2 = Team.new(team_code: 'admin', team_name: 'Team 2')
+      team2 = Team.new(team_code: 'admin', team_name: 'Team 2', capacity: 5)
       team2.user = @prof
       assert_not team2.valid?
     end 
@@ -22,7 +22,7 @@ class TeamTest < ActiveSupport::TestCase
         user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
        
 
-        team = Team.new(team_code: 'Code', team_name: 'Team 1')
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 6)
         team.user = @prof
         team.users = [user, user2]
         assert_difference('Team.count', 1) do
@@ -31,40 +31,52 @@ class TeamTest < ActiveSupport::TestCase
     end
 
     def test_create_team_invalid_team_code
-        team = Team.new(team_code: 'Code', team_name: 'Team 1')
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
         team.user = @prof
         team.save!
         # try creating team with another team with same team code
         # test case insensitive
-        team2 = Team.new(team_code: 'code', team_name: 'Team 2')
+        team2 = Team.new(team_code: 'code', team_name: 'Team 2', capacity: 5)
         team2.user = @prof
         assert_not team2.valid?
     end
 
     def test_create_team_blank_team_code
-        team = Team.new(team_code: 'Code', team_name: 'Team 1')
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
         team.user = @prof
         team.save!
         # try creating team with blank code
-        team2 = Team.new(team_name: 'Team 2')
+        team2 = Team.new(team_name: 'Team 2', capacity: 5)
         team2.user = @prof
         assert_not team2.valid?
     end
     
     def test_create_team_blank_team_name
-        team = Team.new(team_code: 'Code', team_name: 'Team 1')
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
         team.user = @prof
         team.save!
         # try creating team with blank name
-        team2 = Team.new(team_code: 'Code2')
+        team2 = Team.new(team_code: 'Code2', capacity: 5)
         team2.user = @prof
         assert_not team2.valid?
+    end
+
+    def test_create_team_invalid_capacity_negative
+      team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: -1)
+      team2.user = @prof
+      assert_not team2.valid?
+    end
+
+    def test_create_team_invalid_capacity_zero
+      team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 0)
+      team2.user = @prof
+      assert_not team2.valid?
     end
     
     def test_add_students_to_team
         user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
         user1.save!
-        team = Team.new(team_code: 'Code', team_name: 'Team 1')
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
         team.user = @prof
         team.save!
         assert_difference("team.users.count", + 1) do
@@ -74,25 +86,25 @@ class TeamTest < ActiveSupport::TestCase
     end
 
   def test_create_user_invalid_team_duplicate
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save!
     # try creating team with another team with same team code
-    team2 = Team.new(team_code: 'Code', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code', team_name: 'Team 2', capacity: 5)
     team2.user = @prof
     assert_not team2.valid?
   end
   
   def test_create_user_invalid_team_code
     # too long of a code
-    team2 = Team.new(team_code: 'qwertyuiopasdfghjklzxcvbnmq', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'qwertyuiopasdfghjklzxcvbnmq', team_name: 'Team 2', capacity: 5)
     team2.user = @prof
     assert_not team2.valid?
   end
 
   def test_create_user_invalid_team_name
     # too long of a name
-    team2 = Team.new(team_code: 'qwerty', team_name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    team2 = Team.new(team_code: 'qwerty', team_name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', capacity: 5)
     team2.user = @prof
     assert_not team2.valid?
   end
@@ -100,7 +112,7 @@ class TeamTest < ActiveSupport::TestCase
   def test_add_students_to_team
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     user1.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save!
     assert_difference("team.users.count", + 1) do
@@ -114,7 +126,7 @@ class TeamTest < ActiveSupport::TestCase
     user1.save!
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     user2.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.users = [user1, user2]
     team.save!
@@ -125,7 +137,7 @@ class TeamTest < ActiveSupport::TestCase
   end
   
   def test_feedback_by_period_no_feedback 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save! 
     
@@ -137,7 +149,7 @@ class TeamTest < ActiveSupport::TestCase
     user1.save!
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     user2.save!
-    team = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team.user = @prof 
     team.save!     
     
@@ -156,7 +168,7 @@ class TeamTest < ActiveSupport::TestCase
     user1.save!
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     user2.save!
-    team = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team.user = @prof 
     team.save!     
     
@@ -185,7 +197,7 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'adam3@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam3', last_name: 'Powell', is_admin: false)
     user3.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -206,7 +218,7 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'adam3@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user3.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -227,7 +239,7 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'adam3@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam3', last_name: 'Powell', is_admin: false)
     user3.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -248,7 +260,7 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'adam3@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam3', last_name: 'Powell', is_admin: false)
     user3.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -266,7 +278,7 @@ class TeamTest < ActiveSupport::TestCase
     
     user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
     user1.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -277,7 +289,7 @@ class TeamTest < ActiveSupport::TestCase
   end
   
   def test_find_priority_weighted_no_feedbacks 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!
     
@@ -292,11 +304,11 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!   
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.users = [user3]
     team2.user = @prof 
     team2.save 
@@ -312,11 +324,11 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!   
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.users = [user3]
     team2.user = @prof 
     team2.save 
@@ -340,11 +352,11 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!   
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.users = [user3]
     team2.user = @prof 
     team2.save
@@ -361,11 +373,11 @@ class TeamTest < ActiveSupport::TestCase
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!   
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.users = [user3]
     team2.user = @prof 
     team2.save
@@ -382,11 +394,11 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!    
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.users = [user3]
     team2.user = @prof 
     team2.save
@@ -403,7 +415,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -428,7 +440,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!     
 
@@ -441,7 +453,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -458,7 +470,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -476,7 +488,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -494,7 +506,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -512,7 +524,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     
@@ -530,7 +542,7 @@ class TeamTest < ActiveSupport::TestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2]
     team.user = @prof 
     team.save!     

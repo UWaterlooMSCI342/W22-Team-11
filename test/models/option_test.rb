@@ -26,7 +26,7 @@ class OptionTest < ActiveSupport::TestCase
   
   def test_unique_admin_code_team    
     prof = User.create(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: true)
-    Team.create(team_code: 'admin', team_name: 'Team 2', user: prof)
+    Team.create(team_code: 'admin', team_name: 'Team 2', user: prof, capacity: 5)
 
     option = Option.create(reports_toggled: true, admin_code: 'admin')
     assert_not option.valid?

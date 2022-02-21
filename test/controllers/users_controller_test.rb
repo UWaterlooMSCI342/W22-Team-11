@@ -8,12 +8,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user = User.new(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     @user.save
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.new(team_code: 'Code2', team_name: 'Team 1')
+    @team = Team.new(team_code: 'Code2', team_name: 'Team 1', capacity: 5)
   end
   
   def test_create_user
     # login user
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save  
     
@@ -47,7 +47,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
   def test_create_user_invalid_team
     # login user
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save  
     
@@ -216,7 +216,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
   def test_delete_student_as_prof
     @generated_code = Team.generate_team_code
-    @team = Team.create(team_name: 'Test Team', team_code: @generated_code.to_s, user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: @generated_code.to_s, user: @prof, capacity: 5)
     @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     @bob.teams << @team
     

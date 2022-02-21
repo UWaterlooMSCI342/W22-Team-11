@@ -1,10 +1,12 @@
 class Team < ApplicationRecord   
   validates_length_of :team_name, maximum: 40
   validates_length_of :team_code, maximum: 26
+  validates :capacity,  numericality: { only_integer: true, greater_than: 0 }
   validates_uniqueness_of :team_code, :case_sensitive => false
   validate :code_unique
   validates_presence_of :team_name
   validates_presence_of :team_code
+  validates_presence_of :capacity
     
   belongs_to :user
   has_and_belongs_to_many :users

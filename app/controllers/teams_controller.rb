@@ -104,7 +104,7 @@ class TeamsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def team_params
-      params.require(:team).permit(:team_name, :team_code)
+      params.require(:team).permit(:team_name, :team_code, :capacity)
     end
 
     # these methods were adapted from: https://stackoverflow.com/questions/27408660/how-to-sort-ruby-table-by-column-headers

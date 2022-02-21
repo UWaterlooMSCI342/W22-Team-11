@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_164357) do
+ActiveRecord::Schema.define(version: 2022_02_21_004715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2022_02_15_164357) do
     t.string "team_support_comment", limit: 2048
     t.string "responsibility_comment", limit: 2048
     t.string "work_quality_comment", limit: 2048
-    t.boolean "responded", default: false
     t.index ["team_id"], name: "index_feedbacks_on_team_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
@@ -63,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_164357) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "capacity", null: false
     t.index ["team_code"], name: "index_teams_on_team_code", unique: true
     t.index ["user_id"], name: "index_teams_on_user_id"
   end

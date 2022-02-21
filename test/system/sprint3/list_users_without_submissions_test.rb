@@ -14,7 +14,7 @@ class ListUsersWithoutSubmissionsTest < ApplicationSystemTestCase
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles2', last_name: 'Smith', is_admin: false)
     user2.save!
     user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles3', last_name: 'Smith', is_admin: false)
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.users = [user1, user2, user3]
     team.user = @prof 
     team.save!     
