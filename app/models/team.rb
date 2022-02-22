@@ -28,6 +28,17 @@ class Team < ApplicationRecord
     end 
     return students
   end
+
+  def team_capacity
+    cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
+    #cap = Rational(self.number_of_users, self.capacity)
+    return cap
+  end
+
+  def number_of_users
+    users = self.users
+    return users.count
+  end
   
   def find_priority_weighted(start_date, end_date)
     #if AT LEAST ONE of the feedbacks have a priority score of 0, meaning "high", the professor will see a status of "High" for the respective team
