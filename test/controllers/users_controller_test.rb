@@ -21,6 +21,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       params: {user: {email: 'scott@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'Smith', team_code: 'Code'}}
     assert_redirected_to root_url
   end
+
+  def test_create_user_team_full
+    team = Team.new(team_code: 'Code', team_name: 'Team 2', capacity:1)
+    team.user = @prof
+    team.save
+    @user.teams << team
+
+    post '/users', 
+      params: {user: {email: 'scott@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'Smith', team_code: 'Code'}}
+      assert_template :new
+
+  end
   
   def test_create_prof 
     assert_difference('User.count', 1) do 
