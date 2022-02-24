@@ -72,6 +72,16 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to teams_url
   end
+
+  test "removed user from team" do
+    team1 = Team.new(team_name: "TestTeam", team_code: "ABC123")
+    user1 = User.new(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: false)
+    user1.teams = [team1]
+    user1.save
+    
+    user1.teams.delete(team1)
+    assert_equal(user1.teams.length, 0)
+  end
   
   def test_student_cannot_destroy_team 
     get('/logout')
