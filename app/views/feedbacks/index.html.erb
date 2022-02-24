@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Responded</th>
       <th><%= link_to 'Student Name', feedbacks_path(order_by: 'student name') %></th>
       <th><%= link_to 'Team', feedbacks_path(order_by: 'team') %></th>
       <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
@@ -16,6 +17,12 @@
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
+        <td>
+          <%= form_with model: feedback, local: true, method: 'patch' do |f| %>
+            <%= f.check_box :responded %>
+            <%= f.submit 'Save' %>
+          <% end %>  
+        </td>
         <td><%= feedback.user.first_name + " " + feedback.user.last_name %></td>
         <td><%= feedback.team.team_name %></td>
         <td><%= feedback.rating %></td>
