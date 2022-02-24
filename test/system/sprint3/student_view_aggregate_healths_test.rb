@@ -50,7 +50,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     feedback3 = save_feedback(4, 4, 4, 4, 4, "Week 7 data 1", @user, DateTime.civil_from_format(:local, 2021, 2, 15), @team, 1)
     feedback4 = save_feedback(4, 4, 4, 3, 3, "Week 7 data 2", @user2, DateTime.civil_from_format(:local, 2021, 2, 16), @team, 2)
     
-    average_ratingFeb = ((8+7).to_f/2).round(2)
+    average_ratingFeb = ((8+8).to_f/2).round(2)
     average_ratingMarch = ((10+9).to_f/2).round(2)
     
     visit root_url 
@@ -61,7 +61,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     
     within('#2021-7') do
       assert_text 'Feb 15, 2021 to Feb 21, 2021'
-      assert_text 'Medium'
+      assert_text 'Low'
       assert_text average_ratingFeb.to_s
     end
     

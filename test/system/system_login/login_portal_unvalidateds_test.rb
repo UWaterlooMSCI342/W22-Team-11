@@ -30,7 +30,7 @@ class LoginPortalUnvalidatedsTest < ApplicationSystemTestCase
     assert_current_path root_url 
     
     # test urls to see if they can be accessed 
-    urls = [new_report_url, new_feedback_url]
+    urls = [new_feedback_url]
     
     for url in urls
       visit url
@@ -48,8 +48,7 @@ class LoginPortalUnvalidatedsTest < ApplicationSystemTestCase
     # test urls to see if they can be accessed without logging in
     urls = [users_url, teams_url, 
             new_team_url, new_feedback_url, 
-            feedbacks_url, reports_url,
-            new_report_url]
+            feedbacks_url]
     
     for url in urls
       visit url
@@ -90,7 +89,7 @@ class LoginPortalUnvalidatedsTest < ApplicationSystemTestCase
     
     # test urls to see if they can be accessed without admin status
       
-    urls = [new_team_url, teams_url, feedbacks_url, reports_url]
+    urls = [new_team_url, teams_url, feedbacks_url]
     
     for url in urls
       visit url

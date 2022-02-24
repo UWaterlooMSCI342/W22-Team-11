@@ -22,14 +22,16 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     travel_to Time.new(2021, 02, 15, 06, 04, 44)
   end 
   
-  def save_feedback(rating, comments, user, timestamp, team, priority)
-    feedback = Feedback.new(rating: rating, comments: comments, priority: priority)
+  def save_feedback(collaboration, communication, team_support, responsibility, work_quality, comments, user, timestamp, team, priority)
+    feedback = Feedback.new(collaboration: collaboration, communication: communication, team_support: team_support, responsibility:responsibility, work_quality:work_quality, comments: comments, priority: priority)
     feedback.user = user
     feedback.timestamp = feedback.format_time(timestamp)
     feedback.team = team
+    feedback.rating = 0.4*feedback.collaboration + 0.4*feedback.communication + 0.4*feedback.team_support + 0.4*feedback.responsibility + 0.4*feedback.work_quality
     feedback.save
     feedback
-  end
+  end 
+
   
   #(1)
   def test_professor_view_previous_week_data_team_summary
@@ -45,7 +47,7 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     
     assert_text 'Previous Week: ' + (@week_range[:start_date] - 7.days).strftime('%b %-e, %Y').to_s + " to " + (@week_range[:end_date] - 7.days).strftime('%b %-e, %Y').to_s
     assert_text 'High'
-    assert_text 'Medium'
+    assert_text 'Low'
     assert_text 3.0.to_s
     assert_text 4.0.to_s
   end 
