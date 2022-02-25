@@ -1,0 +1,15 @@
+T1: See blank circle for teams who have users that did not submit feedback
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. For a team with users that did not submit feedback, ("missing feedback" column will contain names of those users), notice the blank circle at the front of the row.
+
+T2: No blank circle for teams who had all submit feedback users.
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. For a team that had all users submit feedback, ("missing feedback" column will contain the text "All submitted!"), notice the circle with colour (green, yellow, red) at the front of the row.

@@ -1,4 +1,7 @@
 class Team < ApplicationRecord   
+
+  # require 'byebug'
+
   validates_length_of :team_name, maximum: 40
   validates_length_of :team_code, maximum: 26
   validates_uniqueness_of :team_code, :case_sensitive => false
@@ -111,13 +114,19 @@ class Team < ApplicationRecord
     users_not_submitted = self.users_not_submitted(feedbacks)
     users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
     
-    if priority == 'High' or rating <= 5
-      return 'red'
-    elsif priority == 'Medium' or rating <= 7 or users_not_submitted >= 0.5
-      return 'yellow'
-    else 
-      return 'green'
-    end  
+    if users_not_submitted != 0
+      return 'white'
+    else
+      if priority == 'High' or rating <= 5
+        return 'red'
+      elsif priority == 'Medium' or rating <= 7  
+        # or users_not_submitted >= 0.5
+        # commented out line of code above as the condition is meaningless with addition of 'blank circle'
+        return 'yellow'
+      else 
+        return 'green'
+      end  
+    end
   end
   
   def self.generate_team_code(length = 6)
