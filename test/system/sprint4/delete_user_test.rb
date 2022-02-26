@@ -10,7 +10,7 @@ class DeleteUserTest < ApplicationSystemTestCase
     Option.create(reports_toggled: true, admin_code: 'ADMIN')
     @generated_code = Team.generate_team_code
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'password', password_confirmation: 'password')
-    @team = Team.create(team_name: 'Test Team', team_code: @generated_code.to_s, user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: @generated_code.to_s, user: @prof, capacity: 5)
   end
   
   #(1)

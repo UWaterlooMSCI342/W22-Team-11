@@ -5,7 +5,7 @@ class FeedbackTest < ActiveSupport::TestCase
     @user = User.new(email: 'xyz@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Powell', is_admin: false)
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     
-    @team = Team.create(team_name: 'Test Team 1', team_code: 'TEAM_A', user: @prof)
+    @team = Team.create(team_name: 'Test Team 1', team_code: 'TEAM_A', user: @prof,capacity: 5)
     @user.teams << @team
     @user.save
   end
@@ -89,7 +89,7 @@ class FeedbackTest < ActiveSupport::TestCase
   def test_average_rating
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false)
     user1.save!
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
     team.save!  
     

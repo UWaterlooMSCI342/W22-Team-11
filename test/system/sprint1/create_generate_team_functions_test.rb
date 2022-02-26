@@ -21,6 +21,7 @@ class CreateGenerateTeamFunctionsTest < ApplicationSystemTestCase
     find('#new-team-link').click
     fill_in "Team name", with: "Test Team"
     fill_in "Team code", with: "TEAM01"
+    fill_in "capacity", with: 5
     click_on "Create Team"
     assert_text "Team was successfully created."
     click_on "Home"
@@ -35,7 +36,7 @@ class CreateGenerateTeamFunctionsTest < ApplicationSystemTestCase
   # Test student can use team code (2)
   def test_register_student  
     prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
+    Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
     
     # register new student
     visit root_url
@@ -66,7 +67,7 @@ class CreateGenerateTeamFunctionsTest < ApplicationSystemTestCase
   # Test invalid team code
   def test_register_student_invalid_team  
     prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
     
     # register new student
     visit root_url

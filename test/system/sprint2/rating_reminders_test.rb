@@ -20,9 +20,9 @@ class RatingReminders < ApplicationSystemTestCase
 
   # test that remaining time is visible
   def test_rating_warning
-    team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user)
+    team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user, capacity: 5)
     team.save!
-    team2 = Team.new(team_name: 'Team Name', team_code: 'Code2', user: @user)
+    team2 = Team.new(team_name: 'Team Name', team_code: 'Code2', user: @user, capacity: 5)
     team2.save!
     @user.teams << [team, team2]
     @user.save!
@@ -35,7 +35,7 @@ class RatingReminders < ApplicationSystemTestCase
   def test_rating_warning_exactly_2
       #https://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html#method-i-travel
       travel_to Time.new(2021, 03, 05, 06, 04, 44)
-      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user)
+      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user, capacity: 5)
       team.save!
       @user.teams << [team]
       @user.save!
@@ -45,7 +45,7 @@ class RatingReminders < ApplicationSystemTestCase
   #Under 2
   def test_rating_warning_under_2
       travel_to Time.new(2021, 02, 27, 06, 04, 44)
-      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user)
+      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user, capacity: 5)
       team.save!
       @user.teams << [team]
       @user.save!
@@ -55,7 +55,7 @@ class RatingReminders < ApplicationSystemTestCase
   #Over 2
   def test_rating_warning_over_2
       travel_to Time.new(2021, 03, 03, 06, 04, 44)
-      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user)
+      team = Team.new(team_name: 'Hello World', team_code: 'Code', user: @user, capacity: 5)
       team.save!
       @user.teams << [team]
       @user.save!

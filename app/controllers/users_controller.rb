@@ -47,7 +47,11 @@ class UsersController < ApplicationController
         if team.nil?
           @user.errors.add :teams, :invalid, message: "code does not exist"
         else 
-          @user.teams = [team]
+          if team.capacity >= team.number_of_users + 1
+            @user.teams = [team]
+          else
+            @user.errors.add :teams, :invalid, message: "is full. If you believe this is an error, please contact your professor."
+          end
         end    
       end
     end 

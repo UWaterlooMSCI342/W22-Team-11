@@ -11,12 +11,12 @@ class AddDeleteTeamsTest < ApplicationSystemTestCase
     @user1 = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     @user1.save
 
-    @team1 = Team.new(team_code: 'Code', team_name: 'Team 1')
+    @team1 = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     @team1.user = @prof
     @team1.save
     @user1.teams << @team1
 
-    @team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    @team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     @team2.user = @prof
     @team2.save
     

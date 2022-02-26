@@ -14,7 +14,7 @@ class LoginPortalUnvalidatedsTest < ApplicationSystemTestCase
   # (1)
   def test_login 
     prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
     bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     bob.teams << team
     

@@ -10,8 +10,8 @@ class ReportStudentUsingDropdownUnvalidatedsTest < ApplicationSystemTestCase
   setup do
     # create prof, team, and user
     @prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
-    @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
+    @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof, capacity: 5)
     @bob = User.create(email: 'bob@gmail.com', name: 'Bob', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     @bob.teams << @team
     @steve = User.create(email: 'steve@gmail.com', name: 'Steve', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')

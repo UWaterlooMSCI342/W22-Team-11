@@ -1,3 +1,4 @@
+=begin
 class ReportsController < ApplicationController
   before_action :require_login
   before_action :require_admin, only: [:show, :update, :destroy]
@@ -78,3 +79,4 @@ class ReportsController < ApplicationController
         return User.where.not(id: id)
     end
 end
+=end

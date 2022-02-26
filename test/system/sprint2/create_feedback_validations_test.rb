@@ -9,7 +9,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
    setup do
     @user = User.new(email: 'test@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Powell', is_admin: false)
     @prof = User.create(email: 'msmucker@gmail.com', firstt_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
     @user.teams << @team
     @user.save
   end 

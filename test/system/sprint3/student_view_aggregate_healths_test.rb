@@ -11,8 +11,8 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     @user2 = User.new(email: 'test2@gmail.com', password: '1234567891', password_confirmation: '1234567891', first_name: 'Adam2', last_name: 'Smith', is_admin: false)
     @user3 = User.new(email: 'test10@gmail.com', password: '1234567891', password_confirmation: '1234567891', first_name: 'Adam10',last_name: 'Smith', is_admin: false)
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
-    @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
+    @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof, capacity: 5)
     @user.teams << @team
     @user.save!
     @user2.teams << @team

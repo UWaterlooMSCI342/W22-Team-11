@@ -19,10 +19,10 @@ class UserTest < ActiveSupport::TestCase
   end 
   
   def test_team_names 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.user = @prof 
     team2.save
     user1 = User.new(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team, team2])
@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   def test_one_submission_no_submissions
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save
     user1 = User.new(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team])
@@ -38,7 +38,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   def test_one_submission_existing_submissions 
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save
     user1 = User.new(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team])
@@ -53,7 +53,7 @@ class UserTest < ActiveSupport::TestCase
   
   # 1) As a user, I cannot create an account with a duplicate email
   test 'valid signup' do
-    team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof
     team.save
     user1 = User.new(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team])
@@ -98,9 +98,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: 'charles42@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
     user.save!
 
-    team = Team.new(team_name: 'Hello World', team_code: 'Code', user: user)
+    team = Team.new(team_name: 'Hello World', team_code: 'Code', user: user, capacity: 5)
     team.save!
-    team2 = Team.new(team_name: 'Team Name', team_code: 'Code2', user: user)
+    team2 = Team.new(team_name: 'Team Name', team_code: 'Code2', user: user, capacity: 5)
     team2.save!
     user.teams << [team, team2]
     user.save!
