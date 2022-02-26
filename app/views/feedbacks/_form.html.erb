@@ -17,7 +17,7 @@
       </div>
     <% end %>
   <div class="field">
-    Your Current Team:
+    <b>Your Current Team:</b>
     <% user.team_names.each do |tm| %>
       <%= tm %>
     <% end %>   
@@ -58,7 +58,7 @@
 
   <div class="field">
     <b><%= form.label :team_support, "Team Support" %></b>
-    <%= form.label :team_support, "How well is your team at accepting and giving support and feedback to eachother?" %>
+    <%= form.label :team_support, "How well is your team at accepting and giving support and feedback to each other?" %>
     <%= form.range_field :team_support, in:1..5, step:1%>
     <%= form.label :team_support, "1(poor) to 5(amazing)" %>
   </div>
@@ -100,7 +100,7 @@
 
   <div class="field">  
     <% choices = [["Urgent", 0],["Low", 1],["None", 2]] %>
-    <%= form.label "Feedback Urgency" %>
+    <b><%= form.label "Feedback Urgency" %></b>
     <%= form.label "Urgent - Instructor needs to check up on team ASAP!" %>
     <%= form.label "Low - Instructor needs to check up on the team when they have the chance this week." %>
     <%= form.label "None - Instructor can check up on team if they feel the need, but there is no urgency." %>
@@ -110,7 +110,7 @@
 
   <div class="field">
     <b><%= form.label :comments, "General Comments (Optional)" %></b>
-    <%= form.text_area :comments, placeholder:"Add any aditional comments here:", cols:30, rows:5 %>
+    <%= form.text_area :comments, placeholder:"Add any additional comments here:", cols:30, rows:5 %>
   </div>
 
 
