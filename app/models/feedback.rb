@@ -23,22 +23,42 @@ class Feedback < ApplicationRecord
     (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
 
+
+  # function inspired by https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
+  def converted_rating
+
+    # weights of all feedback types, with 1 representing standard weight
+    communication *= 1.0
+    responsibility *= 1.0
+    work_quality *= 1.0
+    team_support *= 1.0
+    collaboration *= 1.0
+
+    # sum of feedback types
+    total_feedback = communication + responsibility + work_quality + team_support + collaboration
+
+    # CURRENT feedback scale for sum of feedback types, can change if one or more feedback type(s) scales changes (in the view)
+    feedbackMaxTotal = 25 # 5 questions, each max being 5, 5*5 = 25
+    feedbackMinTotal = 5 # 5 questions, each min being 1, 5*1 = 5
+    feedbackRange = (feedbackMaxTotal - feedbackMinTotal)  
+
+    # rating scale, that client wants
+    ratingMax = 10
+    ratingMin = 1
+    ratingRange = (ratingMax - ratingMin) 
+
+    # feedback scale to rating scale
+    return (((total_feedback - feedbackMinTotal) * feedbackRange) / feedbackRange) + ratingMin
+  end
+
+
+  # global variables for sorting
   @@reverse_order_team = false
   @@reverse_order_count = "ASC"
-
   @@reverse_order_time = false
-
   @@reverse_order_priority = false
+  @@reverse_order_student_name = false
   
-  # ordering feedback based on attribute
-#  def self.order_by field
-#    if field == 'team'
-#      return Feedback.includes(:team).order("teams.team_name")
-#    else
-#      return Feedback.order('timestamp DESC')
-#    end
-#  end
-
   def self.order_by field
     if field == 'team'
       if @@reverse_order_team == false
@@ -57,6 +77,7 @@ class Feedback < ApplicationRecord
         return Feedback.order('timestamp').reverse_order
       end
     elsif field == 'rating'
+      # no reverse order because it's more useful to see teams with low ratings at the start of the list
       return Feedback.order(:rating, :timestamp)
     elsif field =='priority'
       if @@reverse_order_priority == false
@@ -67,7 +88,13 @@ class Feedback < ApplicationRecord
         return Feedback.order(:priority, :timestamp).reverse_order
       end
     elsif field == 'student name'
-      return Feedback.includes(:user).order("users.first_name")
+      if @@reverse_order_student_name = false
+        @@reverse_order_student_name = true
+        return Feedback.includes(:user).order("users.first_name")
+      else
+        @@reverse_order_student_name = false
+        return Feedback.includes(:user).order("users.first_name").reverse_order
+      end
     else
       return Feedback.order('timestamp DESC')   
     end

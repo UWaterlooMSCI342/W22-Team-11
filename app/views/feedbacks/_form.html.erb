@@ -31,7 +31,7 @@
   <div class="field">
     <b><%= form.label :collaboration, "Collaboration and Engagement" %></b>
     <%= form.label :collaboration, "How well does your team work together, participate in conversation, and share ideas?" %>
-    <%= form.range_field :collaboration, in:1..5, step:1%>
+    <%= form.number_field :collaboration, in:1..5, step:1, value:3 %>
     <%= form.label :collaboration, "1(poor) to 5(amazing)" %>
   </div>
 
@@ -45,7 +45,7 @@
   <div class="field">
     <b><%= form.label :communication, "Communication" %></b>
     <%= form.label :communication, "How well does your team communicate with each other?" %>
-    <%= form.range_field :communication, in:1..5 %>
+    <%= form.number_field :communication, in:1..5, step:1, value:3 %>
     <%= form.label :communication, "1(poor) to 5(perfect understanding)" %>
   </div>
 
@@ -59,7 +59,7 @@
   <div class="field">
     <b><%= form.label :team_support, "Team Support" %></b>
     <%= form.label :team_support, "How well is your team at accepting and giving support and feedback to each other?" %>
-    <%= form.range_field :team_support, in:1..5, step:1%>
+    <%= form.number_field :team_support, in:1..5, step:1, value:3 %>
     <%= form.label :team_support, "1(poor) to 5(amazing)" %>
   </div>
 
@@ -73,7 +73,7 @@
   <div class="field">
     <b><%= form.label :responsibility, "Responsibility" %></b>
     <%= form.label :responsibility, "How responsible is your team for their work and in meeting agreed upon deadlines?" %>
-    <%= form.range_field :responsibility, in:1..5, step:1%>
+    <%= form.number_field :responsibility, in:1..5, step:1, value:3 %>
     <%= form.label :responsibility, "1(poor) to 5(totally on top of things)" %>
   </div>
 
@@ -87,7 +87,7 @@
   <div class="field">
     <b><%= form.label :work_quality, "Work Quality" %></b>
     <%= form.label :work_quality, "How much trust do you have in your team to complete assigned work? If it has been marked complete, is it done well?" %>
-    <%= form.range_field :work_quality, in:1..5, step:1%>
+    <%= form.number_field :work_quality, in:1..5, step:1, value:3 %>
     <%= form.label :work_quality, "1(poor) to 5(work is on time and done well)" %>
   </div>
 
