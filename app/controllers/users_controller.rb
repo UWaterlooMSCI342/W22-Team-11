@@ -94,7 +94,7 @@ class UsersController < ApplicationController
 
   def reset_student_pass
     @user = User.find(params[:id])
-    new_password = generate_random_pass(10)
+    new_password = @user.generate_random_pass(10)
     @user.reset_pass(new_password)
     if @user.password == new_password
       flash[:message] = 'Password successfully updated to: ' + new_password
@@ -102,12 +102,6 @@ class UsersController < ApplicationController
       flash[:error] = 'Password could not be reset!'
     end 
     redirect_to user_path
-  end
-
-  # this method was influenced by the random strings method found here: https://www.rubyguides.com/2015/03/ruby-random/
-  def generate_random_pass(length)
-    charset = Array('A'..'Z') + Array('a'..'z') + Array(1 .. 9)
-    Array.new(length) { charset.sample }.join
   end
   
   private
