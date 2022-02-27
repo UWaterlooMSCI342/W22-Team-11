@@ -11,25 +11,21 @@ class LinkToHelpPage < ApplicationSystemTestCase
     def test_link_to_help_page_from_home
         visit root_url
         login 'zappy@gmail.com', 'banana'
-        assert_current_path root_url
 
-        click_on "Help"
+        click_on 'Help'
         assert_text 'Help page'
     end
 
     def test_link_to_help_page_from_submit_feedback
         visit root_url
         login 'zappy@gmail.com', 'banana'
-        assert_current_path root_url
 
-        click_on "Submit for"
+        click_on 'Submit for: Test Team'
         assert_current_path new_feedback_url
-        assert_text "Your Current Team: Test Team"
+        assert_text 'Your Current Team: Test Team'
 
-        click_on "Help"
-        assert_text "Help page"
+        click_on 'Help'
+        assert_text 'Help Page'
     end
 
-    
-
-        
+end
