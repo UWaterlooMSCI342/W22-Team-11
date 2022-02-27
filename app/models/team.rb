@@ -75,6 +75,29 @@ class Team < ApplicationRecord
       return nil
     end
   end
+
+  def status(start_date, end_date)
+    priority = self.find_priority_weighted(start_date, end_date)
+    feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
+    rating = Team::feedback_average_rating(feedbacks)
+    rating = rating.nil? ? 10 : rating
+    users_not_submitted = self.users_not_submitted(feedbacks)
+    users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
+    
+    if users_not_submitted != 0
+      return 'white'
+    else
+      if priority == 'High' or rating <= 5
+        return 'red'
+      elsif priority == 'Medium' or rating <= 7  
+        # or users_not_submitted >= 0.5
+        # commented out line of code above as the condition is meaningless with addition of 'blank circle'
+        return 'yellow'
+      else 
+        return 'green'
+      end  
+    end
+  end
   
   # return a multidimensional array that is sorted by time (most recent first)
   # first element of each row is year and week, second element is the list of feedback
@@ -119,29 +142,6 @@ class Team < ApplicationRecord
     current_feedback
   end 
   
-  def status(start_date, end_date)
-    priority = self.find_priority_weighted(start_date, end_date)
-    feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
-    rating = Team::feedback_average_rating(feedbacks)
-    rating = rating.nil? ? 10 : rating
-    users_not_submitted = self.users_not_submitted(feedbacks)
-    users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
-    
-    if users_not_submitted != 0
-      return 'white'
-    else
-      if priority == 'High' or rating <= 5
-        return 'red'
-      elsif priority == 'Medium' or rating <= 7  
-        # or users_not_submitted >= 0.5
-        # commented out line of code above as the condition is meaningless with addition of 'blank circle'
-        return 'yellow'
-      else 
-        return 'green'
-      end  
-    end
-  end
-  
   def self.generate_team_code(length = 6)
     team_code = rand(36**length).to_s(36).upcase
     
@@ -163,8 +163,8 @@ class Team < ApplicationRecord
      end_date: end_date.to_datetime.end_of_day}
   end
 
+  # global variable for order_by function
   @@reverse_order_avg_rating = false
-
   def self.order_by(field)
     if field == 'team_name'
       if @@reverse_order_avg_rating == false
