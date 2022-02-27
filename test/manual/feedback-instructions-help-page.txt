@@ -1,0 +1,17 @@
+T1: See the feedback instructions
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. Select 'Help'
+5. Assert that the new feedback instructions can be viewed
+
+T1: See the feedback instructions
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: *put in personal login information*
+    Password: *put in personal login password*
+3. Select 'Login'
+4. Select 'Help'
+5. Assert that the new feedback instructions can be viewed
