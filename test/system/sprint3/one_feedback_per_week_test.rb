@@ -5,7 +5,7 @@ class OneFeedbackPerWeekTest < ApplicationSystemTestCase
 #as a student i should only be able to submit one feedback a week
       setup do
         @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-        @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
+        @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
         @user = User.new(email: 'test@gmail.com', password: '123456789', first_name: 'Zac', last_name: 'Smith', is_admin: false)
         @user.teams << @team
         @user.save!

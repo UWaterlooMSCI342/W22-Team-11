@@ -9,7 +9,7 @@ class ConsistentBackButtonsTest < ApplicationSystemTestCase
     @user1 = User.new(email: 'adam@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'Adam', last_name: 'Smith', is_admin: false)
     @user1.save
 
-    @team1 = Team.new(team_code: 'Code', team_name: 'Team 1')
+    @team1 = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     @team1.user = @prof
     @team1.save
     @user1.teams << @team1

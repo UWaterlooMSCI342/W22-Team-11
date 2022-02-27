@@ -10,7 +10,7 @@ class AddAdminCodesTest < ApplicationSystemTestCase
   setup do 
     # create prof, team, and user
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
     @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     @bob.teams << @team
     
@@ -66,6 +66,7 @@ class AddAdminCodesTest < ApplicationSystemTestCase
     find('#new-team-link').click
     fill_in "Team name", with: "Test Team"
     fill_in "Team code", with: "admin_CODE"
+    fill_in "Capacity", with: 5
     click_on "Create Team"
     assert_text "Team code not unique"
     assert_current_path teams_path

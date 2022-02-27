@@ -13,6 +13,11 @@
   <%= @team.user.first_name + " " + @team.user.last_name %>
 </p>
 
+<p>
+  <strong>Team Capacity: </strong>
+  <%= @team.team_capacity %>
+</p>
+
 
 <h2>Team Members:</h2>
 <% if @team.users.length > 0 %>

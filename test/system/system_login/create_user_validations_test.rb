@@ -10,7 +10,7 @@ class CreateUserValidationsTest < ApplicationSystemTestCase
     def setup
       Option.create(reports_toggled: true)
       prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-      team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
+      team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
       user = User.create(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team])
     end
     #1) As a user, I cannot create an account with a duplicate email

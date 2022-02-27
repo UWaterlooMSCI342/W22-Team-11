@@ -1,10 +1,15 @@
 class Team < ApplicationRecord   
+
+  # require 'byebug'
+
   validates_length_of :team_name, maximum: 40
   validates_length_of :team_code, maximum: 26
+  validates :capacity,  numericality: { only_integer: true, greater_than: 0 }
   validates_uniqueness_of :team_code, :case_sensitive => false
   validate :code_unique
   validates_presence_of :team_name
   validates_presence_of :team_code
+  validates_presence_of :capacity
     
   belongs_to :user
   has_and_belongs_to_many :users
@@ -25,6 +30,17 @@ class Team < ApplicationRecord
       students.push(student.first_name + " " + student.last_name)
     end 
     return students
+  end
+
+  def team_capacity
+    cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
+    #cap = Rational(self.number_of_users, self.capacity)
+    return cap
+  end
+
+  def number_of_users
+    users = self.users
+    return users.count
   end
   
   def find_priority_weighted(start_date, end_date)
@@ -111,13 +127,19 @@ class Team < ApplicationRecord
     users_not_submitted = self.users_not_submitted(feedbacks)
     users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
     
-    if priority == 'High' or rating <= 5
-      return 'red'
-    elsif priority == 'Medium' or rating <= 7 or users_not_submitted >= 0.5
-      return 'yellow'
-    else 
-      return 'green'
-    end  
+    if users_not_submitted != 0
+      return 'white'
+    else
+      if priority == 'High' or rating <= 5
+        return 'red'
+      elsif priority == 'Medium' or rating <= 7  
+        # or users_not_submitted >= 0.5
+        # commented out line of code above as the condition is meaningless with addition of 'blank circle'
+        return 'yellow'
+      else 
+        return 'green'
+      end  
+    end
   end
   
   def self.generate_team_code(length = 6)

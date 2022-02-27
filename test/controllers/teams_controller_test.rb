@@ -9,7 +9,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     @user = User.new(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles',last_name: 'Smith', is_admin: false)
     @user.save
 
-    @team = Team.new(team_code: 'Code', team_name: 'Team 1')
+    @team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     @team.user = @prof
     @team.save
     @user.teams << @team
@@ -30,7 +30,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create team" do
     assert_difference('Team.count', 1) do
-      post teams_url, params: { team: { team_code: 'Code2', team_name: 'asdf' } }
+      post teams_url, params: { team: { team_code: 'Code2', team_name: 'asdf', capacity: 5 } }
     end
 
     assert_redirected_to team_url(Team.last)
@@ -61,7 +61,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update team" do
-    patch team_url(@team), params: { team: { team_code: @team.team_code, team_name: @team.team_name } }
+    patch team_url(@team), params: { team: { team_code: @team.team_code, team_name: @team.team_name, capacity: 3} }
     assert_redirected_to teams_url
   end
 
@@ -95,7 +95,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
   
   def test_should_destroy_team_with_feedback
-    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2')
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 5)
     team2.user = @prof
     team2.save
     
@@ -120,7 +120,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_create_team_invalid_code
     assert_no_difference 'Team.count' do
       post '/teams', 
-        params: {team: {team_name: "Team 3", team_code: 'qwertyuiopasdfghjklzxcvbnmq'}}
+        params: {team: {team_name: "Team 3", team_code: 'qwertyuiopasdfghjklzxcvbnmq', capacity: 5}}
       get new_team_url
     end
   end
@@ -128,7 +128,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_create_team_invalid_name
     assert_no_difference 'Team.count' do
       post '/teams', 
-        params: {team: {team_name: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", team_code: 'qwerty'}}
+        params: {team: {team_name: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", team_code: 'qwerty', capacity: 5}}
       get new_team_url
     end
   end
@@ -136,7 +136,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_create_team_blank_code
     assert_no_difference 'Team.count' do
       post '/teams', 
-        params: {team: {team_name: "Team 3", team_code: ''}}
+        params: {team: {team_name: "Team 3", team_code: '', capacity: 5}}
       get new_team_url
     end
   end
@@ -144,11 +144,36 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_create_team_blank_name
     assert_no_difference 'Team.count' do
       post '/teams', 
-        params: {team: {team_name: "", team_code: 'qwerty'}}
+        params: {team: {team_name: "", team_code: 'qwerty', capacity: 5}}
+      get new_team_url
+    end
+  end
+
+  def test_create_team_zero_capacity
+    assert_no_difference 'Team.count' do
+      post '/teams', 
+        params: {team: {team_name: "", team_code: 'qwerty', capacity: 0}}
+      get new_team_url
+    end
+  end
+
+  def test_create_team_negative_capacity
+    assert_no_difference 'Team.count' do
+      post '/teams', 
+        params: {team: {team_name: "", team_code: 'qwerty', capacity: -5}}
+      get new_team_url
+    end
+  end
+
+  def test_create_team_string_capacity
+    assert_no_difference 'Team.count' do
+      post '/teams', 
+        params: {team: {team_name: "", team_code: 'qwerty', capacity: 'abc'}}
       get new_team_url
     end
   end
   
+
   def test_help_page
     get '/team_view/help'
     assert :success
@@ -158,7 +183,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   def test_create_team_duplicate_code
     assert_no_difference 'Team.count' do
       post '/teams', 
-        params: {team: {team_name: "Team 3", team_code: 'code'}}
+        params: {team: {team_name: "Team 3", team_code: 'code', capacity: 5}}
       get new_team_url
     end
   end

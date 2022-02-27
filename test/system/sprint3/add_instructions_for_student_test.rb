@@ -8,7 +8,7 @@ class AddReportsTogglesTest < ApplicationSystemTestCase
   setup do
     Option.create(reports_toggled: true)
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
     @steve = User.create(email: 'steve@gmail.com', first_name: 'Steve', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     @steve.teams << @team
   end
