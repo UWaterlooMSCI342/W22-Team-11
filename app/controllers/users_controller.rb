@@ -91,6 +91,24 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
   end 
+
+  def reset_student_pass
+    @user = User.find(params[:id])
+    new_password = generate_random_pass(10)
+    @user.reset_pass(new_password)
+    if @user.password == new_password
+      flash[:message] = 'Password successfully updated to: ' + new_password
+    else 
+      flash[:error] = 'Password could not be reset!'
+    end 
+    redirect_to user_path
+  end
+
+  # this method was influenced by the random strings method found here: https://www.rubyguides.com/2015/03/ruby-random/
+  def generate_random_pass(length)
+    charset = Array('A'..'Z') + Array('a'..'z') + Array(1 .. 9)
+    Array.new(length) { charset.sample }.join
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -98,7 +116,6 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
     
-
     # Only allow a trusted parameter "white list" through.
     # Should use later (ignoring this for now)
     def user_params

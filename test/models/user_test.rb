@@ -127,4 +127,21 @@ class UserTest < ActiveSupport::TestCase
     assert_equal true, array.include?("Team Name")
     assert_equal 1, array.size
   end
+
+  def test_reset_pass_method_changes_password
+    old_password = 'testpassword'
+    bob = User.new(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: old_password, password_confirmation: old_password)
+    bob.save!
+    new_password = 'newpassword'
+    bob.reset_pass(new_password)
+    assert(bob.password != old_password)
+  end
+
+  def test_reset_pass_method_sets_new_pass
+    bob = User.new(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    bob.save!
+    new_password = 'newpassword'
+    bob.reset_pass(new_password)
+    assert(bob.password == new_password)
+  end
 end

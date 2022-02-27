@@ -76,4 +76,9 @@ class User < ApplicationRecord
     # teams
     return teams
   end
+
+  def reset_pass(new_password)
+    self.update(password: new_password, password_confirmation: new_password)
+  end
+
 end
