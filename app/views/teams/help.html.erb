@@ -12,12 +12,12 @@
 <div class="help-div">
   <h2>Team's Individual Feedback</h2>
   <p><b>Average Rating of Period</b> - Displays average rating, on a scale of 1 to 10, of submitted feedback in given period.</p>
-  <p><b>Weighted Priority</b> - This displays the overall urgency of Team's feedback. <br>
-                                Values will either be "No Feedback", "Urgent" or "Low". <br>
-                                If at least one of the team's feedback has a priority score of 0 (urgent), 
-                                then this will display "Urgent".
-                                If 1/3 of feedback has a priority score of 1 (medium), then this will display "Urgent"
-                                Otherwise this will display "Low".
+  <p><b>Urgency/Intervention Level</b> - This displays the overall urgency of Team's feedback. <br>
+                                          Values will either be "None", "Low" or "High". <br>
+                                          If at least one of the team's feedback has a priority score of 0 (high), 
+                                          then this will display "High".
+                                          If 1/3 of feedback has a priority score of 1 (low), then this will display "Low"
+                                          Otherwise this will display "None".
   </p>
   <% if current_user.is_admin %>
     <p><b>Student's Name</b> - Name of student who submitted feedback.</p>

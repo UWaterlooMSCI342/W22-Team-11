@@ -11,6 +11,7 @@ class Feedback < ApplicationRecord
   validates_length_of :team_support_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
   validates_length_of :responsibility_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
   validates_length_of :work_quality_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
+ 
   def format_time(given_date)
   #refomats the UTC time in terms if YYYY/MM?DD HH:MM
       #current_time = given_date.in_time_zone('Eastern Time (US & Canada)').strftime('%Y/%m/%d %H:%M')
@@ -54,8 +55,7 @@ class Feedback < ApplicationRecord
     return converted_rating
   end
 
-
-  # global variables for sorting
+ # global variables for order_by function
   @@reverse_order_team = false
   @@reverse_order_count = "ASC"
   @@reverse_order_time = false
@@ -103,6 +103,3 @@ class Feedback < ApplicationRecord
     end
   end 
 end
-
-
-
