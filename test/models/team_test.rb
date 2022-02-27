@@ -248,7 +248,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
-    assert_equal "Low", team_weighted_priority
+    assert_equal "None", team_weighted_priority
   end
   
   def test_multi_feedback_average_rating_team_summary
@@ -270,7 +270,7 @@ class TeamTest < ActiveSupport::TestCase
     
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
-    assert_equal 6.0, current_week_average
+    assert_equal 5.0, current_week_average
   end
   
   def test_single_feedback_average_rating_team_summary
@@ -447,6 +447,7 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal('green', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
   
+  #blank circle (white) for no feedback
   def test_status_no_feedback 
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
     user1.save!
@@ -461,7 +462,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
     feedback2 = save_feedback(3, 4, 3, 2, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
 
-    assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
+    assert_equal('white', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
   
   def test_green_status
@@ -553,4 +554,6 @@ class TeamTest < ActiveSupport::TestCase
     
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
+
+  
 end

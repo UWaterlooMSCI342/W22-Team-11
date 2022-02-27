@@ -23,32 +23,35 @@ class Feedback < ApplicationRecord
     (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
   end
 
-
   # function inspired by https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
   def converted_rating
 
-    # weights of all feedback types, with 1 representing standard weight
-    communication *= 1.0
-    responsibility *= 1.0
-    work_quality *= 1.0
-    team_support *= 1.0
-    collaboration *= 1.0
+    # weights of all feedback types, with 1.0 representing standard weight
+    communication_weighted = communication * 1.0
+    responsibility_weighted = responsibility * 1.0
+    work_quality_weighted = work_quality * 1.0
+    team_support_weighted = team_support * 1.0
+    collaboration_weighted = collaboration * 1.0
 
     # sum of feedback types
-    total_feedback = communication + responsibility + work_quality + team_support + collaboration
+    total_feedback = communication_weighted + responsibility_weighted + work_quality_weighted + team_support_weighted + collaboration_weighted
 
     # CURRENT feedback scale for sum of feedback types, can change if one or more feedback type(s) scales changes (in the view)
-    feedbackMaxTotal = 25 # 5 questions, each max being 5, 5*5 = 25
-    feedbackMinTotal = 5 # 5 questions, each min being 1, 5*1 = 5
+    # 5 questions, each max being 5, 5*5 = 25
+    feedbackMaxTotal = 25.0
+    # 5 questions, each min being 1, 5*1 = 5
+    feedbackMinTotal = 5.0
     feedbackRange = (feedbackMaxTotal - feedbackMinTotal)  
 
     # rating scale, that client wants
-    ratingMax = 10
-    ratingMin = 1
+    ratingMax = 10.0
+    ratingMin = 1.0
     ratingRange = (ratingMax - ratingMin) 
 
     # feedback scale to rating scale
-    return (((total_feedback - feedbackMinTotal) * feedbackRange) / feedbackRange) + ratingMin
+    converted_rating = (((total_feedback - feedbackMinTotal) * ratingRange) / feedbackRange) + ratingMin
+
+    return converted_rating
   end
 
 

@@ -143,8 +143,6 @@ class Team < ApplicationRecord
     return team_code.upcase
   end
 
-  @@reverse_order_avg_rating = false
-
   def week_range(cyear, cweek)
     start_date = Date.commercial(cyear, cweek)
     end_date = start_date.next_day(6)
@@ -155,6 +153,8 @@ class Team < ApplicationRecord
     {start_date: start_date.to_datetime.beginning_of_day, 
      end_date: end_date.to_datetime.end_of_day}
   end
+
+  @@reverse_order_avg_rating = false
 
   def self.order_by(field)
     if field == 'team_name'

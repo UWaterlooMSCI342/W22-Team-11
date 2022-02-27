@@ -79,6 +79,7 @@ class UserTest < ActiveSupport::TestCase
       refute user1.valid?, 'user password must have at least 6 characters'
       assert_not_nil user1.errors[:password]
   end
+  
   #name is too long
   test 'invalid signup first name' do
       user1 = User.new(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', last_name: 'Smith', is_admin: false)
