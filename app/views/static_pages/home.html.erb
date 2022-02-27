@@ -102,12 +102,11 @@
       <% end %>
     </ul>
     
-    
     <div class="line"></div>
+
     <% if current_user.teams.size == 0 %>
       <p>No teams yet!</p>
     <% else %>
-      <br>
       <h2>Team Summary View</h2>
       <h2>Current Week: <%= @week_range[:start_date].strftime('%b %e, %Y')%> to <%= @week_range[:end_date].strftime('%b %e, %Y')%></h2>
       <table>
@@ -145,6 +144,7 @@
       </table>
 
       <div class="line"></div>
+      
       <h2>Previous Week: <%= (@week_range[:start_date] - 7.days).strftime('%b %e, %Y')%> to <%= (@week_range[:end_date] - 7.days).strftime('%b %e, %Y')%></h2>
       <table>
         <thead>
