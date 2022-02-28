@@ -33,8 +33,13 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     
     click_on "Submit for"
     
-    select 5, :from => "Rating"
-    fill_in "Comments", with: "I did not select a priority, default of low set"
+    choose('feedback_communication_2')
+    choose('feedback_responsibility_2')
+    choose('feedback_work_quality_2')
+    choose('feedback_team_support_2')
+    choose('feedback_collaboration_2')
+    fill_in "General Comments (Optional)", with: "I did not select a priority, default of low set"
+
     click_on "Create Feedback"
     assert_current_path root_url
     assert_text "Feedback was successfully created."
@@ -48,9 +53,13 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     
     click_on "Submit for"
     
-    select 5, :from => "Rating"
-    select "Urgent", :from => "Priority"
-    fill_in "Comments", with: "I selected a priority, it's URGENT"
+    choose('feedback_communication_2')
+    choose('feedback_responsibility_2')
+    choose('feedback_work_quality_2')
+    choose('feedback_team_support_2')
+    choose('feedback_collaboration_2')
+    select "Urgent", :from => "Feedback Urgency"
+    fill_in "General Comments (Optional)", with: "I selected a priority, it's URGENT"
     click_on "Create Feedback"
     assert_current_path root_url
     assert_text "Feedback was successfully created."
@@ -73,7 +82,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     within('#2021-7') do
       assert_text 'Feb 15, 2021 to Feb 21, 2021'
       assert_text 'Low'
-      assert_text 'None'
+      assert_text 'Medium'
       assert_text 'Week 7 data 1'
       assert_text 'Week 7 data 2'
       assert_text '2021-02-15'

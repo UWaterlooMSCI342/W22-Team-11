@@ -10,17 +10,16 @@ class LinksToUserProfileTest < ApplicationSystemTestCase
     @user.save
     end
 
-    def test_link_to_user_profile_from_manage_teams
-        visit root_url
-        login 'msmucker@gmail.com','professor'
-        assert_current_path root_url
-        visit teams_url
-        assert_current_path teams_url
-        #click_link(@user.name)
-        click_on "Zappy"
-        #click_link(@user)
-        assert_current_path user_path(@user)
-    end
+    #below test is the same as the test in the link_to_student_profile_test file
+    #def test_link_to_user_profile_from_manage_teams
+        #visit root_url
+        #login 'msmucker@gmail.com','professor'
+        #assert_current_path root_url
+        #visit teams_url
+        #assert_current_path teams_url
+        #click_on "ZappyZoo"
+        #assert_current_path user_path(@user)
+    #end
 
 end
 
