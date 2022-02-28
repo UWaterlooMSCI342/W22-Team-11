@@ -9,7 +9,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     # create prof, team, and user
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
     
-    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof)
+    @team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: @prof, capacity: 5)
     @team2 = Team.create(team_name: 'Test Team 2', team_code: 'TEAM02', user: @prof, capacity: 5)
     
     @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
@@ -27,7 +27,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
   
   # Test all feedback can be viewed (1)
   def test_view_feedback 
-    feedback = Feedback.new(communication:3, collaboration:3, team_support:3, responsibility:3, work_quality:2, comments: "This team is disorganized")
+    feedback = Feedback.new(communication:4, collaboration:4, team_support:4, responsibility:4, work_quality:4, comments: "This team is disorganized")
     datetime = Time.current
     feedback.timestamp = feedback.format_time(datetime)
     feedback.user = @bob
@@ -40,7 +40,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     click_on "Feedback & Ratings"
     assert_current_path feedbacks_url
     assert_text "This team is disorganized"
-    assert_text "9"
+    assert_text "8"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
   end
   
