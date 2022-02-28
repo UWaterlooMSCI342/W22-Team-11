@@ -91,6 +91,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
   end 
+
+  def reset_student_pass
+    @user = User.find(params[:id])
+    new_password = @user.generate_random_pass(10)
+    @user.reset_pass(new_password)
+    if @user.password == new_password
+      flash[:message] = 'Password successfully updated to: ' + new_password
+    else 
+      flash[:error] = 'Password could not be reset!'
+    end 
+    redirect_to user_path
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -98,10 +110,10 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
     
-
     # Only allow a trusted parameter "white list" through.
     # Should use later (ignoring this for now)
     def user_params
       params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :team_code)
     end
+
 end

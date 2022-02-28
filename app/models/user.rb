@@ -76,4 +76,15 @@ class User < ApplicationRecord
     # teams
     return teams
   end
+
+  def reset_pass(new_password)
+    self.update(password: new_password, password_confirmation: new_password)
+  end
+
+  # this method was influenced by the random strings method found here: https://www.rubyguides.com/2015/03/ruby-random/
+  def generate_random_pass(length)
+    charset = Array('A'..'Z') + Array('a'..'z') + Array(1 .. 9)
+    Array.new(length) { charset.sample }.join
+  end
+
 end

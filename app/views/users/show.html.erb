@@ -21,4 +21,6 @@
   <%= @user.team_names.join(", ") %>
 </p>
 
+<p><%= link_to 'Reset Password', reset_student_pass_path, class: "btn" %></p>
+
 <%= link_to 'Back', :back %>
