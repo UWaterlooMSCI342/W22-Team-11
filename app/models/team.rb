@@ -91,9 +91,9 @@ class Team < ApplicationRecord
     if users_not_submitted != 0
       return 'white'
     else
-      if priority == 'High' or rating <= 5
+      if priority == 'High' or rating <= 5.0
         return 'red'
-      elsif priority == 'Medium' or rating <= 7  
+      elsif priority == 'Medium' or rating <= 7.0  
         # or users_not_submitted >= 0.5
         # commented out line of code above as the condition is meaningless with addition of 'blank circle'
         return 'yellow'

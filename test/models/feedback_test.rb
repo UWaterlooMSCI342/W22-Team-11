@@ -103,6 +103,12 @@ class FeedbackTest < ActiveSupport::TestCase
     converted_rating = feedback.converted_rating
     assert_equal(5.5, converted_rating)
   end
+
+  test 'converted rating with more medium feedback' do
+    feedback = Feedback.new(communication: 4, responsibility: 4, work_quality: 4, team_support: 4, collaboration: 4)
+    converted_rating = feedback.converted_rating
+    assert_equal(7.75, converted_rating)
+  end
   
   def test_average_rating
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false)
