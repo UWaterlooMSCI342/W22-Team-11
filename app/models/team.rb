@@ -33,8 +33,12 @@ class Team < ApplicationRecord
   end
 
   def team_capacity
-    cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
-    #cap = Rational(self.number_of_users, self.capacity)
+    if self.number_of_users == self.capacity
+      cap =  "Team Complete"
+    else
+      cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
+      #cap = Rational(self.number_of_users, self.capacity)
+    end
     return cap
   end
 
