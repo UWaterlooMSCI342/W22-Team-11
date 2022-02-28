@@ -3,87 +3,87 @@ require 'date'
 class TeamTest < ActiveSupport::TestCase
     include FeedbacksHelper
     
-    setup do
-        @prof = User.create(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: true)
-    end
+  setup do
+      @prof = User.create(email: 'charles@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: true)
+  end
 
-    def test_unique_team_code_admin
-      Option.destroy_all
-      Option.create(reports_toggled: true, admin_code: 'admin')
+  def test_unique_team_code_admin
+    Option.destroy_all
+    Option.create(reports_toggled: true, admin_code: 'admin')
+    
+    team2 = Team.new(team_code: 'admin', team_name: 'Team 2', capacity: 5)
+    team2.user = @prof
+    assert_not team2.valid?
+  end 
+
+  def test_add_students
+      # create test admin
+      user = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
+      user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
       
-      team2 = Team.new(team_code: 'admin', team_name: 'Team 2', capacity: 5)
+
+      team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 6)
+      team.user = @prof
+      team.users = [user, user2]
+      assert_difference('Team.count', 1) do
+          team.save
+      end
+  end
+
+  def test_create_team_invalid_team_code
+      team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+      team.user = @prof
+      team.save!
+      # try creating team with another team with same team code
+      # test case insensitive
+      team2 = Team.new(team_code: 'code', team_name: 'Team 2', capacity: 5)
       team2.user = @prof
       assert_not team2.valid?
-    end 
+  end
+
+  def test_create_team_blank_team_code
+      team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+      team.user = @prof
+      team.save!
+      # try creating team with blank code
+      team2 = Team.new(team_name: 'Team 2', capacity: 5)
+      team2.user = @prof
+      assert_not team2.valid?
+  end
   
-    def test_add_students
-        # create test admin
-        user = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
-        user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
-       
-
-        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 6)
-        team.user = @prof
-        team.users = [user, user2]
-        assert_difference('Team.count', 1) do
-            team.save
-        end
-    end
-
-    def test_create_team_invalid_team_code
-        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
-        team.user = @prof
-        team.save!
-        # try creating team with another team with same team code
-        # test case insensitive
-        team2 = Team.new(team_code: 'code', team_name: 'Team 2', capacity: 5)
-        team2.user = @prof
-        assert_not team2.valid?
-    end
-
-    def test_create_team_blank_team_code
-        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
-        team.user = @prof
-        team.save!
-        # try creating team with blank code
-        team2 = Team.new(team_name: 'Team 2', capacity: 5)
-        team2.user = @prof
-        assert_not team2.valid?
-    end
-    
-    def test_create_team_blank_team_name
-        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
-        team.user = @prof
-        team.save!
-        # try creating team with blank name
-        team2 = Team.new(team_code: 'Code2', capacity: 5)
-        team2.user = @prof
-        assert_not team2.valid?
-    end
-
-    def test_create_team_invalid_capacity_negative
-      team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: -1)
+  def test_create_team_blank_team_name
+      team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+      team.user = @prof
+      team.save!
+      # try creating team with blank name
+      team2 = Team.new(team_code: 'Code2', capacity: 5)
       team2.user = @prof
       assert_not team2.valid?
-    end
+  end
 
-    def test_create_team_invalid_capacity_zero
-      team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 0)
-      team2.user = @prof
-      assert_not team2.valid?
-    end
-    
-    def test_add_students_to_team
-        user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
-        user1.save!
-        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
-        team.user = @prof
-        team.save!
-        assert_difference("team.users.count", + 1) do
-            team.users << user1
-            team.save!
-        end
-    end
+  def test_create_team_invalid_capacity_negative
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: -1)
+    team2.user = @prof
+    assert_not team2.valid?
+  end
+
+  def test_create_team_invalid_capacity_zero
+    team2 = Team.new(team_code: 'Code2', team_name: 'Team 2', capacity: 0)
+    team2.user = @prof
+    assert_not team2.valid?
+  end
+  
+  def test_add_students_to_team
+      user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
+      user1.save!
+      team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+      team.user = @prof
+      team.save!
+      assert_difference("team.users.count", + 1) do
+          team.users << user1
+          team.save!
+      end
+  end
 
   def test_create_user_invalid_team_duplicate
     team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
@@ -209,7 +209,7 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal "High", team_weighted_priority
   end
   
-  def test_find_priority_weighted_team_summary_medium_status
+  def test_find_priority_weighted_team_summary_low_status
     week_range = week_range(2021, 7)
     
     user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
@@ -227,10 +227,10 @@ class TeamTest < ActiveSupport::TestCase
     feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
-    assert_equal "Medium", team_weighted_priority
+    assert_equal "Low", team_weighted_priority
   end
   
-  def test_find_priority_weighted_team_summary_low_status
+  def test_find_priority_weighted_team_summary_none_status
     week_range = week_range(2021, 7)
     
     user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
@@ -248,7 +248,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
-    assert_equal "Low", team_weighted_priority
+    assert_equal "None", team_weighted_priority
   end
   
   def test_multi_feedback_average_rating_team_summary
@@ -270,7 +270,7 @@ class TeamTest < ActiveSupport::TestCase
     
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
-    assert_equal 6.0, current_week_average
+    assert_equal 5.0, current_week_average
   end
   
   def test_single_feedback_average_rating_team_summary
@@ -282,7 +282,7 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!
     
-    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
     assert_equal 10.0, current_week_average
@@ -447,7 +447,8 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal('green', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
   
-  def test_status_no_feedback 
+  #blank circle (white) for no feedback
+  def test_status_no_feedback_white
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
     user1.save!
     user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
@@ -461,7 +462,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
     feedback2 = save_feedback(3, 4, 3, 2, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 3), team, 2)
 
-    assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
+    assert_equal('white', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
   
   def test_green_status
@@ -475,9 +476,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(5, 4, 5, 5, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
-    feedback3 = save_feedback(4, 3, 3, 2, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(3, 3, 3, 5, 5, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 1)
+    feedback2 = save_feedback(5, 4, 5, 5, 4, "This team is great", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback3 = save_feedback(4, 3, 3, 2, 3, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('green', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -493,9 +494,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(1, 1, 1, 2, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
-    feedback3 = save_feedback(3, 3, 3, 4, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 2, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 2)
+    feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is alright", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback3 = save_feedback(4, 4, 4, 4, 5, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -511,9 +512,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(5, 5, 5, 4, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 1)
-    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(4, 4, 4, 4, 4, "I think team is good, but still low urgency", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 1)
+    feedback2 = save_feedback(4, 4, 4, 4, 4, "I think team is good, but still low urgency", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 1)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "I think team doing great", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('yellow', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -529,9 +530,9 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(5, 5, 5, 4, 4, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 0)
-    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized, high urgency!", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
+    feedback2 = save_feedback(5, 5, 5, 4, 4, "This team is doing well, but I need high urgency!", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 0)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "I think team doing great", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
@@ -547,10 +548,12 @@ class TeamTest < ActiveSupport::TestCase
     team.user = @prof 
     team.save!     
 
-    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 0)
-    feedback2 = save_feedback(1, 1, 1,1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
+    feedback = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 3, 1), team, 1)
+    feedback2 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 3, 27), team, 2)
     feedback3 = save_feedback(3, 2, 3, 4, 3, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 4, 2), team, 2)
     
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
+
+  
 end

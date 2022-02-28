@@ -70,6 +70,7 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+
   test "should show feedback" do
     # login professor
     post('/login', params: { email: 'msmucker@gmail.com', password: 'professor'})
@@ -100,4 +101,6 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to feedbacks_url
   end
+
+
 end
