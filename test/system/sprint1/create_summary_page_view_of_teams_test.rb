@@ -53,18 +53,21 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     feedbackBob.timestamp = feedbackBob.format_time(datetime)
     feedbackBob.user = @bob
     feedbackBob.team = @bob.teams.first
+    feedbackBob.rating = feedbackBob.converted_rating
     feedbackBob.save
     
     feedbackAndy = Feedback.new(communication:5, collaboration:5, team_support:5, responsibility:5, work_quality:5, comments: "This team is lovely")
     feedbackAndy.timestamp = feedbackAndy.format_time(datetime)
     feedbackAndy.user = @andy
     feedbackAndy.team = @andy.teams.first
+    feedbackAndy.rating = feedbackAndy.converted_rating
     feedbackAndy.save
     
     feedbackSarah = Feedback.new(communication:1, collaboration:1, team_support:1, responsibility:1, work_quality:1, comments: "This team is horrible")
     feedbackSarah.timestamp = feedbackSarah.format_time(datetime)
     feedbackSarah.user = @sarah
     feedbackSarah.team = @sarah.teams.first
+    feedbackSarah.rating = feedbackSarah.converted_rating
     feedbackSarah.save
     
     visit root_url 
@@ -72,7 +75,6 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     
     #check to see landing page summary view of team's average ratings
     assert_text "Test Team"
-    assert_text "TEAM01"
     assert_text "Bob Smith"
     assert_text "Andy Smith"
     assert_text "Sarah Smith"
@@ -92,7 +94,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
 
     assert_text "Bob Smith"
     assert_text "6"
-    assert_text "This team is OK"
+    assert_text "This team is okay"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
     
     #Andy's Feedback 
