@@ -261,22 +261,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_reset_student_pass_method_resets_password
-    old_password = 'testpassword'
-    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: old_password, password_confirmation: old_password)
-    @bob.reset_student_pass
-    assert(@bob.password != 'testpassword')
-  end
-
-  def test_generate_random_pass_method_length
-    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
-    random_password = @bob.generate_random_pass(10)
-    assert(random_password.length == 10)
-  end
-
-  def test_generate_random_pass_method_length_2
-    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
-    random_password = @bob.generate_random_pass(7)
-    assert(random_password.length == 7)
+    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpass', password_confirmation: 'testpass')
+    get reset_student_pass_path(@bob.id)
+    assert_not_equal(@bob.password, 'testpass')
   end
 
 end
