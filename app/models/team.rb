@@ -33,8 +33,12 @@ class Team < ApplicationRecord
   end
 
   def team_capacity
-    cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
-    #cap = Rational(self.number_of_users, self.capacity)
+    if self.number_of_users == self.capacity
+      cap =  "Team Complete"
+    else
+      cap =  self.number_of_users.to_s + "/" + self.capacity.to_s
+      #cap = Rational(self.number_of_users, self.capacity)
+    end
     return cap
   end
 
@@ -152,19 +156,9 @@ class Team < ApplicationRecord
     return team_code.upcase
   end
 
-  def week_range(cyear, cweek)
-    start_date = Date.commercial(cyear, cweek)
-    end_date = start_date.next_day(6)
-
-    start_date = Time.zone.local(start_date.year, start_date.month, start_date.day)
-    end_date = Time.zone.local(end_date.year, end_date.month, end_date.day)
-    
-    {start_date: start_date.to_datetime.beginning_of_day, 
-     end_date: end_date.to_datetime.end_of_day}
-  end
-
   # global variable for order_by function
   @@reverse_order_avg_rating = false
+  
   def self.order_by(field)
     if field == 'team_name'
       if @@reverse_order_avg_rating == false

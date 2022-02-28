@@ -38,7 +38,7 @@ class PromptUserForFirstNameLastNameValidations < ApplicationSystemTestCase
 
     fill_in "user[first_name]", with: "Scott"
     fill_in "user[team_code]", with: "TEAM01"
-    fill_in "user[email]", with: "SCOTTF@gmail.com"
+    fill_in "user[email]", with: "SCOTTF1@gmail.com"
     fill_in "user[password]", with: "testpassword"
     fill_in "user[password_confirmation]", with: "testpassword"
     click_on "Create account"

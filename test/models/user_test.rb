@@ -128,4 +128,34 @@ class UserTest < ActiveSupport::TestCase
     assert_equal true, array.include?("Team Name")
     assert_equal 1, array.size
   end
+
+  def test_reset_pass_method_changes_password
+    old_password = 'testpassword'
+    bob = User.new(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: old_password, password_confirmation: old_password)
+    bob.save!
+    new_password = 'newpassword'
+    bob.reset_pass(new_password)
+    assert(bob.password != old_password)
+  end
+
+  def test_reset_pass_method_sets_new_pass
+    bob = User.new(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    bob.save!
+    new_password = 'newpassword'
+    bob.reset_pass(new_password)
+    assert(bob.password == new_password)
+  end
+
+  def test_generate_random_pass_method_length
+    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    random_password = @bob.generate_random_pass(10)
+    assert(random_password.length == 10)
+  end
+
+  def test_generate_random_pass_method_length_2
+    @bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    random_password = @bob.generate_random_pass(7)
+    assert(random_password.length == 7)
+  end
+  
 end
