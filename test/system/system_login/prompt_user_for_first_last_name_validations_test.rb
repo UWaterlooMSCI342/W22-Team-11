@@ -13,7 +13,7 @@ class PromptUserForFirstNameLastNameValidations < ApplicationSystemTestCase
     team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
     user = User.create(email: 'scottf@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Scott', last_name: 'F', is_admin: false, teams: [team])
     end
-  #1) As a new user, I am required to input my first name when signing up, and will recieve an error if now
+  #1) As a new user, I am required to input my first name when signing up, and will recieve an error if not
     def test_create_student_no_first_name
     # register new student
     visit root_url

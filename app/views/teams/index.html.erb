@@ -22,7 +22,20 @@
           <td><%= team.team_code %></td>
           <td><%= team.user.first_name + " " + team.user.last_name %></td>
           <td><%= team.team_capacity %></td>
-          <td><%= team.student_names.join(", ") %></td>
+          <% if team.student_names.size == 0 %>
+              <td> No members </td>
+            <% else %>
+            <td>
+
+            <!-- This loop was adapted from: https://stackoverflow.com/questions/26695711/dont-have-a-comma-on-the-last-iteration-of-an-each-loop-in-rails/26695926 -->
+              <% team.users.each_with_index do |user,i| %>
+              <% if i > 0 %>
+               ,
+               <% end %>
+               <%= link_to user.first_name + user.last_name, user %>
+              <% end %>
+            </td>
+            <% end %>
           <td><%= link_to 'Show', team %></td>
           <td><%= link_to 'Edit', edit_team_path(team) %></td>
           <td><%= link_to 'Delete Team', team_confirm_delete_path(team.id) %></td>

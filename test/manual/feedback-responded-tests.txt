@@ -1,0 +1,21 @@
+T1: Mark feedback as responded and save
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. Select 'Feedback & Ratings'
+5. For a chosen feedback entry that does not have a checked checkbox (which would indicate it has been responded to), click the checkbox
+6. Select 'Save'
+7. Select 'Back' to return to 'Feedback & Ratings' page
+
+T2: Change 'responded' status of a feedback entry and do not save
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. Select 'Feedback & Ratings'
+5. Choose a feedback entry and click on its checkbox so that it switches either from checked->unchecked or unchecked->checked
+6. Refresh the page
+7. Check that the checkbox returned to its original state 
