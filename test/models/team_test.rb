@@ -268,12 +268,11 @@ class TeamTest < ActiveSupport::TestCase
     feedback2 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
     feedback3 = save_feedback(3, 3, 3, 3, 3, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
-    
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
-    assert_equal 5.0, current_week_average
+    assert_equal 5.5, current_week_average
   end
   
-  def test_single_feedback_average_rating_team_summary
+  def test_single_feedback_average_rating_team_summary_1
     week_range = week_range(2021, 7)
     
     user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
@@ -286,6 +285,36 @@ class TeamTest < ActiveSupport::TestCase
     
     current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
     assert_equal 10.0, current_week_average
+  end
+
+  def test_single_feedback_average_rating_team_summary_2
+    week_range = week_range(2021, 7)
+    
+    user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+    team.user = @prof 
+    team.save!
+    
+    feedback1 = save_feedback(3, 3, 3, 3, 3, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    
+    current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
+    assert_equal 5.5, current_week_average
+  end
+
+  def test_single_feedback_average_rating_team_summary_3
+    week_range = week_range(2021, 7)
+    
+    user1 = User.create(email: 'adam1@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+    team.user = @prof 
+    team.save!
+    
+    feedback1 = save_feedback(4, 4, 4, 4, 4, "This team is great", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    
+    current_week_average = Team.feedback_average_rating(team.feedback_by_period.first[1])
+    assert_equal 7.75, current_week_average
   end
   
   def test_find_priority_weighted_no_feedbacks 

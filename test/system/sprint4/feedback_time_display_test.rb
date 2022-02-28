@@ -29,12 +29,12 @@ class FeebackTimeDisplayTest < ApplicationSystemTestCase
     
     click_on "Submit for"
     assert_text "Current System Time: 2021/03/21 23:30" #Acceptance criteria #1
-    find(:xpath, "//*[@id='feedback_collaboration']").set 5
-    find(:xpath, "//*[@id='feedback_communication']").set 4
-    find(:xpath, "//*[@id='feedback_team_support']").set 3
-    find(:xpath, "//*[@id='feedback_responsibility']").set 2
-    find(:xpath, "//*[@id='feedback_work_quality']").set 1
-    select "Urgent", :from => "Priority"
+    choose('feedback_communication_5')
+    choose('feedback_team_support_4')
+    choose('feedback_collaboration_3')
+    choose('feedback_responsibility_2')
+    choose('feedback_work_quality_1')
+    select "Urgent", :from => "feedback_priority"
     click_on "Create Feedback"
     assert_current_path root_url
     assert_text "Feedback was successfully created. Time created: 2021-03-21 23:30:00" #Acceptance criteria #2
