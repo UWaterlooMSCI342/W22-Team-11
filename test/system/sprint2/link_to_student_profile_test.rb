@@ -3,21 +3,22 @@ require "application_system_test_case"
 class LinksToUserProfileTest < ApplicationSystemTestCase
     def setup
         Option.create(reports_toggled: true)
-        prof = User.create(email: 'msmucker@gmail.com', name: 'Mark Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
-        team = Team.create(team_name: 'Test Team', team_code: 'TEAM01', user: prof)
-        user = User.create(email: 'zappy@gmail.com', password: 'zappy', password_confirmation: 'zappy', name: 'zappy', is_admin: false, teams: [team])
-        user2 = User.create(email: 'ellas@gmail.com', password: 'ellas', password_confirmation: 'ellap', name: 'Ella Smith', is_admin: false, teams: [team])
+        prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: "Smucker", is_admin: true, password: 'professor', password_confirmation: 'professor')
       end
 
       def test_link_to_user_profile_from_manage_teams
+        user = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles', last_name: 'Smith', is_admin: false)
+        team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 6)
+        team.user = @prof
+        team.users = [user]
+        team.save!
         visit root_url
         login 'msmucker@gmail.com', 'professor'
         assert_current_path root_url
-        visit teams_url
+        click_on "Manage Teams"
         assert_current_path teams_url
-
-        click_on "zappy"
-        assert_current_path user_path(@user)
+        click_on "CharlesSmith"
+        assert_current_path user_path(user.id)
       end
 
 end
