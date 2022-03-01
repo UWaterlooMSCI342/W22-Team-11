@@ -1,4 +1,4 @@
-require "application_system_test_case"
+1require "application_system_test_case"
 
 
 class OneFeedbackPerWeekTest < ApplicationSystemTestCase
