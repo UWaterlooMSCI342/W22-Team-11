@@ -32,6 +32,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     feedback.timestamp = feedback.format_time(datetime)
     feedback.user = @bob
     feedback.team = @bob.teams.first
+    feedback.rating = feedback.converted_rating
     feedback.save
     
     visit root_url 
@@ -40,7 +41,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     click_on "Feedback & Ratings"
     assert_current_path feedbacks_url
     assert_text "This team is disorganized"
-    assert_text "8"
+    assert_text "7.75"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
   end
   
