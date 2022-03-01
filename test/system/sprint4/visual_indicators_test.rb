@@ -31,12 +31,12 @@ class VisualIndicatorsTest < ApplicationSystemTestCase
       assert find('.dot-red')
     end
     
-    assert find('.dot-yellow')
+    assert find('.dot-white')
     
     click_on 'View Historical Data'
     
     assert find('.dot-red')
-    assert find('.dot-yellow')
+    assert find('.dot-white')
   end
   
   def test_professor_view 
@@ -47,11 +47,11 @@ class VisualIndicatorsTest < ApplicationSystemTestCase
       assert find('.dot-red')
     end 
     
-    assert find('.dot-yellow')
+    assert find('.dot-white')
     
     click_on 'Details'
     
     assert find('.dot-red')
-    assert find('.dot-yellow')
+    assert find('.dot-white')
   end
 end

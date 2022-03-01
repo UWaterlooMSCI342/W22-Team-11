@@ -38,7 +38,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "should show team" do
-    save_feedback(5, 5, 4, 5, 4, "This team is disorganized", @user,DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
+    save_feedback(5, 5, 4, 5, 4, "This team is great", @user, DateTime.civil_from_format(:local, 2021, 3, 1), @team, 2)
     
     get team_url(@team)
     assert_response :success
