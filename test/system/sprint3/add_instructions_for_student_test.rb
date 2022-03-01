@@ -18,7 +18,8 @@ class AddReportsTogglesTest < ApplicationSystemTestCase
     login 'steve@gmail.com', 'testpassword'    
     
     click_on "Submit for"
-    assert_text "Please select a rating on how well you believe your team performed this period and the priority of your feedback from the dropdowns below. These fields are mandatory.\nYou may enter optional comments in the text area below with a maximum of 2048 characters."
+    # assert_text "Please select a rating on how well you believe your team performed this period and the priority of your feedback from the dropdowns below. These fields are mandatory.\nYou may enter optional comments in the text area below with a maximum of 2048 characters."
+    assert_text "Please select a rating on how well you believe your team performed this period for each of the following categories: Collaboration and Engagement, Communication, Team Support, Responsibility, and Work Quality. These fields are ranked on a sliding scale from 1 to 5, and are mandatory."
   end
   
   

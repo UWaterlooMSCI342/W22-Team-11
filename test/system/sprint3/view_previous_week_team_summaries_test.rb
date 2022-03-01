@@ -27,7 +27,7 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     feedback.user = user
     feedback.timestamp = feedback.format_time(timestamp)
     feedback.team = team
-    feedback.rating = 0.4*feedback.collaboration + 0.4*feedback.communication + 0.4*feedback.team_support + 0.4*feedback.responsibility + 0.4*feedback.work_quality
+    feedback.rating = feedback.converted_rating
     feedback.save
     feedback
   end 
