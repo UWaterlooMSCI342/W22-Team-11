@@ -31,7 +31,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     feedback1 = save_feedback(4, 4, 4, 4, 4, "Data1", @user, DateTime.civil_from_format(:local, 2021, 2, 15), @team, 2)
     feedback2 = save_feedback(4, 5, 4, 3, 4, "Data2", @user2, DateTime.civil_from_format(:local, 2021, 2, 16), @team, 2)
     
-    average_rating = 7.5
+    average_rating = 7.75
     
     visit root_url 
     login 'test@gmail.com', '123456789'
@@ -39,7 +39,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     
     assert_text 'Current Week: ' + @week_range[:start_date].strftime('%b %-e, %Y').to_s + " to " + @week_range[:end_date].strftime('%b %-e, %Y').to_s
     assert_text average_rating.to_s
-    assert_text 'Low'
+    assert_text 'None'
   end 
   
   # (1)
@@ -62,7 +62,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     within('#2021-7') do
       assert_text 'Feb 15, 2021 to Feb 21, 2021'
       assert_text 'Low'
-      assert_text average_ratingFeb.to_s
+      assert_text 7.3.to_s
     end
     
     within('#2021-9') do

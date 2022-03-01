@@ -24,6 +24,10 @@ class Feedback < ApplicationRecord
   #   (feedbacks.sum{|feedback| feedback.rating.to_f}/feedbacks.count.to_f).round(2)
   # end
 
+  def self.show_converted_average(feedbacks)
+    (feedbacks.sum{|feedback| feedback.converted_rating.to_f}/feedbacks.count.to_f).round(2)
+  end
+
   # function inspired by https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
   def converted_rating
 
