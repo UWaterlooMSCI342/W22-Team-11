@@ -26,7 +26,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
     fill_in "General Comments (Optional)", with: "I did not select a rating so that it would get set to the default rating"
     
     click_on "Create Feedback"
-    assert_text "5.0"
+    assert_text "5.5"
     assert_text "High"
   end 
   

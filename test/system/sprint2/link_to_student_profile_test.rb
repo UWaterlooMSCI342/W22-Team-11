@@ -17,7 +17,7 @@ class LinksToUserProfileTest < ApplicationSystemTestCase
         assert_current_path root_url
         click_on "Manage Teams"
         assert_current_path teams_url
-        click_on "CharlesSmith"
+        click_on "Charles Smith"
         assert_current_path user_path(user.id)
       end
 

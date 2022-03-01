@@ -35,7 +35,6 @@ class GenerateTeamCodesTest < ApplicationSystemTestCase
     assert_text "Team was successfully created."
     click_on "Home"
     assert_text "Test Team"
-    assert_text @teamcode
     
     # log professor out
     visit root_url
