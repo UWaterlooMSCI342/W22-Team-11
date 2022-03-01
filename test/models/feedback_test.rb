@@ -141,6 +141,99 @@ class FeedbackTest < ActiveSupport::TestCase
     assert_equal(Feedback.includes(:user).order("users.first_name")[1].id, 999)
 
   end
+
+  test 'sort_team_name' do
+    bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: prof, capacity: 1)
+    team1 = Team.create(team_name: 'Another Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
+    
+    smith.teams << team1
+    bob.teams << team
+
+    feedback = Feedback.new(id: 998, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    feedback2 = Feedback.new(id: 999, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    
+    feedback.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+
+    feedback.user = bob
+    feedback.team = bob.teams.first
+    feedback2.user = smith
+    feedback2.team = smith.teams.first
+    feedback.save
+    feedback2.save
+
+    assert_equal(Feedback.includes(:team).order("teams.team_name")[1].id, 998)
+  end
+
+  test 'sort_rating' do
+    bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: prof, capacity: 1)
+    team1 = Team.create(team_name: 'Another Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
+    
+    smith.teams << team1
+    bob.teams << team
+
+    feedback = Feedback.new(id: 998, communication: 4, responsibility: 4, work_quality: 4, team_support: 4, collaboration: 4)
+    feedback2 = Feedback.new(id: 999, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    
+    feedback.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+
+    feedback.user = bob
+    feedback.team = bob.teams.first
+    feedback2.user = smith
+    feedback2.team = smith.teams.first
+    feedback.save
+    feedback2.save
+
+    assert_equal(Feedback.order(:rating, :timestamp)[1].id, 999)
+  end
+
+  test 'sort_priority' do
+    bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: prof, capacity: 1)
+    team1 = Team.create(team_name: 'Another Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
+    
+    smith.teams << team1
+    bob.teams << team
+
+    feedback = Feedback.new(id: 998, communication: 4, responsibility: 4, work_quality: 4, team_support: 4, collaboration: 4, priority:0)
+    feedback2 = Feedback.new(id: 999, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3, priority:2)
+    
+    feedback.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+
+    feedback.user = bob
+    feedback.team = bob.teams.first
+    feedback2.user = smith
+    feedback2.team = smith.teams.first
+    feedback.save
+    feedback2.save
+
+    assert_equal(Feedback.order(:priority, :timestamp)[1].id, 999)
+  end
   
   # test 'average_rating' do  
     
