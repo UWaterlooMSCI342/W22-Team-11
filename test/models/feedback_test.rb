@@ -103,6 +103,37 @@ class FeedbackTest < ActiveSupport::TestCase
     converted_rating = feedback.converted_rating
     assert_equal(5.5, converted_rating)
   end
+
+  test 'sort_user_name'do
+    bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: prof, capacity: 1)
+    team1 = Team.create(team_name: 'Another Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
+    
+    smith.teams << team1
+    bob.teams << team
+
+    feedback = Feedback.new(id: 998, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    feedback2 = Feedback.new(id: 999, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    
+    feedback.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+
+    feedback.user = bob
+    feedback.team = bob.teams.first
+    feedback2.user = smith
+    feedback2.team = smith.teams.first
+    feedback.save
+    feedback2.save
+
+    assert_equal(Feedback.includes(:user).order("users.first_name")[1].id, 999)
+  end
   
   def test_average_rating
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Charles1', last_name: 'Smith', is_admin: false)
@@ -121,4 +152,5 @@ class FeedbackTest < ActiveSupport::TestCase
     average_rating = Feedback::average_rating(feedbacks)
     assert_in_delta((ratings.sum.to_f/ratings.count.to_f).round(2), average_rating)
   end
+
 end
