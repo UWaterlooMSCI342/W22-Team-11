@@ -1,10 +1,17 @@
 <h1>New Feedback</h1>
 
-
-<p>Please select a rating on how well you believe your team performed this period for each of the following categories: Collaboration and Engagement, Communication, Team Support, Responsibility, and Work Quality. 
-These fields are ranked on a sliding scale from 1 to 5, and are <b>mandatory.</b></p>
+<p>Please select a rating on how well you believe your team performed this period for each of the following categories:</p>
+<ul>
+  <li>Collaboration and Engagement</li>
+  <li>Communication</li>
+  <li>Team Support</li>
+  <li>Responsibility</li>
+  <li>Work Quality</li>
+</ul>
+<p>These fields are ranked on a number scale from 1 to 5, and are <b>mandatory.</b></p>
 <p>You may enter <b>optional</b> comments in the text area below each category, as well as leave any general comments you may have in the general comments textbox on the bottom of the page.</p>
+<%= link_to 'Back', :back %>
+<br></br>
 <%= render 'form', feedback: @feedback, user: @user, flag: false %>
-
 
 <%= link_to 'Back', :back %>

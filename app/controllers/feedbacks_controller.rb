@@ -29,8 +29,7 @@ class FeedbacksController < ApplicationController
 
   # POST /feedbacks
   def create
-      
-      
+  
     team_submissions = @user.one_submission_teams
       
     @feedback = Feedback.new(feedback_params)
@@ -38,7 +37,7 @@ class FeedbacksController < ApplicationController
     @feedback.timestamp = @feedback.format_time(now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
-    @feedback.rating = 0.4*@feedback.collaboration + 0.4*@feedback.communication + 0.4*@feedback.team_support + 0.4*@feedback.responsibility + 0.4*@feedback.work_quality
+    @feedback.rating = @feedback.converted_rating
     if team_submissions.include?(@feedback.team)
         redirect_to root_url, notice: 'You have already submitted feedback for this team this week.'
     elsif @feedback.save

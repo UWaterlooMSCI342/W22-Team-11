@@ -4,7 +4,6 @@ class StaticPagesController < ApplicationController
   helper_method :rating_reminders
   helper_method :days_till_end_week
 
-  
   def home
     unless logged_in?
       redirect_to login_path
@@ -38,7 +37,6 @@ class StaticPagesController < ApplicationController
       @unsubmitted[:previous_week][team.id] = team.users_not_submitted(team.current_feedback(now - 7.days)).map{|user| user.first_name + " "+ user.last_name}
     end
   end 
-
   
   def show_reset_password 
   end
@@ -70,6 +68,4 @@ class StaticPagesController < ApplicationController
     @week_range = week_range(@cwyear, @cweek)
   end
   
- 
-
 end

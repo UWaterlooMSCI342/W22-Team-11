@@ -28,91 +28,167 @@
     <%= @feedback.format_time(now) %>    
   </div> 
 
+  <div class="line"></div>
+
   <div class="field">
     <b><%= form.label :collaboration, "Collaboration and Engagement" %></b>
     <%= form.label :collaboration, "How well does your team work together, participate in conversation, and share ideas?" %>
-    <%= form.range_field :collaboration, in:1..5, step:1%>
-    <%= form.label :collaboration, "1(poor) to 5(amazing)" %>
+    </br>
+    <table>
+      <tr>
+        <th>1 (Poor)</th>
+        <th>2</th>
+        <th>3 (Decent)</th>
+        <th>4</th>
+        <th>5 (Near Perfect)</th>
+      </tr>
+      <tr>
+        <td><%= form.radio_button :collaboration, "1"%></td>
+        <td><%= form.radio_button :collaboration, "2"%></td>
+        <td><%= form.radio_button :collaboration, "3", checked: true%></td>
+        <td><%= form.radio_button :collaboration, "4"%></td>
+        <td><%= form.radio_button :collaboration, "5"%></td>
+      </tr>
+    </table>
   </div>
 
   <div class="field">
     <%= form.label :collab_comment, "Comments (optional)" %>
-    <%= form.text_area :collab_comment, placeholder:"Add any comments about team collaboration and engagement you feel are needed.", cols:30, rows:5 %>
+    <%= form.text_area :collab_comment, placeholder:"Add any comments about team collaboration and engagement you feel are needed.", cols:150, rows:5 %>
   </div>
 
-  <br></br>
+  <div class="line"></div>
 
   <div class="field">
     <b><%= form.label :communication, "Communication" %></b>
     <%= form.label :communication, "How well does your team communicate with each other?" %>
-    <%= form.range_field :communication, in:1..5 %>
-    <%= form.label :communication, "1(poor) to 5(perfect understanding)" %>
+    </br>
+    <table>
+      <tr>
+        <th>1 (Poor)</th>
+        <th>2</th>
+        <th>3 (Decent)</th>
+        <th>4</th>
+        <th>5 (Near Perfect)</th>
+      </tr>
+      <tr>
+        <td><%= form.radio_button :communication, "1"%></td>
+        <td><%= form.radio_button :communication, "2"%></td>
+        <td><%= form.radio_button :communication, "3", checked: true%></td>
+        <td><%= form.radio_button :communication, "4"%></td>
+        <td><%= form.radio_button :communication, "5"%></td>
+      </tr>
+    </table>
   </div>
 
   <div class="field">
     <%= form.label :communication_comment, "Comments (optional)" %>
-    <%= form.text_area :communication_comment, placeholder:"Add any comments about team communication you feel are needed.", cols:30, rows:5 %>
+    <%= form.text_area :communication_comment, placeholder:"Add any comments about team communication you feel are needed.", cols:150, rows:5 %>
   </div>
 
-  <br></br>
+  <div class="line"></div>
 
   <div class="field">
     <b><%= form.label :team_support, "Team Support" %></b>
     <%= form.label :team_support, "How well is your team at accepting and giving support and feedback to each other?" %>
-    <%= form.range_field :team_support, in:1..5, step:1%>
-    <%= form.label :team_support, "1(poor) to 5(amazing)" %>
+    </br>
+    <table>
+      <tr>
+        <th>1 (Poor)</th>
+        <th>2</th>
+        <th>3 (Decent)</th>
+        <th>4</th>
+        <th>5 (Near Perfect)</th>
+      </tr>
+      <tr>
+        <td><%= form.radio_button :team_support, "1"%></td>
+        <td><%= form.radio_button :team_support, "2"%></td>
+        <td><%= form.radio_button :team_support, "3", checked: true%></td>
+        <td><%= form.radio_button :team_support, "4"%></td>
+        <td><%= form.radio_button :team_support, "5"%></td>
+      </tr>
+    </table>
   </div>
 
   <div class="field">
     <%= form.label :team_support_comment, "Comments (optional)" %>
-    <%= form.text_area :team_support_comment, placeholder:"Add any comments about team support you feel are needed.", cols:30, rows:5 %>
+    <%= form.text_area :team_support_comment, placeholder:"Add any comments about team support you feel are needed.", cols:150, rows:5 %>
   </div>
 
-  <br></br>
+  <div class="line"></div>
 
   <div class="field">
     <b><%= form.label :responsibility, "Responsibility" %></b>
     <%= form.label :responsibility, "How responsible is your team for their work and in meeting agreed upon deadlines?" %>
-    <%= form.range_field :responsibility, in:1..5, step:1%>
-    <%= form.label :responsibility, "1(poor) to 5(totally on top of things)" %>
+    </br>
+    <table>
+      <tr>
+        <th>1 (Poor)</th>
+        <th>2</th>
+        <th>3 (Decent)</th>
+        <th>4</th>
+        <th>5 (Near Perfect)</th>
+      </tr>
+      <tr>
+        <td><%= form.radio_button :responsibility, "1"%></td>
+        <td><%= form.radio_button :responsibility, "2"%></td>
+        <td><%= form.radio_button :responsibility, "3", checked: true%></td>
+        <td><%= form.radio_button :responsibility, "4"%></td>
+        <td><%= form.radio_button :responsibility, "5"%></td>
+      </tr>
+    </table>
   </div>
 
   <div class="field">
     <%= form.label :responsibility_comment, "Comments (optional)" %>
-    <%= form.text_area :responsibility_comment, placeholder:"Add any comments about team responsibility you feel are needed.", cols:30, rows:5 %>
+    <%= form.text_area :responsibility_comment, placeholder:"Add any comments about team responsibility you feel are needed.", cols:150, rows:5 %>
   </div>
 
-  <br></br>
+  <div class="line"></div>
 
   <div class="field">
     <b><%= form.label :work_quality, "Work Quality" %></b>
     <%= form.label :work_quality, "How much trust do you have in your team to complete assigned work? If it has been marked complete, is it done well?" %>
-    <%= form.range_field :work_quality, in:1..5, step:1%>
-    <%= form.label :work_quality, "1(poor) to 5(work is on time and done well)" %>
+    </br>
+    <table>
+      <tr>
+        <th>1 (Poor)</th>
+        <th>2</th>
+        <th>3 (Decent)</th>
+        <th>4</th>
+        <th>5 (Near Perfect)</th>
+      </tr>
+      <tr>
+        <td><%= form.radio_button :work_quality, "1"%></td>
+        <td><%= form.radio_button :work_quality, "2"%></td>
+        <td><%= form.radio_button :work_quality, "3", checked: true%></td>
+        <td><%= form.radio_button :work_quality, "4"%></td>
+        <td><%= form.radio_button :work_quality, "5"%></td>
+      </tr>
+    </table>
   </div>
 
   <div class="field">
     <%= form.label :work_quality_comment, "Comments (optional)" %>
-    <%= form.text_area :work_quality_comment, placeholder:"Add any comments about the team's work quality you feel are needed.", cols:30, rows:5 %>
+    <%= form.text_area :work_quality_comment, placeholder:"Add any comments about the team's work quality you feel are needed.", cols:150, rows:5 %>
   </div>
 
-  <br></br>
+  <div class="line"></div>
 
   <div class="field">  
     <% choices = [["Urgent", 0],["Low", 1],["None", 2]] %>
-    <b><%= form.label "Feedback Urgency" %></b>
+    <b><%= form.label :priority, "Feedback Urgency" %></b>
     <%= form.label "Urgent - Instructor needs to check up on team ASAP!" %>
     <%= form.label "Low - Instructor needs to check up on the team when they have the chance this week." %>
     <%= form.label "None - Instructor can check up on team if they feel the need, but there is no urgency." %>
     <%= form.label :priority, "To what extent does your feedback need urgent attention?" %>
     <%= form.select :priority, choices%>
   </div>
-
+  
   <div class="field">
     <b><%= form.label :comments, "General Comments (Optional)" %></b>
-    <%= form.text_area :comments, placeholder:"Add any additional comments here:", cols:30, rows:5 %>
+    <%= form.text_area :comments, placeholder:"Add any additional comments here:", cols:60, rows:5 %>
   </div>
-
 
   <div class="actions">
     <%= form.submit %>

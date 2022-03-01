@@ -1,7 +1,7 @@
 # TeamHealth
 
-Welcome to the installation guide for the TeamHealth app, created by Team 5 
-for MSCI 342! This guide will show you how to get set up on both a local 
+Welcome to the installation guide for the TeamHealth app, currently in development by Team 11 
+for MSCI 342 W2022! This guide will show you how to get set up on both a local 
 development environment, and how to deploy this app to a production environment 
 in Heroku.
 

@@ -247,7 +247,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     delete(user_path(@ta.id))
     
     User.all.each { |user| 
-        assert_not_equal(@ta.first_name, user.last_name)
+        assert_not_equal(@ta.first_name, user.first_name)
     }
   end
   
@@ -259,4 +259,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     assert_not_nil(User.find_by(email: 'msmucker@gmail.com'))
   end
+
+  def test_reset_student_pass_method_resets_password
+    post(login_path, params: { email: 'msmucker@gmail.com', password: 'professor'})
+    get reset_student_pass_path(@user.id)
+    assert_not_equal(@user.password, 'testpassword')
+  end
+
 end

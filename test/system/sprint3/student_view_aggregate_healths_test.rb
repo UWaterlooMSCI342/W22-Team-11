@@ -31,7 +31,7 @@ class StudentViewAggregateHealthsTest < ApplicationSystemTestCase
     feedback1 = save_feedback(4, 4, 4, 4, 4, "Data1", @user, DateTime.civil_from_format(:local, 2021, 2, 15), @team, 2)
     feedback2 = save_feedback(4, 5, 4, 3, 4, "Data2", @user2, DateTime.civil_from_format(:local, 2021, 2, 16), @team, 2)
     
-    average_rating = ((8+7).to_f/2).round(2)
+    average_rating = ((8+8).to_f/2).round(2)
     
     visit root_url 
     login 'test@gmail.com', '123456789'
