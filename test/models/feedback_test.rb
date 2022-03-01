@@ -155,6 +155,5 @@ class FeedbackTest < ActiveSupport::TestCase
   #   average_rating = Feedback::average_rating(feedbacks)
   #   assert_equal(5.5, average_rating)
   # end
-  end
 
 end
