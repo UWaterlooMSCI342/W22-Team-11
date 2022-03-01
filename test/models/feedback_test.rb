@@ -142,6 +142,40 @@ class FeedbackTest < ActiveSupport::TestCase
 
   end
 
+  test 'sorting_team_name'do
+    bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
+    prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
+    
+    team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: prof, capacity: 1)
+    team1 = Team.create(team_name: 'Another Test Team', team_code: 'TEAM01', user: prof, capacity: 5)
+    
+    smith.teams << team1
+    bob.teams << team
+
+    feedback = Feedback.new(id: 998, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    feedback2 = Feedback.new(id: 999, communication: 3, responsibility: 3, work_quality: 3, team_support: 3, collaboration: 3)
+    
+    feedback.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.timestamp = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.created_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+    feedback2.updated_at = "2022-02-28 16:23:00.000000000 -0500"
+
+    feedback.user = bob
+    feedback.team = bob.teams.first
+    feedback2.user = smith
+    feedback2.team = smith.teams.first
+    feedback.save
+    feedback2.save
+
+    Feedback.order_by 'team'
+
+    assert_equal(Feedback.includes(:team).order("teams.team_name")[1].id, 998)
+
+  end
+
   test 'sort_team_name' do
     bob = User.create(email: 'bob@gmail.com', first_name: 'Bob', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
     smith = User.create(email: 'smith@gmail.com', first_name: 'Smith', last_name: 'Smith', is_admin: false, password: 'testpassword', password_confirmation: 'testpassword')
@@ -201,6 +235,8 @@ class FeedbackTest < ActiveSupport::TestCase
     feedback.save
     feedback2.save
 
+    Feedback.order_by 'rating'
+
     assert_equal(Feedback.order(:rating, :timestamp)[1].id, 999)
   end
 
@@ -232,21 +268,22 @@ class FeedbackTest < ActiveSupport::TestCase
     feedback.save
     feedback2.save
 
+    Feedback.order_by 'priority'
     assert_equal(Feedback.order(:priority, :timestamp)[1].id, 999)
   end
   
-  # test 'average_rating' do  
+  test 'average_rating' do  
     
-  #   ratings = [[5, 5, 5, 5, 5],[4, 4, 4, 4, 4],[3, 3, 3, 3, 3],[2, 2, 2, 2, 2],[1, 1, 1, 1, 1]]
-  #   feedbacks = []
-  #   converted_ratings = []
+     ratings = [[5, 5, 5, 5, 5],[4, 4, 4, 4, 4],[3, 3, 3, 3, 3],[2, 2, 2, 2, 2],[1, 1, 1, 1, 1]]
+     feedbacks = []
+     converted_ratings = []
     
-  #   ratings.each do |rating|
-  #     feedbacks << Feedback.new(communication: rating[0], collaboration: rating[1], responsibility: rating[2], team_support: rating[3], work_quality: rating[4])
-  #   end 
+     ratings.each do |rating|
+       feedbacks << Feedback.new(communication: rating[0], collaboration: rating[1], responsibility: rating[2], team_support: rating[3], work_quality: rating[4])
+     end 
 
-  #   average_rating = Feedback::average_rating(feedbacks)
-  #   assert_equal(5.5, average_rating)
-  # end
+    average_rating = Feedback::show_converted_average(feedbacks)
+     assert_equal(5.5, average_rating)
+  end
 
 end
