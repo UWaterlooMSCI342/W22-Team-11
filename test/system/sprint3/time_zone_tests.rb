@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class TimeZoneTests
+class TimeZoneTests < ApplicationSystemTestCase
   setup do
     # create prof, team, and user
     @prof = User.create(email: 'msmucker@gmail.com', first_name: 'Mark', last_name: 'Smucker', is_admin: true, password: 'professor', password_confirmation: 'professor')
