@@ -18,7 +18,7 @@ class LinksToUserProfileTest < ApplicationSystemTestCase
         assert_current_path users_url
         click_on "Bob"
         #click_link(@bob)
-        #assert_current_path user_path(@user)
+        assert_current_path user_path(@bob)
     end
 
 end
