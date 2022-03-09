@@ -27,7 +27,7 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     feedback.user = user
     feedback.timestamp = feedback.format_time(timestamp)
     feedback.team = team
-    feedback.rating = 0.4*feedback.collaboration + 0.4*feedback.communication + 0.4*feedback.team_support + 0.4*feedback.responsibility + 0.4*feedback.work_quality
+    feedback.rating = feedback.converted_rating
     feedback.save
     feedback
   end 
@@ -48,8 +48,8 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     assert_text 'Previous Week: ' + (@week_range[:start_date] - 7.days).strftime('%b %-e, %Y').to_s + " to " + (@week_range[:end_date] - 7.days).strftime('%b %-e, %Y').to_s
     assert_text 'High'
     assert_text 'Low'
-    assert_text 3.0.to_s
-    assert_text 4.0.to_s
+    assert_text 3.25.to_s
+    assert_text 2.35.to_s
   end 
   
   #(2)
@@ -65,7 +65,7 @@ class ViewPreviousWeekTeamSummariesTest < ApplicationSystemTestCase
     
     assert_text 'Previous Week: ' + (@week_range[:start_date] - 7.days).strftime("%b %-e, %Y").to_s + " to " + (@week_range[:end_date] - 7.days).strftime('%-b %-e, %Y').to_s
     assert_text 'High'
-    assert_text 3.0.to_s
+    assert_text 2.35.to_s
   end
   
 end

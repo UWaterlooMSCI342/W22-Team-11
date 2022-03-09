@@ -14,11 +14,11 @@ class DeleteFeedbackTest < ApplicationSystemTestCase
     @user.teams << @team
 
     #create new feedback from student with comment and priority of 2 (low)
-    @feedback = Feedback.new(collaboration: 5, communication: 5, team_support: 5, responsibility:5, work_quality:5, comments: 'comments', priority: 2)
+    @feedback = Feedback.new(collaboration: 5, communication: 5, team_support: 5, responsibility:5, work_quality:5, comments: 'This team is disorganized', priority: 2)
     @feedback.timestamp = @feedback.format_time(DateTime.now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
-    
+    @feedback.rating = @feedback.converted_rating
     @feedback.save
   end 
   
@@ -39,7 +39,7 @@ class DeleteFeedbackTest < ApplicationSystemTestCase
     assert_current_path root_url
     click_on "Feedback & Ratings"
     click_on "Edit"
-    find(:xpath, "//*[@id='feedback_team_support']").set 3
+    choose('feedback_team_support_3')
     fill_in "General Comments", with: "New Comment"
     click_on "Update Feedback"
     assert_text "New Comment"

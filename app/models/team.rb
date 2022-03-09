@@ -74,7 +74,7 @@ class Team < ApplicationRecord
   #gets the average team rating for the professor's team summary view
   def self.feedback_average_rating(feedbacks)
     if feedbacks.count > 0
-      (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
+      (feedbacks.sum{|feedback| feedback.rating.to_f}/feedbacks.count.to_f).round(2)
     else
       return nil
     end
@@ -91,9 +91,9 @@ class Team < ApplicationRecord
     if users_not_submitted != 0
       return 'white'
     else
-      if priority == 'High' or rating <= 5
+      if priority == 'High' or rating <= 5.0
         return 'red'
-      elsif priority == 'Medium' or rating <= 7  
+      elsif priority == 'Low' or rating <= 7.0  
         # or users_not_submitted >= 0.5
         # commented out line of code above as the condition is meaningless with addition of 'blank circle'
         return 'yellow'

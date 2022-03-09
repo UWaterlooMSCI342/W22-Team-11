@@ -19,9 +19,13 @@ class Feedback < ApplicationRecord
       return current_time
   end
   
-  # takes list of feedbacks and returns average rating
-  def self.average_rating(feedbacks)
-    (feedbacks.sum{|feedback| feedback.rating}.to_f/feedbacks.count.to_f).round(2)
+  # # takes list of feedbacks and returns average rating
+  # def self.average_rating(feedbacks)
+  #   (feedbacks.sum{|feedback| feedback.rating.to_f}/feedbacks.count.to_f).round(2)
+  # end
+
+  def self.show_converted_average(feedbacks)
+    (feedbacks.sum{|feedback| feedback.converted_rating.to_f}/feedbacks.count.to_f).round(2)
   end
 
   # function inspired by https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio

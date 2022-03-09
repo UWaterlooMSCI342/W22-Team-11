@@ -17,14 +17,13 @@ class PopulateEditFeedbackWithRatingTest < ApplicationSystemTestCase
     @feedback = save_feedback(5, 5, 5, 5, 5, "This team is disorganized", @user, Time.zone.now.to_datetime - 30, @team, 2) 
   end 
     
-  def population_test
+  def test_population
        visit root_url 
        login 'msmucker@gmail.com', 'professor'
        
        click_on "Feedback & Ratings"
-       click_on "Edit"
-       assert_text "Student Name: Zac Smith"
-       assert_text "Your Current Team: Test Team"
+       assert_text "Zac Smith"
+       assert_text "Test Team"
        assert_text "10"
        assert_text "This team is disorganized"
        assert_text "Low"

@@ -19,6 +19,7 @@ class GroupFeedbackByPeriodsTest < ApplicationSystemTestCase
     feedback.user = user
     feedback.timestamp = feedback.format_time(timestamp)
     feedback.team = team
+    feedback.rating = feedback.converted_rating
     feedback.save
     feedback
   end 
@@ -37,7 +38,7 @@ class GroupFeedbackByPeriodsTest < ApplicationSystemTestCase
     feedback1 = save_feedback(1, 2, 3, 4, 5, "Data1", user1, DateTime.civil_from_format(:local, 2021, 02, 15), team)
     feedback2 = save_feedback(1, 2, 3, 4, 5, "Data2", user2, DateTime.civil_from_format(:local, 2021, 02, 16), team)
     
-    average_rating = ((6+6).to_f/2).round(2)
+    average_rating = ((5+6).to_f/2).round(2)
     
     visit root_url 
     login 'msmucker@gmail.com', 'banana'
@@ -63,7 +64,7 @@ class GroupFeedbackByPeriodsTest < ApplicationSystemTestCase
     feedback3 = save_feedback(2, 3, 4, 5, 5, "Week 7 data 1", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team)
     feedback4 = save_feedback(1, 2, 3, 4, 5, "Week 7 data 2", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team)
     
-    average_rating_1 = ((7.6+6).to_f/2).round(2)
+    average_rating_1 = ((5+5).to_f/2).round(2)
     average_rating_2 = ((6+6).to_f/2).round(2)
     
     visit root_url 
@@ -74,7 +75,7 @@ class GroupFeedbackByPeriodsTest < ApplicationSystemTestCase
     assert_current_path team_path(team)
     within('#2021-7') do
       assert_text 'Feb 15, 2021 to Feb 21, 2021'
-      assert_text 'Average Rating of Period (Out of 10): ' + average_rating_2.to_s
+      assert_text 'Average Rating of Period (Out of 10): ' + 6.4.to_s
       assert_text 'Week 7 data 1'
       assert_text 'Week 7 data 2'
       assert_text '2021-02-15'
@@ -82,7 +83,7 @@ class GroupFeedbackByPeriodsTest < ApplicationSystemTestCase
     end
     within('#2021-9') do
       assert_text 'Mar 1, 2021 to Mar 7, 2021'
-      assert_text 'Average Rating of Period (Out of 10): ' + average_rating_1.to_s
+      assert_text 'Average Rating of Period (Out of 10): ' + 5.5.to_s
       assert_text 'Week 9 data 1'
       assert_text 'Week 9 data 2'
       assert_text '2021-03-01'

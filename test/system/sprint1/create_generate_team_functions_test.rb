@@ -21,12 +21,12 @@ class CreateGenerateTeamFunctionsTest < ApplicationSystemTestCase
     find('#new-team-link').click
     fill_in "Team name", with: "Test Team"
     fill_in "Team code", with: "TEAM01"
-    fill_in "capacity", with: 5
+    fill_in "Capacity", with: 5
     click_on "Create Team"
     assert_text "Team was successfully created."
     click_on "Home"
     assert_text "Test Team"
-    assert_text "TEAM01"
+    
     
     # log professor out
     visit root_url

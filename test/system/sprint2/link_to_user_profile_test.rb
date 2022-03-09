@@ -8,19 +8,7 @@ class LinksToUserProfileTest < ApplicationSystemTestCase
     #@user = User.create(email: 'zappy@gmail.com', password: 'banana', password_confirmation: 'banana', name: 'Zappy Zoo', is_admin: false, teams: [@team])
     @user = User.create(email: 'zappy@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'Zappy', last_name: 'Zoo', is_admin: false, teams: [@team])
     @user.save
-    end
-
-    def test_link_to_user_profile_from_manage_teams
-        visit root_url
-        login 'msmucker@gmail.com','professor'
-        assert_current_path root_url
-        visit teams_url
-        assert_current_path teams_url
-        #click_link(@user.name)
-        click_on "Zappy"
-        #click_link(@user)
-        assert_current_path user_path(@user)
-    end
+   end
 
 end
 

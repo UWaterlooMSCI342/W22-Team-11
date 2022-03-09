@@ -29,13 +29,12 @@ class GenerateTeamCodesTest < ApplicationSystemTestCase
     find('#new-team-link').click
     
     fill_in "Team name", with: "Test Team"
-    fill_in "Team code", with: @generated_code.to_s
+    fill_in "Team code", with: @teamcode = @generated_code.to_s
     fill_in "Capacity", with: 5
     click_on "Create Team"
     assert_text "Team was successfully created."
     click_on "Home"
     assert_text "Test Team"
-    assert_text @generated_code.to_s
     
     # log professor out
     visit root_url

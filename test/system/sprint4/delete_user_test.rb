@@ -39,7 +39,7 @@ class DeleteUserTest < ApplicationSystemTestCase
     assert_text "User was successfully destroyed."
     
      User.all.each { |user| 
-        assert_not_equal(@bob.fitst_name, user.first_name)
+        assert_not_equal(@bob.first_name, user.first_name)
     }
   end
   
