@@ -25,8 +25,10 @@ class FixTeamCodeDisplaysTest < ApplicationSystemTestCase
     assert_current_path teams_url
     
     within('#team' + @team1.id.to_s) do
-      click_on 'Edit'
+      click_on 'Team 1'
     end
+
+    click_on 'Edit'
     
     # https://www.rubydoc.info/github/jnicklas/capybara/Capybara%2FNode%2FMatchers:has_field%3F
     assert has_field?('Team code', with: @team1.team_code)
