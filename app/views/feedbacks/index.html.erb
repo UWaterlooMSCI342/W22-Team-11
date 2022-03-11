@@ -18,10 +18,12 @@
     <% @feedbacks.each do |feedback| %>
       <tr>
         <td>
-          <%= form_with model: feedback, local: true, method: 'patch' do |f| %>
-            <%= f.check_box :responded %>
-            <%= f.submit 'Save' %>
-          <% end %>  
+          <% if feedback.rating <= 6 %> 
+            <%= form_with model: feedback, local: true, method: 'patch' do |f| %>
+              <%= f.check_box :responded %>
+              <%= f.submit 'Save' %>
+            <% end %>  
+          <%end%>
         </td>
         <td><%= feedback.user.first_name + " " + feedback.user.last_name %></td>
         <td><%= feedback.team.team_name %></td>
