@@ -79,7 +79,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     assert_text "Bob Smith"
     assert_text "Andy Smith"
     assert_text "Sarah Smith"
-    assert_text "6"
+    assert_text "5.5"
     
     #checks all aggregated feedback of a team
     
