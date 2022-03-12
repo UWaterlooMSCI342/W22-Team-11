@@ -1,0 +1,10 @@
+T1: Navigate to a team using the dropdown menu on the Team Show page
+1. Navigate to https://www.msci342-w22-team-11.herokuapp.com
+2. Enter the following in each field:
+    Email: msmucker@gmail.com
+    Password: professor
+3. Select 'Login'
+4. Click on "Manage Teams"
+5. Click on any team on the page (if there is only one team present in the app, create another one to test this feature)
+6. Select a team from the dropdown menu to navigate to
+7. Confirm that you are now on the Team Show page for the team that you selected from the dropdown menu
