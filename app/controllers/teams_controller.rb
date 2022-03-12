@@ -13,7 +13,8 @@ class TeamsController < ApplicationController
   end
 
   # GET /teams/1
-  def show  
+  def show 
+    @teams = Team.all 
     if !is_admin?
       if !@current_user.teams.include? @team
         flash[:notice] = "You do not belong to this team!"

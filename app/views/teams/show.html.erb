@@ -127,6 +127,38 @@
 
 <br>
 <% if is_admin? %>
+
+  <% list_of_teams = Array.new %>
+  <% @teams.each do |team| %>
+    <% list_of_teams.append(team.id) %>
+  <% end %>
+  <% if list_of_teams.index(@team.id) == 0 %>
+    <% next_team = list_of_teams[list_of_teams.index(@team.id) + 1] %>
+    <% previous_team = @team.id %>
+  <% elsif list_of_teams.index(@team.id) == list_of_teams.length - 1 %>
+    <% next_team = @team.id %>
+    <% previous_team = list_of_teams[list_of_teams.index(@team.id) - 1] %>
+  <% else %>
+    <% next_team = list_of_teams[list_of_teams.index(@team.id) + 1] %>
+    <% previous_team = list_of_teams[list_of_teams.index(@team.id) - 1] %>
+  <% end %>
+
+  <%= link_to 'Previous Team', team_path(previous_team) %>
+   | 
+  <%= link_to 'Next Team', team_path(next_team) %>
+
+  <!-- code for changing page using dropdown adapted from: https://www.codeproject.com/Questions/837337/hi-how-to-navigate-to-next-page-when-we-select-ite -->
+  <form>
+  <br/>
+  <select name = "pickTeam" id = "pickTeam" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+    <option value="" selected disabled hidden> Select to nagivate to a specific team </option>
+    <% @teams.each do |team| %>
+      <option value= <%= team_path(team.id) %>> <%= team.team_name %> </option>
+    <% end %>
+  </select>
+  </form>
+  <br/>
+
   <%= link_to 'Back', :back %> | <%= link_to 'Edit', edit_team_path(@team) %>
 <% else %>
   <%= link_to 'Back', :back %>
