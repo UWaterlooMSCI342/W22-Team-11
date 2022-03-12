@@ -132,7 +132,10 @@
   <% @teams.each do |team| %>
     <% list_of_teams.append(team.id) %>
   <% end %>
-  <% if list_of_teams.index(@team.id) == 0 %>
+  <% if list_of_teams.index(@team.id) == 0 && list_of_teams.length == 1 %>
+    <% next_team = @team.id %>
+    <% previous_team = @team.id %>
+  <% elsif list_of_teams.index(@team.id) == 0 %>
     <% next_team = list_of_teams[list_of_teams.index(@team.id) + 1] %>
     <% previous_team = @team.id %>
   <% elsif list_of_teams.index(@team.id) == list_of_teams.length - 1 %>
