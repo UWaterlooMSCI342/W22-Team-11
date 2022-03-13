@@ -88,7 +88,7 @@ class Team < ApplicationRecord
     users_not_submitted = self.users_not_submitted(feedbacks)
     users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
     
-    if users_not_submitted != 0
+    if users_not_submitted != 0 or self.users.count == 0
       return 'white'
     else
       if priority == 'High' or rating <= 5.0
