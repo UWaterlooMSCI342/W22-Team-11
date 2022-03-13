@@ -37,13 +37,15 @@ class FeedbacksController < ApplicationController
     @feedback.timestamp = @feedback.format_time(now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
-    @feedback.rating = @feedback.converted_rating
-    if team_submissions.include?(@feedback.team)
-        redirect_to root_url, notice: 'You have already submitted feedback for this team this week.'
-    elsif @feedback.save
-      redirect_to root_url, notice: "Feedback was successfully created. Time created: #{@feedback.timestamp}"
-    else
-      render :new
+    if @feedback.communication && @feedback.responsibility && @feedback.work_quality && @feedback.team_support && @feedback.collaboration
+      @feedback.rating = @feedback.converted_rating
+      if team_submissions.include?(@feedback.team)
+          redirect_to root_url, notice: 'You have already submitted feedback for this team this week.'
+      elsif @feedback.save
+        redirect_to root_url, notice: "Feedback was successfully created. Time created: #{@feedback.timestamp}"
+      else
+        render :new
+      end
     end
   end
 
