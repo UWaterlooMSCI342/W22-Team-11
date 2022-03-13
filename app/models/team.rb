@@ -62,13 +62,17 @@ class Team < ApplicationRecord
     
     priority_holder.each_with_index {|val, index| priority_holder[index] = feedbacks.where(priority: index).count}
 
-    if priority_holder[0] > 0
-      return "High" 
-    elsif priority_holder[1] >= feedbacks.count/3.0
-      return "Low" 
+    if feedbacks.count == self.number_of_users
+      if priority_holder[0] > 0
+        return "High" 
+      elsif priority_holder[1] >= feedbacks.count/3.0
+        return "Low" 
+      else
+        return "None"
+      end 
     else
-      return "None"
-    end 
+      return "Incomplete Feedback"
+    end
   end 
   
   #gets the average team rating for the professor's team summary view
