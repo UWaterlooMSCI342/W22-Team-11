@@ -46,6 +46,9 @@ class FeedbacksController < ApplicationController
       else
         render :new
       end
+    else
+      flash[:error] = "You have not filled out the required qqfields."
+      render :new
     end
   end
 
