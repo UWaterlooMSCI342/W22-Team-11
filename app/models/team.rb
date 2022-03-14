@@ -56,13 +56,13 @@ class Team < ApplicationRecord
     #gets all feedbacks for a given week
     feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
     
-    if feedbacks.count == 0
+    if self.number_of_users == 0
       return nil
     end
     
     priority_holder.each_with_index {|val, index| priority_holder[index] = feedbacks.where(priority: index).count}
 
-    if feedbacks.count == self.number_of_users
+    if feedbacks.count == self.number_of_users && self.number_of_users > 0
       if priority_holder[0] > 0
         return "High" 
       elsif priority_holder[1] >= feedbacks.count/3.0
@@ -70,7 +70,7 @@ class Team < ApplicationRecord
       else
         return "None"
       end 
-    else
+    elsif feedbacks.count < self.number_of_users && self.number_of_users > 0
       return "Incomplete Feedback"
     end
   end 

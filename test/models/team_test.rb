@@ -198,7 +198,8 @@ class TeamTest < ActiveSupport::TestCase
     user3 = User.create(email: 'adam3@gmail.com', password: '123456789', password_confirmation: '123456789', first_name: 'adam3', last_name: 'Powell', is_admin: false)
     user3.save!
     team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
-    team.user = @prof 
+    team.user = @prof
+    team.users << [user1, user2, user3]
     team.save!
     
     feedback1 = save_feedback(1, 2, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 0)
@@ -220,6 +221,7 @@ class TeamTest < ActiveSupport::TestCase
     user3.save!
     team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
+    team.users << [user1, user2, user3]
     team.save!
     
     feedback1 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
@@ -241,11 +243,12 @@ class TeamTest < ActiveSupport::TestCase
     user3.save!
     team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
     team.user = @prof 
+    team.users << [user1, user2, user3]
     team.save!
     
-    feedback1 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
-    feedback2 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
-    feedback3 = save_feedback(1, 1, 1, 1, 1, "This team is disorganized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user3, DateTime.civil_from_format(:local, 2021, 2, 17), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
     assert_equal "None", team_weighted_priority
