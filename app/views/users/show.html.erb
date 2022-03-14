@@ -65,7 +65,7 @@
           <td>Students Has Not Submitted Comments!</td>
         <%else%>
           <td><%= feedback.comments %></td>
-        <%end%>
+        <%end%>  
         <% if feedback.collab_comment.size != 0%>
           <td><%= feedback.collaboration %>: <%= feedback.collab_comment %></td>
         <%else%>
@@ -90,7 +90,7 @@
           <td><%= feedback.work_quality_comment %>: <%= feedback.work_quality_comment %></td>
         <%else%>
           <td><%= feedback.work_quality %></td>
-        <%end%>     
+        <%end%>   
       </tr>
     <% end %>
   </tbody>
