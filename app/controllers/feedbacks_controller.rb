@@ -55,6 +55,7 @@ class FeedbacksController < ApplicationController
 
   # PATCH/PUT /feedbacks/1
   def update
+    @feedback.rating = @feedback.converted_rating
     if @feedback.update(feedback_params)
       redirect_to @feedback, notice: 'Feedback was successfully updated.'
     else
