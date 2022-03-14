@@ -50,6 +50,7 @@ class FeedbacksController < ApplicationController
       flash[:error] = "You have not filled out the required fields."
       render :new
     end
+
   end
 
   # PATCH/PUT /feedbacks/1
