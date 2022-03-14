@@ -3,7 +3,12 @@ class Feedback < ApplicationRecord
   belongs_to :team
 
   #requires feedback to have at minimal a rating score, comments are optional 
-  validates_presence_of :communication, :responsibility, :work_quality, :team_support, :collaboration
+  validates_presence_of :communication
+  validates_presence_of :responsibility
+  validates_presence_of :work_quality
+  validates_presence_of :team_support
+  validates_presence_of :collaboration
+  
   #allows a max of 2048 characters for additional comments
   validates_length_of :comments, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
   validates_length_of :collab_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
@@ -20,9 +25,9 @@ class Feedback < ApplicationRecord
   end
   
   # # takes list of feedbacks and returns average rating
-  # def self.average_rating(feedbacks)
-  #   (feedbacks.sum{|feedback| feedback.rating.to_f}/feedbacks.count.to_f).round(2)
-  # end
+  #def self.average_rating(feedbacks)
+   #  (feedbacks.sum{|feedback| feedback.rating.to_f}/feedbacks.count.to_f).round(2)
+  #end
 
   def self.show_converted_average(feedbacks)
     (feedbacks.sum{|feedback| feedback.converted_rating.to_f}/feedbacks.count.to_f).round(2)
