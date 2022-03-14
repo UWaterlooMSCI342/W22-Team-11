@@ -18,7 +18,7 @@
     <% @feedbacks.each do |feedback| %>
       <tr>
         <td>
-          <% if feedback.rating <= 6 %> 
+          <%if feedback.rating <= 6 %> 
             <%= form_with model: feedback, local: true, method: 'patch' do |f| %>
               <%= f.check_box :responded %>
               <%= f.submit 'Save' %>
