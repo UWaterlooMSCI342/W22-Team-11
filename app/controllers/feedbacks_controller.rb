@@ -37,6 +37,12 @@ class FeedbacksController < ApplicationController
     @feedback.timestamp = @feedback.format_time(now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
+
+    if @feedback.communication == 1 || @feedback.responsibility == 1 || @feedback.work_quality == 1 || @feedback.team_support == 1 || @feedback.collaboration == 1
+     flash[:error] = "Can not give rating of one without explanation."
+      render :new
+    else
+
     if @feedback.communication && @feedback.responsibility && @feedback.work_quality && @feedback.team_support && @feedback.collaboration
       @feedback.rating = @feedback.converted_rating
       if team_submissions.include?(@feedback.team)
@@ -50,8 +56,8 @@ class FeedbacksController < ApplicationController
       flash[:error] = "You have not filled out the required fields."
       render :new
     end
-
   end
+end 
 
   # PATCH/PUT /feedbacks/1
   def update
