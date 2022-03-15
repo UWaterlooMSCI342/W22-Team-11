@@ -38,8 +38,20 @@ class FeedbacksController < ApplicationController
     @feedback.user = @user
     @feedback.team = @user.teams.first
 
-    if @feedback.communication == 1 || @feedback.responsibility == 1 || @feedback.work_quality == 1 || @feedback.team_support == 1 || @feedback.collaboration == 1
-     flash[:error] = "Can not give rating of one without explanation."
+    if (@feedback.communication == 1 && @feedback.communication_comment.empty?)
+     flash[:error] = "Can not give rating of one without explanation for communication."
+      render :new
+    elsif (@feedback.responsibility == 1 && @feedback.responsibility_comment.empty?)
+      flash[:error] = "Can not give rating of one without explanation for responsibility."
+      render :new
+    elsif (@feedback.work_quality == 1 && @feedback.work_quality_comment.empty?)
+      flash[:error] = "Can not give rating of one without explanation for work quality."
+      render :new
+    elsif (@feedback.team_support == 1 && @feedback.team_support_comment.empty?)
+      flash[:error] = "Can not give rating of one without explanation for team support."
+      render :new
+    elsif (@feedback.collaboration == 1 && @feedback.collab_comment.empty?)
+      flash[:error] = "Can not give rating of one without explanation for collaboration."
       render :new
     else
 
