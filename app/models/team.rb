@@ -89,8 +89,7 @@ class Team < ApplicationRecord
     feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
     rating = Team::feedback_average_rating(feedbacks)
     rating = rating.nil? ? 10 : rating
-    users_not_submitted = self.users_not_submitted(feedbacks)
-    users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
+    users_not_submitted = self.number_users_not_submitted(feedbacks)
     
     if users_not_submitted != 0 or self.users.count == 0
       return 'white'
@@ -138,7 +137,12 @@ class Team < ApplicationRecord
     
     self.users.to_ary - submitted
   end
-  
+
+  def number_users_not_submitted(feedbacks)
+    users_not_submitted = users_not_submitted(feedbacks)
+    return self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f
+  end
+
   def current_feedback(d=now)
     current_feedback = Array.new
     self.feedbacks.each do |feedback| 
