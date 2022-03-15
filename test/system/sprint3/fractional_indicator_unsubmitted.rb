@@ -7,6 +7,7 @@ class UnsubmittedFractionalIndicatorTest < ApplicationSystemTestCase
     @generated_code = Team.generate_team_code
     @team = Team.create(team_name: 'Test Team', team_code: 'TEAM00', user: @prof, capacity: 2)     
     @bob.teams << @team
+    @team.users << @bob
     @feedback = Feedback.new(rating: 1, communication:1, collaboration:1, team_support:1, responsibility:1, work_quality:1, comments: "No comment", priority: 0)
     datetime = Time.current
     @feedback.timestamp = @feedback.format_time(datetime)
@@ -15,7 +16,7 @@ class UnsubmittedFractionalIndicatorTest < ApplicationSystemTestCase
 
     end
 
-    def test_unsubmitted_fractional_indicator_not_full
+    def test_unsubmitted_fractional_indicator_full
         visit root_url
         login 'msmucker@gmail.com', 'professor'
 
