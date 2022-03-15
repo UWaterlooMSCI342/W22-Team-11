@@ -608,5 +608,44 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal('red', team.status(DateTime.civil_from_format(:local, 2021, 3, 25), DateTime.civil_from_format(:local, 2021, 4, 3)))
   end
 
+  def test_number_users_not_submitted_all_users_submitted
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+    user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
+    user2.save!
+    user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+    team.users = [user1, user2, user3]
+    team.user = @prof 
+    team.save!     
+
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user3, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    
+    number_users_not_submitted = team.number_users_not_submitted([feedback1, feedback2, feedback3])
+
+    assert_equal(0, number_users_not_submitted)
+  end
+
+  def test_number_users_not_submitted_not_all_users_submitted
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+    user2 = User.create(email: 'charles3@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam2', last_name: 'Powell', is_admin: false)
+    user2.save!
+    user3 = User.create(email: 'charles4@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam3', last_name: 'Powell', is_admin: false)
+    team = Team.new(team_code: 'Code', team_name: 'Team 1', capacity: 5)
+    team.users = [user1, user2, user3]
+    team.user = @prof 
+    team.save!     
+
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user1, DateTime.civil_from_format(:local, 2021, 2, 15), team, 2)
+    feedback2 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    feedback3 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user3, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
+    
+    number_users_not_submitted = team.number_users_not_submitted([feedback1, feedback2])
+
+    assert_equal(1, number_users_not_submitted)
+  end
   
 end
