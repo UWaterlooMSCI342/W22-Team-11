@@ -23,4 +23,79 @@
 
 <p><%= link_to 'Reset Password', reset_student_pass_path, class: "btn" %></p>
 
+<br>
+<h1><strong>User's Historical Feedback</strong></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Responded</th>
+      <th><%= link_to 'Timestamp', feedbacks_path(order_by: 'timestamp') %></th>
+      <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
+      <th><%= link_to 'Priority', feedbacks_path(order_by: 'priority') %></th>
+      <th>Comments</th>
+      <th>Collaboration and Engagement</th>
+      <th>Communication</th>
+      <th>Team Support</th>
+      <th>Responsibility</th>
+      <th>Work Quality</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.feedbacks.each do |feedback| %>
+      <tr>
+        <td>
+          <% if feedback.rating <= 6 %> 
+            <%= form_with model: feedback, local: true, method: 'patch' do |f| %>
+              <%= f.check_box :responded %>
+              <%= f.submit 'Save' %>
+            <% end %>  
+          <%end%>
+        </td>
+        <td><%= feedback.timestamp.strftime('%Y-%m-%d %H:%M EST') %></td>
+        <td><%= feedback.rating %></td>
+        <%if feedback.priority == 2%>
+          <td><%='Low'%></td>
+        <%elsif feedback.priority == 1%>
+          <td><%='Medium'%></td>
+        <%else%>
+          <td><%='Urgent'%></td>
+        <%end%>
+        <%if feedback.comments.size == 0%>
+          <td>Students Has Not Submitted Comments!</td>
+        <%else%>
+          <td><%= feedback.comments %></td>
+        <%end%>  
+        <% if feedback.collab_comment.size != 0%>
+          <td><%= feedback.collaboration %>: <%= feedback.collab_comment %></td>
+        <%else%>
+          <td><%= feedback.collaboration %></td>
+        <%end%>
+        <% if feedback.communication_comment.size != 0 %>
+          <td><%= feedback.communication %>: <%= feedback.communication_comment %></td>
+        <%else%>
+          <td><%= feedback.communication %></td>
+        <%end%>
+        <% if feedback.team_support_comment.size != 0%>
+          <td><%= feedback.team_support %>: <%= feedback.team_support_comment %></td>
+        <%else%>
+          <td><%= feedback.team_support %></td>
+        <%end%>
+        <% if feedback.responsibility_comment.size != 0%>
+          <td><%= feedback.responsibility %>: <%= feedback.responsibility_comment %></td>
+        <%else%>
+          <td><%= feedback.responsibility %></td>
+        <%end%> 
+        <% if feedback.work_quality_comment.size != 0%>
+          <td><%= feedback.work_quality_comment %>: <%= feedback.work_quality_comment %></td>
+        <%else%>
+          <td><%= feedback.work_quality %></td>
+        <%end%>   
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
 <%= link_to 'Back', :back %>
+</p>
