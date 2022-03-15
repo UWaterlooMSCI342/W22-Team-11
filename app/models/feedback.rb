@@ -8,15 +8,7 @@ class Feedback < ApplicationRecord
   validates_presence_of :work_quality
   validates_presence_of :team_support
   validates_presence_of :collaboration
-  #validates_presence_of :comments, if: :rating_is_one
-  #validates_presence_of :comments, presence: true, if: -> { Feedback.rating == 1 }
-
-  #def rating_is_one
-   # @feedback.communication == 1
-  #end 
   
-  #validates_presence_of :comments, if: :rating_is_one
-
   #allows a max of 2048 characters for additional comments
   validates_length_of :comments, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
   validates_length_of :collab_comment, :maximum => 2048, :message => "Please limit your comment to 2048 characters or less!"
