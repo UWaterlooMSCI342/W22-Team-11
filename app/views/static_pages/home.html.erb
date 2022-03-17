@@ -30,10 +30,15 @@
         <% @teams.each do |team| %>
           <tr id=<%= team.id %>>
             <td><span class=<%= 'dot-' + team.status(@week_range[:start_date], @week_range[:end_date]) %>></span></td>
+            <% if team.release_feedback == true %>
             <% priority = team.find_priority_weighted(@week_range[:start_date], @week_range[:end_date]) %>
             <td><%= priority ? priority : "No feedback" %></td>
             <% average_rating = Team.feedback_average_rating(team.feedbacks.where(timestamp: @week_range[:start_date]..@week_range[:end_date])) %>
             <td><%= average_rating ? average_rating : "No feedback" %></td>
+            <% else %>
+            <td>Missing Feedback</td>
+            <td> - </td>
+            <%end%>
             <td><%= team.team_name %></td>
             <td><%= team.student_names.size == 0 ? 'No members' : team.student_names.join(", ") %></td>
             <td><%= (team.number_of_users.to_i - team.number_users_not_submitted(team.feedbacks.where(timestamp: @week_range[:start_date]..@week_range[:end_date])).to_i).to_s + "/" + team.number_of_users.to_s %><td>
@@ -83,10 +88,8 @@
       </tbody>
     </table>
   <% end %>
-
     
 <% else %>
-
     <% team_array = @rating_reminders %>
     <% days_till_end_week = @days_till_end_week %>
     <% warn_user = team_array.size > 0 %>
@@ -132,10 +135,15 @@
               <td id=<%= team.id %>-status>
                 <span class=<%= 'dot-' + team.status(@week_range[:start_date], @week_range[:end_date]) %>></span>
               </td>
+              <% if team.release_feedback %>
               <% priority = team.find_priority_weighted(@week_range[:start_date], @week_range[:end_date]) %>
               <td><%= priority ? priority : "No feedback" %></td>
               <% average_rating = Team.feedback_average_rating(team.feedbacks.where(timestamp: @week_range[:start_date]..@week_range[:end_date])) %>
               <td><%= average_rating ? average_rating : "No feedback" %></td>
+              <% else %>
+              <td> Missing Feedback</td>
+              <td> - </td>
+              <% end %>
               <td><%= team.team_name %></td>
               <td><%= team.student_names.join(", ") %></td>
               <%if team.feedbacks.size > 0%>
