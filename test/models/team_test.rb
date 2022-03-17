@@ -272,7 +272,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback2 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
-    assert_equal "Incomplete Feedback", team_weighted_priority
+    assert_equal "Missing Feedback", team_weighted_priority
   end
   
   def test_multi_feedback_average_rating_team_summary

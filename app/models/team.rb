@@ -71,7 +71,7 @@ class Team < ApplicationRecord
         return "None"
       end 
     elsif feedbacks.count < self.number_of_users && self.number_of_users > 0
-      return "Incomplete Feedback"
+      return "Missing Feedback"
     end
   end 
   
