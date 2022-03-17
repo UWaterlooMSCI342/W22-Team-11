@@ -42,7 +42,6 @@
         <%end%>
         <td><%= feedback.timestamp.strftime('%Y-%m-%d %H:%M EST') %></td>
         <td><%= link_to 'Show', feedback %></td>
-        <td><%= link_to 'Edit', edit_feedback_path(feedback) %></td>
         <td>
           <%= form_with model: feedback, local: true, method: 'delete' do |f| %>
             <%= f.submit "Delete Feedback", class: "table-btn" %>
