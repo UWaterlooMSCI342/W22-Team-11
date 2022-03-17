@@ -649,7 +649,7 @@ class TeamTest < ActiveSupport::TestCase
   end
 
 
-  def test_relase_feedback_not_all_submitted_not_Sunday
+  def test_release_feedback_not_all_submitted_not_Sunday
     date = Date.parse('10-03-2022')
 
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
@@ -665,7 +665,7 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal(false, release)
   end
 
-  def test_relase_feedback_not_all_submitted_Sunday
+  def test_release_feedback_not_all_submitted_Sunday
     date = Date.parse('13-03-2022')
 
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
@@ -681,7 +681,7 @@ class TeamTest < ActiveSupport::TestCase
     assert_equal(true, release)
   end
 
-  def test_relase_feedback_before_sunday
+  def test_release_feedback_before_sunday
     date = Date.parse('8-03-2022')
 
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
