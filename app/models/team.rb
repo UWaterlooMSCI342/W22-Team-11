@@ -164,6 +164,15 @@ class Team < ApplicationRecord
     return team_code.upcase
   end
 
+  def release_feedback(d=now)
+    not_submitted = number_users_not_submitted(self.current_feedback(d))
+    if not_submitted > 0 && d.wday != 0
+      return false
+    else
+      return true
+    end
+  end
+
   # global variable for order_by function
   @@reverse_order_avg_rating = false
   
