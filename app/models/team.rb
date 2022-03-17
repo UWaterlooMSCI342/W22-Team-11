@@ -56,13 +56,13 @@ class Team < ApplicationRecord
     #gets all feedbacks for a given week
     feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
     
-    if feedbacks.count == 0
+    if self.number_of_users == 0
       return nil
     end
     
     priority_holder.each_with_index {|val, index| priority_holder[index] = feedbacks.where(priority: index).count}
 
-    if feedbacks.count == self.number_of_users
+    if feedbacks.count == self.number_of_users && self.number_of_users > 0
       if priority_holder[0] > 0
         return "High" 
       elsif priority_holder[1] >= feedbacks.count/3.0
@@ -70,7 +70,7 @@ class Team < ApplicationRecord
       else
         return "None"
       end 
-    else
+    elsif feedbacks.count < self.number_of_users && self.number_of_users > 0
       return "Incomplete Feedback"
     end
   end 
@@ -89,8 +89,7 @@ class Team < ApplicationRecord
     feedbacks = self.feedbacks.where(:timestamp => start_date..end_date)
     rating = Team::feedback_average_rating(feedbacks)
     rating = rating.nil? ? 10 : rating
-    users_not_submitted = self.users_not_submitted(feedbacks)
-    users_not_submitted = self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f / self.users.to_ary.size
+    users_not_submitted = self.number_users_not_submitted(feedbacks)
     
     if users_not_submitted != 0 or self.users.count == 0
       return 'white'
@@ -138,7 +137,12 @@ class Team < ApplicationRecord
     
     self.users.to_ary - submitted
   end
-  
+
+  def number_users_not_submitted(feedbacks)
+    users_not_submitted = users_not_submitted(feedbacks)
+    return self.users.to_ary.size == 0 ? 0 : users_not_submitted.size.to_f
+  end
+
   def current_feedback(d=now)
     current_feedback = Array.new
     self.feedbacks.each do |feedback| 

@@ -30,7 +30,7 @@ class StaticPagesController < ApplicationController
 
   def get_teams
     current_week = week_range(now.cwyear, now.cweek)
-    @teams = Team.all.sort_by{|team| team.find_priority_weighted(current_week[:start_date], current_week[:end_date])|| "other" }
+    @teams = Team.order_by params[:order_by]
     @unsubmitted = {current_week: {}, previous_week: {}}
     @teams.each do |team| 
       @unsubmitted[:current_week][team.id] = team.users_not_submitted(team.current_feedback).map{|user| user.first_name + " " + user.last_name}
