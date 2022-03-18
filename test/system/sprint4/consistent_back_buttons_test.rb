@@ -103,24 +103,25 @@ class ConsistentBackButtonsTest < ApplicationSystemTestCase
     assert_current_path teams_url
   end
   
-  def test_user_show_back_to_users_index
-    #Check that user can go from a speficic user's page back to the index of users
-     visit root_url
-    login 'msmucker@gmail.com', 'professor'
-    assert_current_path root_url
+  # Depreciated test due to removal of 'Show' button
+  #def test_user_show_back_to_users_index
+    ##Check that user can go from a speficic user's page back to the index of users
+    #visit root_url
+    #login 'msmucker@gmail.com', 'professor'
+    #assert_current_path root_url
     
-    click_on "Manage Users"
-    assert_current_path users_url
+    #click_on "Manage Users"
+    #assert_current_path users_url
     
-    within('#user' + @user1.id.to_s) do
-      click_on 'Show'
-    end
+    #within('#user' + @user1.id.to_s) do
+      #click_on 'Show'
+    #end
     
-    assert_current_path user_path(@user1)
+    #assert_current_path user_path(@user1)
     
-    click_on "Back"
-    assert_current_path users_url
-  end
+    #click_on "Back"
+    #assert_current_path users_url
+  #end
   
   def test_user_delete_back_to_users_index
     #Check that user can go from a speficic user's page back to the index of users
