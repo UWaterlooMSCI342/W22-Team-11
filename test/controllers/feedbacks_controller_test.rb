@@ -78,13 +78,6 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    # login professor
-    post('/login', params: { email: 'msmucker@gmail.com', password: 'professor'})
-    get edit_feedback_url(@feedback)
-    assert_response :success
-  end
-
   test "should update feedback" do
     # login professor
     post('/login', params: { email: 'msmucker@gmail.com', password: 'professor'})
