@@ -94,7 +94,7 @@ class CreateSummaryPageViewOfTeamsTest < ApplicationSystemTestCase
     #Bob's feedback
 
     assert_text "Bob Smith"
-    assert_text "6"
+    assert_text "5.5"
     assert_text "This team is okay"
     assert_text datetime.strftime("%Y-%m-%d %H:%M")
     
