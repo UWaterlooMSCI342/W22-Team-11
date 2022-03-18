@@ -30,7 +30,7 @@ class ReleaseFeedbackTest < ApplicationSystemTestCase
         feedback = save_feedback(5, 5, 5, 5, 5, "Week 9 data 1", @bob, DateTime.civil_from_format(:local, 2022, 3, 8), @team1, 0)
         visit root_url 
         login 'msmucker@gmail.com', 'banana'
-        assert_text "Incomplete Feedback"
+        assert_text "Missing Feedback"
         assert_text "10"
 
     end
@@ -69,7 +69,7 @@ class ReleaseFeedbackTest < ApplicationSystemTestCase
         visit root_url 
         login 'bob@gmail.com', 'testpassword'
 
-        assert_text "Incomplete Feedback"
+        assert_text "Missing Feedback"
         assert_text "10"
     end
 

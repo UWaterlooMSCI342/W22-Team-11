@@ -22,7 +22,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     
     @week_range = week_range(2021, 7)
     #sets the app's date to week of Feb 15 - 21, 2021 for testing
-    travel_to Time.new(2021, 02, 15, 06, 04, 44)
+    travel_to Time.new(2021, 02, 17, 06, 04, 44)
   end 
   
   def test_create_feedback_with_no_priority
