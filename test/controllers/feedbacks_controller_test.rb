@@ -16,7 +16,7 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     @user3.save
       
     #create new feedback from student with comment and priority of 2 (low)
-    @feedback = Feedback.new(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2)
+    @feedback = Feedback.new(rating: 8, collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2)
     @feedback.timestamp = @feedback.format_time(DateTime.now)
     @feedback.user = @user
     @feedback.team = @user.teams.first

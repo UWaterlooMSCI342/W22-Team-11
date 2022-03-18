@@ -1,15 +1,17 @@
 <h1>Feedbacks</h1>
 <p>You can find a history of all feedbacks submitted below.</p>
+<p>The responded button will only be available for feedbacks with a rating <= 6.</p>
+<div class="small-line"></div>
 <table>
   <thead>
     <tr>
       <th>Responded</th>
+      <th><%= link_to 'Timestamp', feedbacks_path(order_by: 'timestamp') %></th>
       <th><%= link_to 'Student Name', feedbacks_path(order_by: 'student name') %></th>
       <th><%= link_to 'Team', feedbacks_path(order_by: 'team') %></th>
       <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
       <th><%= link_to 'Priority', feedbacks_path(order_by: 'priority') %></th>
       <th>Comments</th>
-      <th><%= link_to 'Timestamp', feedbacks_path(order_by: 'timestamp') %></th>
       <th colspan="7"></th>
     </tr>
   </thead>
@@ -25,6 +27,7 @@
             <% end %>  
           <%end%>
         </td>
+        <td><%= link_to feedback.timestamp.strftime('%Y-%m-%d %H:%M EST'), feedback %></td>
         <td><%= feedback.user.first_name + " " + feedback.user.last_name %></td>
         <td><%= feedback.team.team_name %></td>
         <td><%= feedback.rating.round(2) %></td>
@@ -40,8 +43,6 @@
         <%else%>
           <td><%= feedback.comments %></td>
         <%end%>
-        <td><%= feedback.timestamp.strftime('%Y-%m-%d %H:%M EST') %></td>
-        <td><%= link_to 'Show', feedback %></td>
         <td>
           <%= form_with model: feedback, local: true, method: 'delete' do |f| %>
             <%= f.submit "Delete Feedback", class: "table-btn" %>
