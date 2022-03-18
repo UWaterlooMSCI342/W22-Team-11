@@ -14,7 +14,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
     @user.save
   end 
   
-  def test_create_invalid_feedback_default_rating
+  def test_create_invalid_feedback
     #Passes acceptance criteria 1: student cannot submit feedback without a rating
     #"Sad test", student tries to submit feedback without a rating    
     visit root_url
@@ -25,9 +25,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
     select "Urgent", :from => "Feedback Urgency"
     fill_in "General Comments (Optional)", with: "I did not select a rating so that it would get set to the default rating"
     
-    click_on "Create Feedback"
-    assert_text "5.5"
-    assert_text "High"
+    assert_current_path new_feedback_url
   end 
   
   def test_create_valid_feedback_no_comment
@@ -38,6 +36,12 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
     assert_current_path root_url
     
     click_on "Submit for"
+
+    choose('feedback_communication_2')
+    choose('feedback_responsibility_2')
+    choose('feedback_work_quality_2')
+    choose('feedback_team_support_2')
+    choose('feedback_collaboration_2')
     
     select "Urgent", :from => "Feedback Urgency"
     click_on "Create Feedback"

@@ -20,7 +20,7 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     @feedback.timestamp = @feedback.format_time(DateTime.now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
-    
+    @feedback.rating = @feedback.converted_rating
     @feedback.save
   end
 
