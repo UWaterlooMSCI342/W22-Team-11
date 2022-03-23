@@ -8,8 +8,15 @@ class DisplayFeedbackButtonTest < ApplicationSystemTestCase
         @smith.teams << @team
     end
 
-    def test_no_button_before_wednesday
+    def test_no_button_before_monday
         travel_to Time.new(2022, 03, 14, 06, 04, 44)
+        visit root_url 
+        login 'smith@gmail.com', 'testpassword'
+        assert_no_text "Submit for: Test Team"
+    end
+
+    def test_no_button_before_tuesday
+        travel_to Time.new(2022, 03, 15, 06, 04, 44)
         visit root_url 
         login 'smith@gmail.com', 'testpassword'
         assert_no_text "Submit for: Test Team"
@@ -22,8 +29,8 @@ class DisplayFeedbackButtonTest < ApplicationSystemTestCase
         assert_text "Submit for: Test Team"
     end
 
-    def test_display_button_after_wednesday
-        travel_to Time.new(2022, 03, 19, 06, 04, 44)
+    def test_display_button_on_sunday
+        travel_to Time.new(2022, 03, 20, 06, 04, 44)
         visit root_url 
         login 'smith@gmail.com', 'testpassword'
         assert_text "Submit for: Test Team"
