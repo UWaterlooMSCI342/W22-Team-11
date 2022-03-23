@@ -29,9 +29,9 @@
   <thead>
     <tr>
       <th>Responded</th>
-      <th><%= link_to 'Timestamp', feedbacks_path(order_by: 'timestamp') %></th>
-      <th><%= link_to 'Rating', feedbacks_path(order_by: 'rating') %></th>
-      <th><%= link_to 'Priority', feedbacks_path(order_by: 'priority') %></th>
+      <th>Timestamp</th>
+      <th>Rating</th>
+      <th>Priority</th>
       <th>Comments</th>
       <th>Collaboration and Engagement</th>
       <th>Communication</th>
@@ -42,6 +42,7 @@
   </thead>
 
   <tbody>
+  <% @user.feedbacks = @user.feedbacks.order('timestamp desc') %>
     <% @user.feedbacks.each do |feedback| %>
       <tr>
         <td>
