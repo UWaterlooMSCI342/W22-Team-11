@@ -110,55 +110,55 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     assert_text "Can not give rating of one without explanation."
   end
 
-  # def test_invalid_feedback_with_rating_one_for_collaboration
-  #   visit root_url 
-  #   login 'charles2@gmail.com', 'banana'
-  #   assert_current_path root_url
+  def test_invalid_feedback_with_rating_one_for_collaboration
+    visit root_url 
+    login 'charles2@gmail.com', 'banana'
+    assert_current_path root_url
     
     
-  #   click_on "Submit for"
-  #   assert_current_path new_feedback_url
-  #   choose('feedback_collaboration_1')
-  #   click_on "Create Feedback"
-  #   assert_text "Can not give rating of one without explanation."
-  # end
+    click_on "Submit for"
+    assert_current_path new_feedback_url
+    choose('feedback_collaboration_1')
+    click_on "Create Feedback"
+    assert_text "Can not give rating of one without explanation."
+  end
 
-  # def test_invalid_feedback_with_rating_one_for_responsibility
-  #   visit root_url 
-  #   login 'charles2@gmail.com', 'banana'
-  #   assert_current_path root_url
+  def test_invalid_feedback_with_rating_one_for_responsibility
+    visit root_url 
+    login 'charles2@gmail.com', 'banana'
+    assert_current_path root_url
     
     
-  #   click_on "Submit for"
-  #   assert_current_path new_feedback_url
-  #   choose('feedback_responsibility_1')
-  #   click_on "Create Feedback"
-  #   assert_text "Can not give rating of one without explanation."
-  # end
+    click_on "Submit for"
+    assert_current_path new_feedback_url
+    choose('feedback_responsibility_1')
+    click_on "Create Feedback"
+    assert_text "Can not give rating of one without explanation."
+  end
 
-  # def test_invalid_feedback_with_rating_one_for_team_support
-  #   visit root_url 
-  #   login 'charles2@gmail.com', 'banana'
-  #   assert_current_path root_url
+  def test_invalid_feedback_with_rating_one_for_team_support
+    visit root_url 
+    login 'charles2@gmail.com', 'banana'
+    assert_current_path root_url
     
     
-  #   click_on "Submit for"
-  #   assert_current_path new_feedback_url
-  #   choose('feedback_team_support_1')
-  #   click_on "Create Feedback"
-  #   assert_text "Can not give rating of one without explanation."
-  # end
+    click_on "Submit for"
+    assert_current_path new_feedback_url
+    choose('feedback_team_support_1')
+    click_on "Create Feedback"
+    assert_text "Can not give rating of one without explanation."
+  end
 
-  # def test_invalid_feedback_with_rating_one_for_work_quality
-  #   visit root_url 
-  #   login 'charles2@gmail.com', 'banana'
-  #   assert_current_path root_url
+  def test_invalid_feedback_with_rating_one_for_work_quality
+    visit root_url 
+    login 'charles2@gmail.com', 'banana'
+    assert_current_path root_url
     
     
-  #   click_on "Submit for"
-  #   assert_current_path new_feedback_url
-  #   choose('feedback_work_quality_1')
-  #   click_on "Create Feedback"
-  #   assert_text "Can not give rating of one without explanation."
-  # end  
+    click_on "Submit for"
+    assert_current_path new_feedback_url
+    choose('feedback_work_quality_1')
+    click_on "Create Feedback"
+    assert_text "Can not give rating of one without explanation."
+  end  
 end
