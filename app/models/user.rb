@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :teams
   has_and_belongs_to_many :teams
   has_many :feedbacks
+  belongs_to :student_number
   
   include FeedbacksHelper
     
