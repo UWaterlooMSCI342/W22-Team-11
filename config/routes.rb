@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :teams
 
-  resources :feedbacks
+  resources :feedbacks, except: :edit
+  
   root 'static_pages#home'
   get '/help', to: 'static_pages#help'
   get 'team_view/help', to: 'teams#help'

@@ -71,7 +71,7 @@ class Team < ApplicationRecord
         return "None"
       end 
     elsif feedbacks.count < self.number_of_users && self.number_of_users > 0
-      return "Incomplete Feedback"
+      return "Missing Feedback"
     end
   end 
   
@@ -162,6 +162,15 @@ class Team < ApplicationRecord
     end
     
     return team_code.upcase
+  end
+
+  def release_feedback(d=now)
+    not_submitted = number_users_not_submitted(self.current_feedback(d))
+    if not_submitted > 0 && d.wday != 0
+      return false
+    else
+      return true
+    end
   end
 
   # global variable for order_by function

@@ -272,7 +272,7 @@ class TeamTest < ActiveSupport::TestCase
     feedback2 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user2, DateTime.civil_from_format(:local, 2021, 2, 16), team, 2)
     
     team_weighted_priority = team.find_priority_weighted(week_range[:start_date], week_range[:end_date])
-    assert_equal "Incomplete Feedback", team_weighted_priority
+    assert_equal "Missing Feedback", team_weighted_priority
   end
   
   def test_multi_feedback_average_rating_team_summary
@@ -646,6 +646,56 @@ class TeamTest < ActiveSupport::TestCase
     number_users_not_submitted = team.number_users_not_submitted([feedback1, feedback2])
 
     assert_equal(1, number_users_not_submitted)
+  end
+
+
+  def test_release_feedback_not_all_submitted_not_Sunday
+    date = Date.parse('10-03-2022')
+
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+
+    team = Team.new(team_code: 'Code', team_name: 'Team Test2', capacity: 5)
+    team.users = [user1]
+    team.user = @prof 
+    team.save! 
+
+
+    release = team.release_feedback(date)
+    assert_equal(false, release)
+  end
+
+  def test_release_feedback_not_all_submitted_Sunday
+    date = Date.parse('13-03-2022')
+
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+
+    team = Team.new(team_code: 'Code', team_name: 'Team Test3', capacity: 5)
+    team.users = [user1]
+    team.user = @prof 
+    team.save! 
+
+
+    release = team.release_feedback(date)
+    assert_equal(true, release)
+  end
+
+  def test_release_feedback_before_sunday
+    date = Date.parse('8-03-2022')
+
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+
+    team = Team.new(team_code: 'Code', team_name: 'Team Test4', capacity: 5)
+    team.users = [user1]
+    team.user = @prof 
+    team.save! 
+
+    feedback1 = save_feedback(5, 5, 5, 5, 5, "This team is organized", user1, DateTime.civil_from_format(:local, 2022, 3, 7), team, 2)
+
+    release = team.release_feedback(date)
+    assert_equal(true, release)
   end
   
 end

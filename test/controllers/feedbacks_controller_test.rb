@@ -16,11 +16,11 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     @user3.save
       
     #create new feedback from student with comment and priority of 2 (low)
-    @feedback = Feedback.new(collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2)
+    @feedback = Feedback.new(rating: 8, collaboration: 5, communication: 5, team_support: 4, responsibility: 5, work_quality: 4, comments: "This team is disorganized", priority: 2)
     @feedback.timestamp = @feedback.format_time(DateTime.now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
-    
+    @feedback.rating = @feedback.converted_rating
     @feedback.save
   end
 
@@ -75,13 +75,6 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     # login professor
     post('/login', params: { email: 'msmucker@gmail.com', password: 'professor'})
     get feedback_url(@feedback)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    # login professor
-    post('/login', params: { email: 'msmucker@gmail.com', password: 'professor'})
-    get edit_feedback_url(@feedback)
     assert_response :success
   end
 

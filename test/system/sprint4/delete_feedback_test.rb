@@ -33,15 +33,16 @@ class DeleteFeedbackTest < ApplicationSystemTestCase
     assert_text "Feedback was successfully destroyed."
   end 
 
-  def test_edit_feedback
-    visit root_url
-    login 'msmucker@gmail.com', 'professor'
-    assert_current_path root_url
-    click_on "Feedback & Ratings"
-    click_on "Edit"
-    choose('feedback_team_support_3')
-    fill_in "General Comments", with: "New Comment"
-    click_on "Update Feedback"
-    assert_text "New Comment"
-  end
+  # removed edit feedback feature
+  #def test_edit_feedback
+    #visit root_url
+    #login 'msmucker@gmail.com', 'professor'
+    #assert_current_path root_url
+    #click_on "Feedback & Ratings"
+    #click_on "Edit"
+    #choose('feedback_team_support_3')
+    #fill_in "General Comments", with: "New Comment"
+    #click_on "Update Feedback"
+    #assert_text "New Comment"
+ # end
 end
