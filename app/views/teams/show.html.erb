@@ -79,11 +79,11 @@
                     <td><%= fb.user.first_name + ' ' + fb.user.last_name %></td>
                     <td><%= fb.rating %></td>
                     <%if fb.priority == 2%>
-                      <td><%='Low'%></td>
+                      <td><%='None'%></td>
                     <%elsif fb.priority == 1%>
-                      <td><%='Medium'%></td>
+                      <td><%='Low'%></td>
                     <%else%>
-                      <td><%='Urgent'%></td>
+                      <td><%='None'%></td>
                     <%end%>
                     <%if fb.comments.nil? || fb.comments.size == 0 %>
                       <td> No Comments Submitted!</td>
