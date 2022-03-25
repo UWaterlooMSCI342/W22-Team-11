@@ -173,6 +173,24 @@ class Team < ApplicationRecord
     end
   end
 
+  def auto_assign_feedback(d=now)
+    byebug
+    if d.wday == 0
+      unsubmitted = users_not_submitted(self.current_feedback(d))
+      if unsubmitted.length > 0
+        byebug
+        unsubmitted.each do |user|
+          feedback = Feedback.new(collaboration: 0, communication: 0, team_support: 0, responsibility:0, work_quality:0, comments: "User did not submit feedback for this period", priority: 0)
+          feedback.user = user
+          feedback.timestamp = feedback.format_time(d)
+          feedback.team = self
+          feedback.rating = feedback.converted_rating
+          feedback.save
+        end
+      end
+    end
+  end
+
   # global variable for order_by function
   @@reverse_order_avg_rating = false
   

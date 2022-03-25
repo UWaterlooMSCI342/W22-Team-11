@@ -33,6 +33,7 @@ class StaticPagesController < ApplicationController
     @teams = Team.order_by params[:order_by]
     @unsubmitted = {current_week: {}, previous_week: {}}
     @teams.each do |team| 
+      team.auto_assign_feedback(now)
       @unsubmitted[:current_week][team.id] = team.users_not_submitted(team.current_feedback).map{|user| user.first_name + " " + user.last_name}
       @unsubmitted[:previous_week][team.id] = team.users_not_submitted(team.current_feedback(now - 7.days)).map{|user| user.first_name + " "+ user.last_name}
     end

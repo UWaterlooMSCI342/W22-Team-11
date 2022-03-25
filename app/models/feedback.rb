@@ -46,6 +46,10 @@ class Feedback < ApplicationRecord
     # sum of feedback types
     total_feedback = communication_weighted + responsibility_weighted + work_quality_weighted + team_support_weighted + collaboration_weighted
 
+    if total_feedback = 0
+      return 0
+    end
+
     # CURRENT feedback scale for sum of feedback types, can change if one or more feedback type(s) scales changes (in the view)
     # 5 questions, each max being 5, 5*5 = 25
     feedbackMaxTotal = 25.0

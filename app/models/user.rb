@@ -38,6 +38,7 @@ class User < ApplicationRecord
     return teams
   end
 
+
   # Checks whether given user has submitted feedback for the current week
   # returns array containing all teams that do not have feedback submitted feedback for that
   # team during the week.
