@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_204036) do
+ActiveRecord::Schema.define(version: 2022_03_01_013144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,16 +57,6 @@ ActiveRecord::Schema.define(version: 2022_03_24_204036) do
     t.index ["reporter_id"], name: "index_reports_on_reporter_id"
   end
 
-  create_table "student_numbers", force: :cascade do |t|
-    t.string "number", limit: 8
-    t.bigint "team_id", null: false
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_id"], name: "index_student_numbers_on_team_id"
-    t.index ["user_id"], name: "index_student_numbers_on_user_id", unique: true
-  end
-
   create_table "teams", force: :cascade do |t|
     t.string "team_code"
     t.string "team_name"
@@ -102,8 +92,6 @@ ActiveRecord::Schema.define(version: 2022_03_24_204036) do
   add_foreign_key "feedbacks", "users", on_delete: :cascade
   add_foreign_key "reports", "users", column: "reportee_id", on_delete: :cascade
   add_foreign_key "reports", "users", column: "reporter_id", on_delete: :cascade
-  add_foreign_key "student_numbers", "teams"
-  add_foreign_key "student_numbers", "users"
   add_foreign_key "teams", "users", on_delete: :cascade
   add_foreign_key "teams_users", "teams"
   add_foreign_key "teams_users", "users"
