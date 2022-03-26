@@ -22,6 +22,12 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = current_user
+    render :edit
+  end
+
+  def update_profile
+
   end
 
   # POST /users
@@ -67,10 +73,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
-    else
-      render :edit
+    @user = current_user
+    if @user.update(first_name: params[:user][:first_name], last_name: params[:user][:last_name])
+      flash[:message] = 'User was updated!'
+      redirect_to user_path(@user)
+    else 
+      flash[:error] = 'User could not be updated!'
+      redirect_to user_path(@user)
     end
   end
 

@@ -21,6 +21,7 @@
           <%= link_to 'Logout/Account', logout_path %>
           <div class="dropdown-content">
             <%= link_to 'Change Password', reset_password_path %>
+            <%= link_to 'Edit Profile', edit_user_path(current_user) %>
           </div>
         </li>
         <% if is_admin? %>
