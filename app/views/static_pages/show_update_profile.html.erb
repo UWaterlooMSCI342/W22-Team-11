@@ -1,0 +1,27 @@
+<H1> Edit Profile </H1>
+
+<br>
+
+<%= form_with(local: true, url: update_profile_url, method: :post) do |form| %>
+
+  <div class="field">
+    <%= form.label "Existing Password" %>
+    <%= form.password_field :existing_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'First Name' %>
+    <%= form.text_field :new_first %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'Last Name' %>
+    <%= form.text_field :new_last %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update Profile" %>
+  </div>
+<% end %>
+
+<p><%= link_to 'Back', :back %></p>
