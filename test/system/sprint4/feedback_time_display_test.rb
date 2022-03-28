@@ -30,11 +30,11 @@ class FeebackTimeDisplayTest < ApplicationSystemTestCase
     click_on "Submit for"
     assert_text "Current System Time: 2021/03/21 23:30" #Acceptance criteria #1
     choose('feedback_communication_5')
-    choose('feedback_team_support_4')
-    choose('feedback_collaboration_3')
-    choose('feedback_responsibility_2')
-    choose('feedback_work_quality_1')
-    select "Urgent", :from => "feedback_priority"
+    choose('feedback_team_support_5')
+    choose('feedback_collaboration_5')
+    choose('feedback_responsibility_5')
+    choose('feedback_work_quality_5')
+    select "None", :from => "feedback_priority"
     click_on "Create Feedback"
     assert_current_path root_url
     assert_text "Feedback was successfully created. Time created: 2021-03-21 23:30:00" #Acceptance criteria #2
