@@ -14,6 +14,7 @@ class AddReportsTogglesTest < ApplicationSystemTestCase
   end
   
   def test_feedback_instructions
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'steve@gmail.com', 'testpassword'    
     

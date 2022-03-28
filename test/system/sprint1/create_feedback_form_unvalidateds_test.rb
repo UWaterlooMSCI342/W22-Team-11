@@ -19,6 +19,7 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
   
   # Test that feedback can be added using correct form (1, 2)
   def test_add_feedback 
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'bob@gmail.com', 'testpassword'    
     
