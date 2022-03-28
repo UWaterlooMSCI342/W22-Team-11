@@ -73,6 +73,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
   # Feedback errors
   def test_invalid_feedback
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
