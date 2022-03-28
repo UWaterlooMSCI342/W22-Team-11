@@ -37,6 +37,15 @@ class FeedbacksController < ApplicationController
     @feedback.timestamp = @feedback.format_time(now)
     @feedback.user = @user
     @feedback.team = @user.teams.first
+
+    #error_string = ""
+
+    if (@feedback.communication == 1 && @feedback.communication_comment.empty?) || (@feedback.responsibility == 1 && @feedback.responsibility_comment.empty?) || (@feedback.work_quality == 1 && @feedback.work_quality_comment.empty?) || (@feedback.team_support == 1 && @feedback.team_support_comment.empty?) || (@feedback.collaboration == 1 && @feedback.collab_comment.empty?)
+     flash[:error] = "Can not give rating of one without explanation."
+      render :new
+    else
+
+        
     if @feedback.communication && @feedback.responsibility && @feedback.work_quality && @feedback.team_support && @feedback.collaboration
       @feedback.rating = @feedback.converted_rating
       if team_submissions.include?(@feedback.team)
@@ -51,6 +60,7 @@ class FeedbacksController < ApplicationController
       render :new
     end
   end
+end 
 
   # PATCH/PUT /feedbacks/1
   def update
