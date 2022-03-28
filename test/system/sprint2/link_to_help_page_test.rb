@@ -19,6 +19,7 @@ class LinkToHelpPage < ApplicationSystemTestCase
     end
 
     def test_link_to_help_page_from_submit_feedback
+        travel_to Time.new(2022, 03, 16, 06, 04, 44)
         visit root_url
         login 'bob@gmail.com','testpassword'
         assert_current_path root_url
