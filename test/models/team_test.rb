@@ -697,5 +697,35 @@ class TeamTest < ActiveSupport::TestCase
     release = team.release_feedback(date)
     assert_equal(true, release)
   end
+
+  def test_auto_assign_feedback_not_Sunday
+    date = Date.parse('19-03-2022')
+
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+
+    team = Team.new(team_code: 'Code', team_name: 'Team Test4', capacity: 5)
+    team.users = [user1]
+    team.user = @prof 
+    team.save! 
+
+    team.auto_assign_feedback(date)
+    assert_nil(team.feedback_by_period)
+  end
+
+  def test_auto_assign_feedback_Sunday
+    date = Date.parse('20-03-2022')
+    user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
+    user1.save!
+
+    team5 = Team.new(team_code: 'Code', team_name: 'Team Test4', capacity: 5)
+    team5.users = [user1]
+    team5.user = @prof 
+    team5.save! 
+
+    team5.auto_assign_feedback(date)
+    period = team5.current_feedback(Date.parse('21-03-2022'))
+    assert_equal(1, period.length)
+  end
   
 end

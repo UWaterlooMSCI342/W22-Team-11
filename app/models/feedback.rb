@@ -46,7 +46,7 @@ class Feedback < ApplicationRecord
     # sum of feedback types
     total_feedback = communication_weighted + responsibility_weighted + work_quality_weighted + team_support_weighted + collaboration_weighted
 
-    if total_feedback = 0
+    if total_feedback == 0.0
       return 0
     end
 
