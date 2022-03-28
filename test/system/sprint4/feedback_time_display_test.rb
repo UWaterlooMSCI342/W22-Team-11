@@ -21,14 +21,14 @@ class FeebackTimeDisplayTest < ApplicationSystemTestCase
     
   def test_time_displays
       
-
+    travel_to Time.new(2022, 03, 16, 06, 04, 0)
 
     visit root_url
     login 'test@gmail.com', 'asdasd'
     assert_current_path root_url
     
     click_on "Submit for"
-    assert_text "Current System Time: 2021/03/21 23:30" #Acceptance criteria #1
+    assert_text "Current System Time: 2022/03/16 06:04" #Acceptance criteria #1
     choose('feedback_communication_5')
     choose('feedback_team_support_4')
     choose('feedback_collaboration_3')
@@ -37,7 +37,7 @@ class FeebackTimeDisplayTest < ApplicationSystemTestCase
     select "Urgent", :from => "feedback_priority"
     click_on "Create Feedback"
     assert_current_path root_url
-    assert_text "Feedback was successfully created. Time created: 2021-03-21 23:30:00" #Acceptance criteria #2
+    assert_text "Feedback was successfully created. Time created: 2022/03/16 6:04:00" #Acceptance criteria #2
   end 
   
 end
