@@ -16,9 +16,17 @@ class User < ApplicationRecord
   validates_presence_of :password_confirmation
   validates_uniqueness_of :email
     
+  #instructor has many teams
   has_many :teams
+
+  #student has and belongs to many teams
   has_and_belongs_to_many :teams
+
+  #student has many feedbacks
   has_many :feedbacks
+
+  #student has one student number
+  has_one :student_number
   
   include FeedbacksHelper
     

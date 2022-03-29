@@ -11,9 +11,17 @@ class Team < ApplicationRecord
   validates_presence_of :team_code
   validates_presence_of :capacity
     
+  #team belongs to instructor
   belongs_to :user
+
+  #team has and belongs to many students
   has_and_belongs_to_many :users
+
+  #teams has many feedbacks
   has_many :feedbacks
+
+  #team has many student numbers
+  has_many :student_numbers
   
   include FeedbacksHelper
   
