@@ -99,8 +99,11 @@
     <% if warn_user && days_till_end_week == 2 %>
       <p class="warning2days">Important: <%= days_till_end_week %> days left to submit feedback:</p>
     <% end %>
-    <% if warn_user && days_till_end_week > 2 %>
+    <% if warn_user && days_till_end_week > 2 && days_till_end_week < 5%>
       <p class="warning"><%= days_till_end_week %> days left to submit feedback:</p>
+    <% end %>
+    <% if warn_user && days_till_end_week >= 5%>
+      <p class="warning">You will be able to submit feedback starting Wednesday.</p>
     <% end %>
     <% if days_till_end_week < 5 %>
       <ul class="btns">
