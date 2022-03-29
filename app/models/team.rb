@@ -183,7 +183,7 @@ class Team < ApplicationRecord
           feedback.timestamp = feedback.format_time(d)
           feedback.team = user.teams.first
           feedback.rating = feedback.converted_rating
-          feedback.save
+          feedback.save!
         end
       end
     end

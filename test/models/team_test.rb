@@ -714,7 +714,7 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   def test_auto_assign_feedback_Sunday
-    date = Date.parse('20-03-2022')
+    date = Time.new(2022, 03, 27, 06, 04, 44)
     user1 = User.create(email: 'charles2@gmail.com', password: 'banana', password_confirmation: 'banana', first_name: 'adam1', last_name: 'Powell', is_admin: false)
     user1.save!
 
@@ -724,8 +724,9 @@ class TeamTest < ActiveSupport::TestCase
     team5.save! 
 
     team5.auto_assign_feedback(date)
-    period = team5.current_feedback(Date.parse('21-03-2022'))
-    assert_equal(1, period.length)
+    #period = team5.current_feedback(Date.parse('21-03-2022'))
+    #week_average = Team.feedback_average_rating(team5.feedback_by_period.first[1])
+    assert_equal(1, user1.feedbacks.length)
   end
   
 end
