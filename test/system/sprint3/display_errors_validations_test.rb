@@ -72,7 +72,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     
   end
   # Feedback errors
-  def test_invalid_feedback
+  def test_invalid_feedback_1
     travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
@@ -85,7 +85,8 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
     assert_text "You have not filled out the required fields."
   end
 
-  def test_invalid_feedback
+  def test_invalid_feedback_2
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
@@ -99,6 +100,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
 
   def test_invalid_feedback_with_rating_one_for_communication
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
@@ -112,6 +114,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
 
   def test_invalid_feedback_with_rating_one_for_collaboration
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
@@ -125,6 +128,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
 
   def test_invalid_feedback_with_rating_one_for_responsibility
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
@@ -138,6 +142,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
 
   def test_invalid_feedback_with_rating_one_for_team_support
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
@@ -151,6 +156,7 @@ class DisplayErrorsValidationsTest < ApplicationSystemTestCase
   end
 
   def test_invalid_feedback_with_rating_one_for_work_quality
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url 
     login 'charles2@gmail.com', 'banana'
     assert_current_path root_url
