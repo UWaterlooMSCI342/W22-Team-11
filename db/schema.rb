@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2022_03_29_143609) do
   create_table "student_numbers", force: :cascade do |t|
     t.string "number", limit: 8
     t.bigint "team_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["number"], name: "index_student_numbers_on_number", unique: true
