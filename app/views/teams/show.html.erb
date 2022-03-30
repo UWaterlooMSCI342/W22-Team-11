@@ -183,7 +183,7 @@
   <form>
   <br/>
   <select name = "pickTeam" id = "pickTeam" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-    <option value="" selected disabled hidden> Select to nagivate to a specific team </option>
+    <option value="" selected disabled hidden> Select to navigate to a specific team </option>
     <% @teams.each do |team| %>
       <option value= <%= team_path(team.id) %>> <%= team.team_name %> </option>
     <% end %>
