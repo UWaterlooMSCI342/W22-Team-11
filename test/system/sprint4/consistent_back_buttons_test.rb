@@ -160,6 +160,7 @@ class ConsistentBackButtonsTest < ApplicationSystemTestCase
   def test_student_feedback_back_to_landing_page
     #Check that students can go back from feedback page to their landing page
     visit root_url
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     login 'adam@gmail.com', '123456789'
     assert_current_path root_url
     

@@ -17,6 +17,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
   def test_create_invalid_feedback
     #Passes acceptance criteria 1: student cannot submit feedback without a rating
     #"Sad test", student tries to submit feedback without a rating    
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url
@@ -31,6 +32,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
   def test_create_valid_feedback_no_comment
     #Passes acceptance criteria 2: Student can submit feedback with no comment
     #"Happy test", student submits feedback with no comments
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url
@@ -52,6 +54,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
   def test_create_invalid_feedback_too_many_characters_comment
     #Passes acceptance criteria 3: Student cannot submit a comment that has greater than 2048 characters
     #"Sad test", student tries to submit feedback with a comment that is greater than 2048 characters
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url
@@ -73,6 +76,7 @@ class CreateFeedbackValidationsTest < ApplicationSystemTestCase
   
   def test_create_valid_feedback_default_priority
     #Passes acceptance criteria 4: Student cannot submit feedback without priority, instead the default value for priority is 2, meaning 'low' priority
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url

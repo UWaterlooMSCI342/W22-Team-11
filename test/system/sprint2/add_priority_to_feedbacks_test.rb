@@ -27,6 +27,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
   
   def test_create_feedback_with_no_priority
     #Passes acceptance criteria 1: Student submits a feedback with no user selected priority, instead the default value for priority is 2, meaning 'low' priority
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url
@@ -47,6 +48,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
   
   def test_create_feedback_with_selected_priority
     #Passes acceptance criteria 1: Student submits a feedback with a selected priority
+    travel_to Time.new(2022, 03, 16, 06, 04, 44)
     visit root_url
     login 'test@gmail.com', '123456789'
     assert_current_path root_url
