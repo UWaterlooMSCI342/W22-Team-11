@@ -28,10 +28,10 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
     assert_text "Your Current Team: Test Team"
     
     choose('feedback_communication_5')
-    choose('feedback_team_support_4')
-    choose('feedback_collaboration_3')
-    choose('feedback_responsibility_2')
-    choose('feedback_work_quality_1')
+    choose('feedback_team_support_5')
+    choose('feedback_collaboration_5')
+    choose('feedback_responsibility_5')
+    choose('feedback_work_quality_5')
     select "Urgent", from: "feedback_priority"
     fill_in "General Comments", with: "This week has gone okay."
     click_on "Create Feedback"
@@ -39,7 +39,7 @@ class CreateFeedbackFormUnvalidatedsTest < ApplicationSystemTestCase
     assert_current_path root_url
     
     Feedback.all.each{ |feedback| 
-      assert_equal(5.5 , feedback.rating)
+      assert_equal(10 , feedback.rating)
       assert_equal(0 , feedback.priority)
       assert_equal('This week has gone okay.', feedback.comments)
       assert_equal(@bob, feedback.user)
