@@ -15,8 +15,11 @@ class RemoveEditLinkFromUsersTest < ApplicationSystemTestCase
     login 'msmucker@gmail.com', 'password'
 
     click_on "Manage Users"
-    
-    assert_no_text "Edit"
+
+    within('#user' + @prof.id.to_s) do
+      assert_no_text "Edit"
+    end
+
   end
   
 end

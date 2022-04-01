@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
-  before_action :require_admin, except: [:new, :create]
+  before_action :require_admin, except: [:new, :create, :update, :edit]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # GET /users
   def index
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /users
@@ -67,10 +68,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
-    else
-      render :edit
+    @user = current_user
+    if @user.update_attribute(:first_name, params[:user][:first_name]) && @user.update_attribute(:last_name, params[:user][:last_name])
+      flash[:message] = 'Profile successfully updated!'
+      redirect_to root_path
+    else 
+      flash[:error] = 'Profile could not be updated!'
+      redirect_to edit_user_path(@user)
     end
   end
 

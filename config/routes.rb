@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'reset_password', to: 'static_pages#reset_password'
 
   get 'users/:id/reset_student_pass', to: 'users#reset_student_pass', as: 'reset_student_pass'
+
+  patch 'users/:id', to: 'users#update'
         
   get 'teams/:id/confirm_delete_user_from_team', to: 'teams#confirm_delete_user_from_team', as: 'team_confirm_delete_delete_user_from_team'  
   get 'teams/:id/confirm_delete', to: 'teams#confirm_delete', as: 'team_confirm_delete'
