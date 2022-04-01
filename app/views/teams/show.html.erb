@@ -82,27 +82,27 @@
                   <tr>
                     <td><%= fb.user.first_name + ' ' + fb.user.last_name %></td>
                     <td><%= fb.rating %></td>
-                    <% unless fb.collab_comment.nil? || fb.collab_comment.size %>
+                    <% unless fb.collab_comment.nil? || fb.collab_comment.size == 0  %>
                       <td><%= fb.collaboration %>: <%= fb.collab_comment %></td>
                     <%else%>
                       <td><%= fb.collaboration %></td>
                     <%end%>
-                    <% unless fb.communication_comment.nil? || fb.communication_comment.size %>
+                    <% unless fb.communication_comment.nil? || fb.communication_comment.size == 0 %>
                       <td><%= fb.communication %>: <%= fb.communication_comment %></td>
                     <%else%>
                       <td><%= fb.communication %></td>
                     <%end%>
-                    <% unless fb.team_support_comment.nil? || fb.team_support_comment.size %>
+                    <% unless fb.team_support_comment.nil? || fb.team_support_comment.size == 0 %>
                       <td><%= fb.team_support %>: <%= fb.team_support_comment %></td>
                     <%else%>
                       <td><%= fb.team_support %></td>
                     <%end%>
-                    <% unless fb.responsibility_comment.nil? || fb.responsibility_comment.size %>
+                    <% unless fb.responsibility_comment.nil? || fb.responsibility_comment.size == 0 %>
                       <td><%= fb.responsibility %>: <%= fb.responsibility_comment %></td>
                     <%else%>
                       <td><%= fb.responsibility %></td>
                     <%end%> 
-                    <% unless fb.work_quality_comment.nil? || fb.work_quality_comment.size %>
+                    <% unless fb.work_quality_comment.nil? || fb.work_quality_comment.size == 0 %>
                       <td><%= fb.work_quality_comment %>: <%= fb.work_quality_comment %></td>
                     <%else%>
                       <td><%= fb.work_quality %></td>
