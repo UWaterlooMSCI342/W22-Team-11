@@ -37,7 +37,7 @@ class FeebackTimeDisplayTest < ApplicationSystemTestCase
     select "None", :from => "feedback_priority"
     click_on "Create Feedback"
     assert_current_path root_url
-    assert_text "Feedback was successfully created. Time created: 2022/03/16 6:04:00" #Acceptance criteria #2
+    assert_text "Feedback was successfully created. Time created: 2022-03-16 06:04:00" #Acceptance criteria #2
   end 
   
 end
