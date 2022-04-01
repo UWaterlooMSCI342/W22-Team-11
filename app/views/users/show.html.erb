@@ -66,27 +66,27 @@
         <%else%>
           <td><%= feedback.comments %></td>
         <%end%>  
-        <% unless feedback.collab_comment.nil? || feedback.collab_comment.size %>
+        <% unless feedback.collab_comment.nil? || feedback.collab_comment.size == 0 %>
           <td><%= feedback.collaboration %>: <%= feedback.collab_comment %></td>
         <%else%>
           <td><%= feedback.collaboration %></td>
         <%end%>
-        <% unless feedback.communication_comment.nil? || feedback.communication_comment.size %>
+        <% unless feedback.communication_comment.nil? || feedback.communication_comment.size == 0 %>
           <td><%= feedback.communication %>: <%= feedback.communication_comment %></td>
         <%else%>
           <td><%= feedback.communication %></td>
         <%end%>
-        <% unless feedback.team_support_comment.nil? || feedback.team_support_comment.size %>
+        <% unless feedback.team_support_comment.nil? || feedback.team_support_comment.size == 0 %>
           <td><%= feedback.team_support %>: <%= feedback.team_support_comment %></td>
         <%else%>
           <td><%= feedback.team_support %></td>
         <%end%>
-        <% unless feedback.responsibility_comment.nil? || feedback.responsibility_comment.size %>
+        <% unless feedback.responsibility_comment.nil? || feedback.responsibility_comment.size == 0 %>
           <td><%= feedback.responsibility %>: <%= feedback.responsibility_comment %></td>
         <%else%>
           <td><%= feedback.responsibility %></td>
         <%end%> 
-        <% unless feedback.work_quality_comment.nil? || feedback.work_quality_comment.size %>
+        <% unless feedback.work_quality_comment.nil? || feedback.work_quality_comment.size == 0 %>
           <td><%= feedback.work_quality_comment %>: <%= feedback.work_quality_comment %></td>
         <%else%>
           <td><%= feedback.work_quality %></td>
