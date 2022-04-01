@@ -87,7 +87,7 @@
           <td><%= feedback.responsibility %></td>
         <%end%> 
         <% unless feedback.work_quality_comment.nil? || feedback.work_quality_comment.size == 0 %>
-          <td><%= feedback.work_quality_comment %>: <%= feedback.work_quality_comment %></td>
+          <td><%= feedback.work_quality%>: <%= feedback.work_quality_comment %></td>
         <%else%>
           <td><%= feedback.work_quality %></td>
         <%end%>   
