@@ -84,7 +84,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     within('#2021-7') do
       assert_text 'Feb 15, 2021 to Feb 21, 2021'
       assert_text 'Low'
-      assert_text 'Medium'
+      assert_text 'None'
       assert_text 'Week 7 data 1'
       assert_text 'Week 7 data 2'
       assert_text '2021-02-15'
@@ -93,7 +93,7 @@ class AddPriorityToFeedbacksTest < ApplicationSystemTestCase
     within('#2021-9') do
       assert_text 'Mar 1, 2021 to Mar 7, 2021'
       assert_text 'Urgent'
-      assert_text 'Low'
+      assert_text 'None'
       assert_text 'Week 9 data 1'
       assert_text 'Week 9 data 2'
       assert_text '2021-03-01'
