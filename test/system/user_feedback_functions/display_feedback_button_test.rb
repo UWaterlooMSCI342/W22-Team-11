@@ -29,8 +29,8 @@ class DisplayFeedbackButtonTest < ApplicationSystemTestCase
         assert_text "Submit for: Test Team"
     end
 
-    def test_display_button_on_sunday
-        travel_to Time.new(2022, 03, 20, 06, 04, 44)
+    def test_display_button_on_saturda
+        travel_to Time.new(2022, 03, 19, 06, 04, 44)
         visit root_url 
         login 'smith@gmail.com', 'testpassword'
         assert_text "Submit for: Test Team"
